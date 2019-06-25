@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="BillyGi&#39;s NOTE" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Vue-Note｜undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/05/29/Vue-Note/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
+" data-ishome="false">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    BillyGi&#39;s NOTE
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img" src>
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Vue-Note</h1>
+                    
+                    <span class="meta">
+                         作者 冠逸
+                        <span>
+                          日期 2019-05-29
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#筆記" title="筆記">筆記</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Vue-Note
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="Vue-的前置了解"><a href="#Vue-的前置了解" class="headerlink" title="Vue 的前置了解:"></a>Vue 的前置了解:</h3><ul>
+<li>Vue 的開發版本有較多的錯誤提示、能使用 Chrome 的 Devtools (類似 js 的 console.log() )</li>
+<li><a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd" target="_blank" rel="noopener">Vue Devtools 連結</a></li>
+</ul>
+<h3 id="Vue-的起手式"><a href="#Vue-的起手式" class="headerlink" title="Vue 的起手式:"></a>Vue 的起手式:</h3><a id="more"></a>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"demo"</span>&gt;</span></span><br><span class="line">  &#123;&#123; text &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> Vue(&#123; <span class="comment">//起手式</span></span><br><span class="line">  el: <span class="string">'#demo'</span>, <span class="comment">// 需綁定一個 HTML的元素,類似JQ的選取方式</span></span><br><span class="line">  data: &#123; <span class="comment">//data這個物件&gt;&gt;資料用</span></span><br><span class="line">    text: <span class="string">'這裡是測試'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Vue 的應用程式，一次只能綁定一個 HTML 的元素，故建議綁定 #id 較好</li>
+<li>不能做巢狀，只會讀取到最外層有綁定的Vue應用程式</li>
+</ul>
+<h3 id="Vue-與-Mvvm"><a href="#Vue-與-Mvvm" class="headerlink" title="Vue 與 Mvvm:"></a>Vue 與 Mvvm:</h3><ul>
+<li>Vue是受到 MVVM的啟發，不完全是MVVM</li>
+<li>Mvvm<ul>
+<li>M Model 操控的內容 (資料)</li>
+<li>V View 外觀視覺</li>
+<li>VM ViewModel 自動綁定的部分</li>
+</ul>
+</li>
+<li><a href="https://zh.wikipedia.org/wiki/MVVM" target="_blank" rel="noopener">Mvvm定義</a></li>
+<li>透過 v-model 來操控資料 View (mvvm的概念)</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">'message'</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'哈囉'</span>,</span><br><span class="line">    html_data: <span class="string">'&lt;h1&gt;這是測試 v-html&lt;/h1&gt;'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="v-text、v-html的輸出方式"><a href="#v-text、v-html的輸出方式" class="headerlink" title="v-text、v-html的輸出方式:"></a>v-text、v-html的輸出方式:</h3><ul>
+<li>除了雙括號的方式也可以使用 v-text、v-html</li>
+<li>差別是一個對文字 一個可對 html的標籤<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">v-text</span>=<span class="string">'message'</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">"html_data"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">'message'</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'哈囉'</span>,</span><br><span class="line">    html_data: <span class="string">'&lt;h1&gt;這是測試 v-html&lt;/h1&gt;'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="v-bind-動態新增-HTML-的屬性"><a href="#v-bind-動態新增-HTML-的屬性" class="headerlink" title="v-bind 動態新增 HTML 的屬性"></a>v-bind 動態新增 HTML 的屬性</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:src</span>=<span class="string">"imgSrc"</span> <span class="attr">v-bind:class</span>=<span class="string">"className"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"link"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span>連結到google<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 透過v-bind: 將Vue data的資料加到 HTML 屬性 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    imgSrc: <span class="string">'https://images.unsplash.com/photo-1479568933336-ea01829af8de?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=d9926ef56492b20aea8508ed32ec6030&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80'</span>,</span><br><span class="line">    className: <span class="string">'img-fluid'</span>,</span><br><span class="line">    link: <span class="string">"https://www.google.com.tw/"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="v-for、v-if"><a href="#v-for、v-if" class="headerlink" title="v-for、v-if"></a>v-for、v-if</h3><ul>
+<li>就像我們使用 js 的 for迴圈跟 if判斷<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in list"</span> <span class="attr">v-if</span>=<span class="string">"item.age &lt; 30"</span>&gt;</span></span><br><span class="line">      &#123;&#123; index+1 &#125;&#125;-&#123;&#123; item.name &#125;&#125; 年齡是: &#123;&#123;item.age&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- item in list 是將 list 這筆陣列的資料加到 item上--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- (item, index) 為item的索引值 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    list: [</span><br><span class="line">      &#123;</span><br><span class="line">        name: <span class="string">'小明'</span>,</span><br><span class="line">        age: <span class="number">16</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        name: <span class="string">'媽媽'</span>,</span><br><span class="line">        age: <span class="number">38</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        name: <span class="string">'漂亮阿姨'</span>,</span><br><span class="line">        age: <span class="number">24</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// for (i = 0; i &lt; list.length; i++) &#123;</span></span><br><span class="line"><span class="comment">//   if (list[i].age &lt; 30) &#123;</span></span><br><span class="line"><span class="comment">//     list[i].name + list[i].age;</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="v-on-操作頁面的行為-操作-data"><a href="#v-on-操作頁面的行為-操作-data" class="headerlink" title="v-on 操作頁面的行為(操作 data )"></a>v-on 操作頁面的行為(操作 data )</h3><ul>
+<li>就像我們用 jQ 的 onClick一樣<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- v-model是跟 Vue 應用程式內 data.text 做綁定，可更改 data.text --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-primary mt-1"</span> <span class="attr">v-on:click</span>=<span class="string">"reverseText"</span>&gt;</span>反轉字串<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span></span><br><span class="line">    &#123;&#123; newText &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    text: <span class="string">'123456'</span>,</span><br><span class="line">    newText: <span class="string">''</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123; <span class="comment">//methods 可以操作 data裡面的內容</span></span><br><span class="line">    reverseText: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.newText = <span class="keyword">this</span>.text.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">      <span class="comment">// 這邊的 this 會指向data</span></span><br><span class="line">      <span class="comment">// split('') 根據空格將原字串分成若個字串數組 </span></span><br><span class="line">      <span class="comment">// reverse() 將字串組反轉(順序反轉)</span></span><br><span class="line">      <span class="comment">// join('') </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// reverseText()&#123;&#125; 這個是錯誤的寫法，平常 Js 寫習慣了，一時間沒有用物件的概念(屬性:值)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="修飾符"><a href="#修飾符" class="headerlink" title="修飾符"></a>修飾符</h3><ul>
+<li>在 HTML裡面，可以用 v-on 來監聽一些常用的事件 (ex: event.preventDefault()……)</li>
+<li>也有一些按鍵的修飾符 (enter、esc、tab)</li>
+<li><a href="https://cn.vuejs.org/v2/guide/events.html" target="_blank" rel="noopener">Vue修飾浮</a></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"text"</span> @<span class="attr">keyup.enter</span>=<span class="string">"reverseText"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">"link"</span> <span class="attr">class</span>=<span class="string">"btn btn-primary mt-1"</span> @<span class="attr">click.prevent</span>=<span class="string">"reverseText"</span>&gt;</span>反轉字串<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- v-on:click.prevent 這行就等於event.preventDefault() --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- v-on: 可簡寫為@ --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- @keyup.enter 為按鍵事件(enter) --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- v-bind 操控 class，可簡寫為 : --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span></span><br><span class="line">    &#123;&#123; newText &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配合下方的 js部分，簡單來說就是按 enter 或者是對按鈕 click時，會將綁定的 text 反轉並存到新的資料 newText內 --&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">      text: <span class="string">''</span>,</span><br><span class="line">      newText: <span class="string">''</span>,</span><br><span class="line">      link: <span class="string">'https://ithelp.ithome.com.tw/articles/10198927'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 請在此撰寫 JavaScript</span></span><br><span class="line">    methods: &#123;</span><br><span class="line">      reverseText(event) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>.newText = <span class="keyword">this</span>.text.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Question: 為何 Vue的 methods內 this會指向data這個物件? </li>
+</ul>
+<h3 id="v-bind-class練習"><a href="#v-bind-class練習" class="headerlink" title="v-bind:class練習"></a>v-bind:class練習</h3><ul>
+<li>像是使用 jQuery toggleClass active一樣<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"&#123;'rotate': isTransform &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 如果 isTransform 為 true 則 rotate 就會被加進 class 內 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> @<span class="attr">click</span>=<span class="string">"changeStatus"</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">      isTransform: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      changeStatus() &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isTransform == <span class="literal">false</span>) &#123;</span><br><span class="line">          <span class="comment">// 如果是 false 就讓資料為 true</span></span><br><span class="line">          <span class="keyword">this</span>.isTransform = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.isTransform == <span class="literal">true</span>) &#123;</span><br><span class="line">          <span class="comment">// 在這狀況內，如果變為 true 就讓資料再變回 false</span></span><br><span class="line">          <span class="keyword">this</span>.isTransform = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><ul>
+<li>是在監控資料更動後，重新運算結果呈現於畫面上，一般來說不會修改資料，只會回傳用於畫面呈現的資料</li>
+<li>methods 比較用於互動的時候</li>
+<li>在 computed 裡面宣告的屬性都是 function(){}</li>
+<li>必須要找 data內的值做運算，如果data內沒有這個值，computed是沒有作用的</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-primary mt-1"</span>&gt;</span>反轉字串<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span></span><br><span class="line">    &#123;&#123; text.split('').reverse().join('') &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"test"</span>&gt;</span></span><br><span class="line">    測看看能否 &#123;&#123; reverseText &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"test2"</span>&gt;</span></span><br><span class="line">    2. &#123;&#123; reverseText &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">      text: <span class="string">''</span>,</span><br><span class="line">      newText: <span class="string">''</span></span><br><span class="line">    &#125;,</span><br><span class="line">    computed: &#123;</span><br><span class="line">      reverseText: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.text.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">        <span class="comment">// computed 的 return 可以直接將運算的結果傳到變數並能渲染在 HTML上</span></span><br><span class="line">        <span class="comment">// 在 HTML 上可以重覆使用</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Vue基礎整理"><a href="#Vue基礎整理" class="headerlink" title="Vue基礎整理"></a>Vue基礎整理</h3><ul>
+<li><ol>
+<li>創建跟 Vue的聯繫 &gt;&gt; HTML(畫面) 跟 Vue(資料) 的關係</li>
+</ol>
+<ul>
+<li>var app = new Vue({ … })</li>
+</ul>
+</li>
+<li><ol start="2">
+<li>將資料(Vue)呈現於畫面(HTML)上</li>
+</ol>
+<ul>
+<li>單一資料的狀況 &gt;&gt; 雙括號、v-text、v-html</li>
+<li>一筆資料的話(陣列) &gt;&gt; v-for迴圈渲染 、v-if的判斷</li>
+</ul>
+</li>
+<li><ol start="3">
+<li>操作資料，將其帶至畫面上或者影響屬性(class、src…)</li>
+</ol>
+<ul>
+<li>HTML input &gt;&gt; v-model 綁定資料的一個變數，在我們輸入時就能更改這個data值 (雙向綁定)</li>
+<li>v-on:click (或其他鍵盤操作)，配合 Vue 的 methods (例如:按鈕點擊會做一些事情)</li>
+<li>v-bind 操作屬性，將資料帶到 HTML的屬性</li>
+<li>Vue 的 computed，可直接將運算結果 return到畫面上</li>
+</ul>
+</li>
+</ul>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/05/26/20190526-Markdown-note/" data-toggle="tooltip" data-placement="top" title="20190526-Markdown-Note">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue-的前置了解"><span class="toc-text">Vue 的前置了解:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue-的起手式"><span class="toc-text">Vue 的起手式:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue-與-Mvvm"><span class="toc-text">Vue 與 Mvvm:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-text、v-html的輸出方式"><span class="toc-text">v-text、v-html的輸出方式:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-bind-動態新增-HTML-的屬性"><span class="toc-text">v-bind 動態新增 HTML 的屬性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-for、v-if"><span class="toc-text">v-for、v-if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-on-操作頁面的行為-操作-data"><span class="toc-text">v-on 操作頁面的行為(操作 data )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修飾符"><span class="toc-text">修飾符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-bind-class練習"><span class="toc-text">v-bind:class練習</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#computed"><span class="toc-text">computed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue基礎整理"><span class="toc-text">Vue基礎整理</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; BillyGi&#39;s NOTE 2019
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="">
+</body>
+
+</html>
