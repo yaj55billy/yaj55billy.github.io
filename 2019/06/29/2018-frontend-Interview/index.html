@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="2018前端面試心得 前言: 此篇文章是從 medium 轉過來的，本來想要以 medium 做為寫 Blog 的管道，但後來看到一些文章，所以決定跳回 Hexo，雖然畫面上我比較喜歡 medium 。此篇為 2018 找前端工作後所寫的文章，這篇文章對我個人來說是一個很重要的里程(紀錄)。">
+<meta name="keywords" content="前端相關">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018前端面試心得">
+<meta property="og:url" content="https://yaj55billy.github.io/2019/06/29/2018-frontend-Interview/index.html">
+<meta property="og:site_name" content="BillyGi&#39;s NOTE">
+<meta property="og:description" content="2018前端面試心得 前言: 此篇文章是從 medium 轉過來的，本來想要以 medium 做為寫 Blog 的管道，但後來看到一些文章，所以決定跳回 Hexo，雖然畫面上我比較喜歡 medium 。此篇為 2018 找前端工作後所寫的文章，這篇文章對我個人來說是一個很重要的里程(紀錄)。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-29T09:11:25.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2018前端面試心得">
+<meta name="twitter:description" content="2018前端面試心得 前言: 此篇文章是從 medium 轉過來的，本來想要以 medium 做為寫 Blog 的管道，但後來看到一些文章，所以決定跳回 Hexo，雖然畫面上我比較喜歡 medium 。此篇為 2018 找前端工作後所寫的文章，這篇文章對我個人來說是一個很重要的里程(紀錄)。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaj55billy.github.io/2019/06/29/2018-frontend-Interview/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>2018前端面試心得 | BillyGi's NOTE</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BillyGi's NOTE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">紀錄一些程式相關、讀書心得、生活雜談等等</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切換導航欄">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首頁</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>標籤</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分類</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>歸檔</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaj55billy.github.io/2019/06/29/2018-frontend-Interview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="冠逸">
+      <meta itemprop="description" content="紀錄一些程式相關、讀書心得、生活雜談等等">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BillyGi's NOTE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">2018前端面試心得
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+
+              
+                
+              
+
+              <time title="創建時間：2019-06-29 17:05:08 / 修改時間：17:11:25" itemprop="dateCreated datePublished" datetime="2019-06-29T17:05:08+08:00">2019-06-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">評論數：</span>
+                <a href="/2019/06/29/2018-frontend-Interview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/29/2018-frontend-Interview/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="2018前端面試心得"><a href="#2018前端面試心得" class="headerlink" title="2018前端面試心得"></a>2018前端面試心得</h1><ul>
+<li>前言: 此篇文章是從 medium 轉過來的，本來想要以 medium 做為寫 Blog 的管道，但後來看到一些文章，所以決定跳回 Hexo，雖然畫面上我比較喜歡 medium 。此篇為 2018 找前端工作後所寫的文章，這篇文章對我個人來說是一個很重要的里程(紀錄)。</li>
+</ul>
+<hr>
+<a id="more"></a>
+<p><strong>正文開始</strong></p>
+<p>大家好，我是冠逸，目前是 junior 前端工程師，在面試過程中，因為自己會做一些記錄，例如: 自己應對的狀況、對公司的感想等等，而在這過程也決定如果有錄取後要來寫一篇這樣的心得文，希望能對於想面試的前端人有些小小的幫助。這篇文章主要會分成三個部份: 投遞履歷前、職缺內容、面試部份。<br>(特別說明: 面試雖然有一些模式在，有時候也是一些運氣成分，這篇心得純屬個人的面試準備與經驗，並沒有標準答案，有任何相關討論或問題都歡迎留言~)</p>
+<h2 id="投遞履歷前"><a href="#投遞履歷前" class="headerlink" title="投遞履歷前:"></a>投遞履歷前:</h2><p>在我們投遞履歷前，想當然的我們要先準備<strong>履歷</strong>、<strong>個人網站</strong>，這些可以讓業主很快的認識我們是誰，這邊先來分享一下自己在這部分的過程。首先要先感謝六角學院的老師，提供了履歷健診以及在私訊詢問時，都能給予一些建議!<br><a href="https://quip.com/D59vAxcgG8Qc" target="_blank" rel="noopener">六角學院邁向前端之路</a>，這是剛開始先參考的資料，這份文件對於新手或者是想轉職到前端的人非常的友善，因為他把學習、工作相關方向都提供的非常清楚，前 7 個關卡都是屬於技術範疇，這邊不多做討論，主要是對於第 8 關後的工作相關部份。在這邊我對於個人網站製作、一頁式履歷的製作方向，都有參考一些前輩的方法，而這邊也提供自己的個人網站、一頁式履歷。除此之外，我也有在 104、CakeResume 製作履歷。<br>(把一頁式履歷、個人網站做出來之後，104 跟 CakeResume 的部份就會很快)</p>
+<p><a href="https://yaj55billy.github.io/billy-web/public/">個人網站</a><br><a href="https://github.com/yaj55billy/billy-resume" target="_blank" rel="noopener">履歷</a></p>
+<p>對於個人網站跟履歷如果做個分類，主要分成: <strong>自我介紹</strong>、<strong>掌握技能</strong>、<strong>經歷(作品集)</strong>、<strong>聯絡方式</strong>，而在履歷部分通常還需填寫工作經歷，不過大致上的分類是這樣。這邊先提一些常常沒注意的部分，像是技能名稱是否正確 (JavaScript 常常被打成 Javascript)，以及技術的英文名前後如果是中文，要記得帶空格(ex: 我會使用 JavaScript 來製作……)。再來我們就對於上方提到的分類依序做簡單說明。</p>
+<ul>
+<li><strong>自我介紹:</strong> 主要是對於自己在前端部份的介紹，並不需要把你家大大小小的事情拿出來講，也不太需要細講繁瑣的事情。簡單的提一下前端經歷、近期研究的技術、未來規劃等等。我自己是還有說明為什麼會喜歡前端，以及前公司工作配合的情況。</li>
+<li><strong>專案經歷(作品):</strong> 這邊來說明一下專案經歷、作品集有什麼不同，雖然他乍看下只是一個名稱，一開始我也沒注意到這個細節，是被老師履歷健診後才知道的。專案經歷指的是: 實際有前端工作經驗並參與專案開發，如果是外包經驗那也是專案經歷；而作品集是: 在前端部份，目前沒有實際工作經驗，但自己有寫一些作品。</li>
+<li><strong>聯絡方式:</strong> 這個就是必備的，要面試就一定要讓人家找的到人，簡單的mail、電話提供等等。</li>
+<li><strong>其它:</strong> 除了這些部分，還有一些觀念可以提出來分享，也是我之前有的誤區，我之前覺得履歷就是要完整，把自己會的全部塞進去，讓人家能看的到我；後來經過履歷健診跟自己思考過後，就知道為什麼要去走一個精簡俐落的路線，簡單來說，公司在看你的履歷時，有很多都是概略的看一下並判斷你是不是預期的人選，如果這時候你塞了很多的資訊，那麼觀看的人是不是會比較難聚焦呢?</li>
+</ul>
+<blockquote>
+<p>這邊也想到以前有看過心理學相關書籍，內容大概是這樣: 有個團隊想實驗 “選擇比較多的時候，人們是否比較會有購買欲望”，於是他們做了兩個測試來做比對，他們在商場賣果醬，第一次測試只賣 5 種類別的果醬，而第二次測試賣 20 多種類別的果醬，本來以為第二次測試的生意會比較好，畢竟它的選擇比較多；但結果竟然是第一次賣 5 種類型果醬的生意比較好，因此也驗證人很多時候並沒有辦法一次消化太多資訊，同時有太多資訊進來時，我們裝載著遠古時期的大腦會想辦法只篩選出幾個，或者就什麼都不篩選。</p>
+</blockquote>
+<p>對於精簡內容，這邊也以履歷部分舉例:</p>
+<ol>
+<li>專案經歷只需放自己覺得比較棒的專案，若兩個專案用到的技術都是 一樣的話，那就擇一即可。</li>
+<li>如果你是設計轉前端，並且想走前端工程師這個方向，那就比較不需要在技能強調你會設計，來看你履歷的公司也比較能聚焦在前端工程師的部份，相對也比較不會被抓去當設計工具人使用 XD</li>
+</ol>
+<hr>
+<h2 id="職缺選擇"><a href="#職缺選擇" class="headerlink" title="職缺選擇:"></a>職缺選擇:</h2><p>在我們把個人履歷、網站建置完成後，再來就是去看職缺部份，在投遞或開放履歷之前，可以先問問自己:</p>
+<ol>
+<li>我想要什麼樣的前端工作? </li>
+<li>想提升什麼樣的技能? 例如:希望工作可以碰到框架…</li>
+<li>預期想要的公司看起來像怎麼樣? 例如: 希望到新創公司上班，希望團隊比較平行…</li>
+<li>產業類別? 想去博弈嗎? 還是遊戲產業? 或者是自有產品的公司?……<br>很多部份可以自己先花時間思考一下，在了解自己的需求後，對於投遞履歷、公司邀約面試時，你可以花比較少的時間做篩選，也比較不會手足無措。前置思考是很重要的，我自己是到面試時才漸漸摸索到這些部份。</li>
+</ol>
+<p>這邊也提供幾個自己的篩選: 想去小公司、不找遊戲業(因為本身很少打遊戲)、不希望常態加班、職缺需求不能太誇張等等，對於這幾個部份，我也來說明一些想法:</p>
+<ol>
+<li>想去小公司，這個部份純粹是我個人偏好，大公司有些程序上是比較需要等待的，SOP也會比較多，自己的耐性也比較沒那麼好。這是考量到自己個性跟偏好，未來並不一定排斥大公司，事實是各有優缺。</li>
+<li>不找遊戲業，因為自己很少打遊戲，這個部分簡單來說，如果你今天對金融有興趣，那麼你到相關的產業任職前端，你也會比較得心應手，又有點”摸喇仔兼洗褲”，因為遊戲對我的吸引度還好，也知道有在玩遊戲的人，相對比較清楚玩家的需求，而在開發上也會比較順利。</li>
+<li>不希望常態加班，其實本身不會到很排斥，偶爾有些狀況要幫忙都是 ok的；但如果不知道自己為何而加，或者是常態加班甚至六日都會吃掉的話，那我就不傾向選擇這些公司，畢竟一天已有 1/3 的時間是在公司了，人生還有很多事情可以做，不論想陪家人、女友、朋友或者是想繼續進修等等。<br>(加班狀況可能要去面試，甚至開始工作後才會比較清楚，有時候也可以事先看出一些狀況，或者像求職天眼通會有一些資訊。)</li>
+<li>職缺需求不能太誇張，這個部分會講的比較多一點，也會提到一些職缺內容。有些工作內容的刊登，不一定是懂程式的人在刊登，或者是沒有很清楚自己公司的需求，我也有看過很誇張的案例，複製別人公司的工作內容，而且完全一樣……<br>除了我們會投遞履歷，也會有公司來邀約我們。 以我們在投遞履歷來說，我們會先做一個基本篩選，Junior 就不會去找 Senior，還有你不會 .Net 就不可能去找相關技術要求，一定是會找跟自己技能比較有相關的職缺；但是有時候你會接到一些公司邀約你來面試，有一些公司預計要找 Java工程師，但是我們履歷技能是提到 JavaScript，或者是工作內容需要設計 banner 結果跑來找要應徵前端工程師的我們，其實這滿雷的，原則上我也會拒絕掉這些邀約，比較不會浪費雙方的時間，畢竟需求差了十萬八千里。<br>提到了職缺內容，有的公司也會把很多技術洋洋灑灑的都寫上去，其實去面試時，得知工作內容並不會真的需要用到那麼多技能，所以有時候不要被內容嚇壞了，我這邊的經驗是只要你對這些技能有 6~7 成掌握度就可以試試看，真的不曉得怎麼篩選，可以請教一些在業界的前輩。 如果真的不清楚自己想要怎麼樣的公司，或者是沒什麼想法，那麼不妨在一些基本需求確認後直接去面試看看，有時候跟面試官應對的過程，會刺激我們一些想法的產生。</li>
+</ol>
+<p>除了 104 或 1111 也能在這些地方找職缺:</p>
+<ul>
+<li><a href="https://www.yourator.co/" target="_blank" rel="noopener">https://www.yourator.co/</a></li>
+<li><a href="https://mit.jobs/?locale=zh-TW" target="_blank" rel="noopener">https://mit.jobs/?locale=zh-TW</a></li>
+<li><a href="https://www.cakeresume.com/" target="_blank" rel="noopener">https://www.cakeresume.com/</a></li>
+</ul>
+<hr>
+<h2 id="面試實戰-amp-準備"><a href="#面試實戰-amp-準備" class="headerlink" title="面試實戰&amp;準備:"></a>面試實戰&amp;準備:</h2><p>面試是一面鏡子，這個直接實戰的過程，可以快速的了解對於技能還有面試狀況的掌握度，而當自己遇到非預期的題目或者是突發狀況時，我們也能透過這些經驗快速進化。<br>面試簡單來說大致上分成: 非技術型問答、技術型問答(測驗)，這邊主要會針對非技術型的問答做一些分享，因為自己遇到技術型問答的部分比較少，所以就先不對這個部分做討論，技術部分可以去看看<a href="https://quip.com/D59vAxcgG8Qc" target="_blank" rel="noopener">六角學院邁向前端之路</a>的第十一關。(其實google一下也有非常多資訊)</p>
+<p>以下就來簡述一些非技術型問題: </p>
+<ol>
+<li>自我介紹: 這個是一定要準備的，也不需要把家裡大大小小請出來，或者把小時候的往事提出來，除非你小時候就有寫程式的經驗。其實這個部分跟我們寫個人網站或履歷的自我介紹很類似，還有不用在意一定要講多久，其實你講得順暢讓人家對你有初步了解就可以了，這邊也順便推薦這本書: 自我介紹的技術。</li>
+<li>為何從上一家公司離開? 這個也是很常遇到的問題，這裡就有兩種狀況，一種是你本來就是前端；另一種是你剛轉職到前端。不論是哪一種切忌不要用講壞話的方式來敘述前公司，這樣的行為會讓面試官從負面去聯想你這個人。</li>
+<li>為何從 XX 領域離開? XX 可以自帶，通常會是你剛轉職到前端所遇到的問題。舉我自己講的例子:在接觸到前端後，發現前端能從畫面立即知道狀況，回饋很快速，成就感的累積也比較快……。</li>
+<li>為何有一段空窗期沒有工作? 如果你是待業一段時間的話，那也很容易被問到這個問題，這邊就可以提到自己在進修前端技能，除了進修之外也額外得知 XXX 的重要等等。(XXX可以自帶，我自己是額外體會到如何規劃時間)</li>
+<li>有沒有夢想? 這個雖然相對是比較少問到，但因為自己有遇到所以也提出來，如果比較有時間也可以順道準備。</li>
+<li>如何自學? 這個部份滿好應答的，例如網路現在有很多課程，可以學習或研究相當多技術，可以順道提一下最近在研究什麼技術。</li>
+<li>平常有什麼嗜好? 這個不要去瞎掰或唬爛，因為有遇過會繼續深入探究的，不過這個部份基本上很好準備，我相信也鮮少人會去唬爛。</li>
+<li>有跟其他部門合作過嗎? 通常會是你已經有前端經驗時遇到此問題，簡單提一下你跟團隊的配合狀況，讓面試官知道你具有團隊配合經驗即可；如果你是目前沒有前端經驗遇到此問題時，也有一些應對方式，例如: 在前端領域的話，我沒有相關經驗，但是透過一些與前輩的交流，會大概知道前端在一個團隊裡……，講完後也可以順便跟公司提一些問題，像是詢問公司部門的流程大概是怎麼樣去配合，除了了解公司，也能跟面試者達到雙向溝通。</li>
+<li>對於加班的看法? 若有遇到相關問題，不建議用直接的回覆(可接受或不可)，我自己大概是這樣去應對: 基本上會看狀況而定，如果公司需要幫忙當然沒問題，不過也要去看這次為何要到加班，探討是因為流程或者是自己效率上的問題，也可以順道詢問公司一些狀況。這邊也再提醒，這類的問題你自己要先想過，心中有一把尺會比較好應答。</li>
+<li>你了解我們公司嗎? 這個也滿常詢問的，尤其是你主動投遞給公司履歷時。不過不論是我們主動投遞或者是公司來找我們，這都要準備一下，基本上你答應要面試了，結果不了解你要去的公司是在做什麼也說不過去。有些領域如果你有一些了解，那也能跟面試官做一些互動，提高自己拿到 offer 的機會。</li>
+<li>對於自己滿意的專案或作品? 可先抓一個自己相對喜歡的專案(作品)，方向大概是，這個專案因為做了什麼所以……。</li>
+<li>你對你自己未來的技術發展有什麼規劃？ 這個問題也滿好準備的，畢竟前端有太多技能可以研究。</li>
+<li>你有什麼想詢問公司嗎? 例如: 公司部門的流程大概是怎麼樣的? 公司的前端工程師，主要是要做些什麼呢? 公司未來發展，有沒有一個預期的方向?<br>整個時辰會是由誰決定呢? (基本上時辰我都會特別問，因為由個人經驗決定跟由團隊討論後整合並看客戶狀況，這兩個狀況差很多，也可以猜測是否常加班。)</li>
+<li>你還有其他公司等待面試嗎？ 我這邊的回答會是: 有的，不過若有遇到喜歡的公司，而且公司也錄取我的話，我這邊沒有一定要面試很多家再做決定。</li>
+<li>期望薪資? 試著提看看，我之前都是說由公司決定，但是在網路看過一些文章後，發現我們常常會有這樣的通病，讓人家決定我們的市場價值，試著自己提出來看看。 (但是自己也要去判斷，如果你提的這個數字讓你一直拿不到 offer，那麼你可能要做一些調整，也可以跟前輩請教。)</li>
+</ol>
+<p>像這類非技術型問題，我自己會先大致思考要怎麼講，然後把這些記錄起來做個模型，並不需要去背這些應答法，其實只要自己有先思考過，那就不至於講不出來。對於面試表現，第1~2 次的時候會比較沒那麼通暢，不過後面就會漸入佳境。</p>
+<h2 id="End"><a href="#End" class="headerlink" title="End:"></a>End:</h2><p>這篇文章其實頗長，看到這邊也是滿辛苦哩，雖然有用過幾次 medium，但還滿不熟的，如果有覺得段落分的比較亂請多多包含。 若有任何建議或問題都歡迎留言給我~ 3Q</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/前端相關/" rel="tag"># 前端相關</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/29/Vue-Note/" rel="next" title="Vue-Note">
+                <i class="fa fa-chevron-left"></i> Vue-Note
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概要
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my.jpg" alt="冠逸">
+            
+              <p class="site-author-name" itemprop="name">冠逸</p>
+              <div class="site-description motion-element" itemprop="description">紀錄一些程式相關、讀書心得、生活雜談等等</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">文章</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分類</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">標籤</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/yaj55billy/" title="GitHub &rarr; https://github.com/yaj55billy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:yaj55ushydna@gmail.com" title="E-Mail &rarr; mailto:yaj55ushydna@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2018前端面試心得"><span class="nav-number">1.</span> <span class="nav-text">2018前端面試心得</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#投遞履歷前"><span class="nav-number">1.1.</span> <span class="nav-text">投遞履歷前:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#職缺選擇"><span class="nav-number">1.2.</span> <span class="nav-text">職缺選擇:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面試實戰-amp-準備"><span class="nav-number">1.3.</span> <span class="nav-text">面試實戰&amp;準備:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-number">1.4.</span> <span class="nav-text">End:</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冠逸</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 強力驅動 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="5,10,255" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://yaj55billy.github.io/2019/06/29/2018-frontend-Interview/";
+    this.page.identifier = "2019/06/29/2018-frontend-Interview/";
+    this.page.title = '2018前端面試心得';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
