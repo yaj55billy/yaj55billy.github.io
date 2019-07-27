@@ -367,7 +367,7 @@
                 
               
 
-              <time title="創建時間：2019-07-27 01:17:18 / 修改時間：11:28:45" itemprop="dateCreated datePublished" datetime="2019-07-27T01:17:18+08:00">2019-07-27</time>
+              <time title="創建時間：2019-07-27 01:17:18 / 修改時間：11:31:19" itemprop="dateCreated datePublished" datetime="2019-07-27T01:17:18+08:00">2019-07-27</time>
             
 
             
@@ -438,60 +438,19 @@
 
       
         
+          <h1 id="Node-js-NPM"><a href="#Node-js-NPM" class="headerlink" title="Node.js NPM"></a>Node.js NPM</h1><p><img src="https://i.imgur.com/sGeWJ0f.png" alt><br>
+          <!--noindex-->
           
-            <h1 id="Node-js-NPM"><a href="#Node-js-NPM" class="headerlink" title="Node.js NPM"></a>Node.js NPM</h1><p><img src="https://i.imgur.com/sGeWJ0f.png" alt></p>
-<ul>
-<li>Node.js 原有內建核心功能不夠用，所以有其他 Node.js 的開發者開發了其它功能，可供其他開發者下載。 <a href="https://www.npmjs.com/" target="_blank" rel="noopener">NPM</a></li>
-<li>管理模組的套件 (package.json)</li>
-<li>下載 node 就內建下載 npm</li>
-</ul>
-<h3 id="npm-init-gt-gt-package-json"><a href="#npm-init-gt-gt-package-json" class="headerlink" title="npm init &gt;&gt; package.json"></a>npm init &gt;&gt; package.json</h3><ul>
-<li>在我們下載 npm 的模組(功能)之前，要先有一個管理者 package.json，可以記錄我們安裝了什麼模組。</li>
-<li>HOW? &gt;&gt; 在終端機輸入 npm init ，輸入相關資訊。 OK 後會發現我們的資料夾內出現 package.json<br><img src="https://i.imgur.com/grLjnpW.jpg" alt></li>
-</ul>
-<h3 id="正式來安裝-下載-npm-的模組"><a href="#正式來安裝-下載-npm-的模組" class="headerlink" title="正式來安裝(下載) npm 的模組"></a>正式來安裝(下載) npm 的模組</h3><ul>
-<li>這邊以 npm 的 express 來作範例:<br><a href="https://www.npmjs.com/package/express" target="_blank" rel="noopener">express</a></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express --save</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/p9Umh7W.jpg" alt></p>
-<ul>
-<li>安裝後，在 package.json 會多了 dependencies，並記錄該才下載的 express</li>
-<li>版本號說明如下:<ul>
-<li>^4.17.1<ul>
-<li>4:主要版本號</li>
-<li>17:次要版本號(小功能)</li>
-<li>1:bug修正</li>
-<li>^符號:安裝 4.x.x 自動更新後面版本(除了主要版本號)</li>
-<li>~符號:只安裝最後 bug 的版本號 (怕更新模組會影響到程式)</li>
-<li>只顯示版本號:永遠都是這個版本號</li>
-<li>latest: 永遠都是最新的版本(很少用)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在根目錄資料夾內會多一個 node_modules 的資料夾，裡面除了這次下載的 express，也有其他 express 相依的檔案。</li>
-</ul>
-<h3 id="很大一包的-node-modules"><a href="#很大一包的-node-modules" class="headerlink" title="很大一包的 node_modules"></a>很大一包的 node_modules</h3><ul>
-<li>不會進版控(忽略)。</li>
-<li>只要有 package.json 紀錄，其他開發者只需輸入 npm install 即可把我們有下載的模組都下載起來。</li>
-</ul>
-<h3 id="下載-gt-gt-正式、測試、全域"><a href="#下載-gt-gt-正式、測試、全域" class="headerlink" title="下載&gt;&gt; 正式、測試、全域"></a>下載&gt;&gt; 正式、測試、全域</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install express --save <span class="comment">//(正式環境)</span></span><br><span class="line">npm install express --save-dev <span class="comment">//(測試環境)</span></span><br><span class="line">npm install express -g <span class="comment">//安裝在全域</span></span><br></pre></td></tr></table></figure>
-<p>如圖所示，此為 –save-dev 在 package.json的狀況<br><img src="https://i.imgur.com/fIERO1J.jpg" alt="--save-dev"></p>
-<ul>
-<li>若是 Node.js 的新手，還沒有開發很久，不曉得自己在測試環境會用到什麼模組，可先用 –save</li>
-<li>模組安裝在全域環境並不會記錄到 package.json，雖然在此台電腦的所有專案都可以用到； 但如果這包檔案是需跟同事配合(協同)狀況的話，就不建議下載到全域，因為這時同事 npm install 實際可能會缺模組無法使用。(畢竟有的模組可能是運行在我們電腦的全域內)</li>
-</ul>
-<h3 id="nodemon-不需每次都重整-類似-vscode-的-golive"><a href="#nodemon-不需每次都重整-類似-vscode-的-golive" class="headerlink" title="nodemon 不需每次都重整 (類似 vscode 的 golive)"></a>nodemon 不需每次都重整 (類似 vscode 的 golive)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install nodemon -g <span class="comment">//安裝</span></span><br><span class="line">nodemon app.js (原本 node app.js) <span class="comment">//啟動 app.js</span></span><br></pre></td></tr></table></figure>
-<p>內容更動時，就不需 ctrl+c 取消再重啟。<br><img src="https://i.imgur.com/SnmuhmA.jpg" alt></p>
-<h3 id="npm-補充指令"><a href="#npm-補充指令" class="headerlink" title="npm 補充指令"></a>npm 補充指令</h3><ul>
-<li>npm list ：顯示安裝的 NPM 列表</li>
-<li>npm uninstall [模組名稱] ：刪除專案裡的 NPM</li>
-</ul>
-<h3 id="require-express-模組"><a href="#require-express-模組" class="headerlink" title="require express 模組"></a>require express 模組</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(express);</span><br></pre></td></tr></table></figure>
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/27/node-npm/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
