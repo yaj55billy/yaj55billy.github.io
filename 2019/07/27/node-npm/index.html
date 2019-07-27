@@ -94,18 +94,24 @@
 
 
 
-  <meta name="keywords" content="codeNote,Node.js">
+  <meta name="description" content="Node.js NPM  Node.js 原有內建核心功能不夠用，所以有其他 Node.js 的開發者開發了其它功能，可供其他開發者下載。 NPM 管理模組的套件 (package.json) 下載 node 就內建下載 npm  npm init &amp;gt;&amp;gt; package.json 在我們下載 npm 的模組(功能)之前，要先有一個管理者 package.json，可以記錄我們安裝了什麼">
+<meta name="keywords" content="codeNote,Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Node.js 介紹">
-<meta property="og:url" content="https://yaj55billy.github.io/2019/07/24/node-introduction/index.html">
+<meta property="og:title" content="Node.js NPM">
+<meta property="og:url" content="https://yaj55billy.github.io/2019/07/27/node-npm/index.html">
 <meta property="og:site_name" content="BillyGi&#39;s NOTE">
+<meta property="og:description" content="Node.js NPM  Node.js 原有內建核心功能不夠用，所以有其他 Node.js 的開發者開發了其它功能，可供其他開發者下載。 NPM 管理模組的套件 (package.json) 下載 node 就內建下載 npm  npm init &amp;gt;&amp;gt; package.json 在我們下載 npm 的模組(功能)之前，要先有一個管理者 package.json，可以記錄我們安裝了什麼">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/BQL4eWW.png">
-<meta property="og:image" content="https://i.imgur.com/TCRsPpo.png">
-<meta property="og:updated_time" content="2019-07-24T14:00:40.661Z">
+<meta property="og:image" content="https://i.imgur.com/sGeWJ0f.png">
+<meta property="og:image" content="https://i.imgur.com/grLjnpW.jpg">
+<meta property="og:image" content="https://i.imgur.com/p9Umh7W.jpg">
+<meta property="og:image" content="https://i.imgur.com/fIERO1J.jpg">
+<meta property="og:image" content="https://i.imgur.com/SnmuhmA.jpg">
+<meta property="og:updated_time" content="2019-07-27T03:28:45.586Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Node.js 介紹">
-<meta name="twitter:image" content="https://i.imgur.com/BQL4eWW.png">
+<meta name="twitter:title" content="Node.js NPM">
+<meta name="twitter:description" content="Node.js NPM  Node.js 原有內建核心功能不夠用，所以有其他 Node.js 的開發者開發了其它功能，可供其他開發者下載。 NPM 管理模組的套件 (package.json) 下載 node 就內建下載 npm  npm init &amp;gt;&amp;gt; package.json 在我們下載 npm 的模組(功能)之前，要先有一個管理者 package.json，可以記錄我們安裝了什麼">
+<meta name="twitter:image" content="https://i.imgur.com/sGeWJ0f.png">
 
 
 
@@ -113,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="https://yaj55billy.github.io/2019/07/24/node-introduction/">
+  <link rel="canonical" href="https://yaj55billy.github.io/2019/07/27/node-npm/">
 
 
 
@@ -123,7 +129,7 @@
   };
 </script>
 
-  <title>Node.js 介紹 | BillyGi's NOTE</title>
+  <title>Node.js NPM | BillyGi's NOTE</title>
   
 
 
@@ -322,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaj55billy.github.io/2019/07/24/node-introduction/">
+    <link itemprop="mainEntityOfPage" href="https://yaj55billy.github.io/2019/07/27/node-npm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="冠逸">
@@ -339,7 +345,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Node.js 介紹
+          <h2 class="post-title" itemprop="name headline">Node.js NPM
 
               
             
@@ -365,7 +371,7 @@
                 
               
 
-              <time title="創建時間：2019-07-24 21:55:09 / 修改時間：22:00:40" itemprop="dateCreated datePublished" datetime="2019-07-24T21:55:09+08:00">2019-07-24</time>
+              <time title="創建時間：2019-07-27 01:17:18 / 修改時間：11:28:45" itemprop="dateCreated datePublished" datetime="2019-07-27T01:17:18+08:00">2019-07-27</time>
             
 
             
@@ -406,8 +412,8 @@
                 </span>
             
                 <span class="post-meta-item-text">評論數：</span>
-                <a href="/2019/07/24/node-introduction/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/24/node-introduction/" itemprop="commentCount"></span>
+                <a href="/2019/07/27/node-npm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/27/node-npm/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -435,22 +441,55 @@
       
 
       
-        <p><img src="https://i.imgur.com/BQL4eWW.png" alt><br><a id="more"></a></p>
-<h3 id="V8-JS引擎"><a href="#V8-JS引擎" class="headerlink" title="V8 JS引擎"></a>V8 JS引擎</h3><p><img src="https://i.imgur.com/TCRsPpo.png" alt></p>
+        <h1 id="Node-js-NPM"><a href="#Node-js-NPM" class="headerlink" title="Node.js NPM"></a>Node.js NPM</h1><p><img src="https://i.imgur.com/sGeWJ0f.png" alt></p>
 <ul>
-<li>V8 來自 Google 團隊，可以幫助我們解讀執行 JavaScript 程式碼，使之變為機器語言(0101)。</li>
-<li>chrome 瀏覽器、Node.js 內部都有 V8，所以在這邊我們都可以使用 JS 來撰寫程式。</li>
+<li>Node.js 原有內建核心功能不夠用，所以有其他 Node.js 的開發者開發了其它功能，可供其他開發者下載。 <a href="https://www.npmjs.com/" target="_blank" rel="noopener">NPM</a></li>
+<li>管理模組的套件 (package.json)</li>
+<li>下載 node 就內建下載 npm</li>
 </ul>
-<h3 id="Node-js-從-Github-來看"><a href="#Node-js-從-Github-來看" class="headerlink" title="Node.js 從 Github 來看"></a>Node.js 從 Github 來看</h3><p><a href="https://github.com/nodejs/node" target="_blank" rel="noopener">連結</a></p>
+<h3 id="npm-init-gt-gt-package-json"><a href="#npm-init-gt-gt-package-json" class="headerlink" title="npm init &gt;&gt; package.json"></a>npm init &gt;&gt; package.json</h3><ul>
+<li>在我們下載 npm 的模組(功能)之前，要先有一個管理者 package.json，可以記錄我們安裝了什麼模組。</li>
+<li>HOW? &gt;&gt; 在終端機輸入 npm init ，輸入相關資訊。 OK 後會發現我們的資料夾內出現 package.json<br><img src="https://i.imgur.com/grLjnpW.jpg" alt></li>
+</ul>
+<h3 id="正式來安裝-下載-npm-的模組"><a href="#正式來安裝-下載-npm-的模組" class="headerlink" title="正式來安裝(下載) npm 的模組"></a>正式來安裝(下載) npm 的模組</h3><ul>
+<li>這邊以 npm 的 express 來作範例:<br><a href="https://www.npmjs.com/package/express" target="_blank" rel="noopener">express</a></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express --save</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/p9Umh7W.jpg" alt></p>
 <ul>
-<li>deps &gt;&gt; Node.js 裝的插件。</li>
-<li>src &gt;&gt; 核心程式碼，幫我們編譯 JS</li>
-<li>lib &gt;&gt; API 文件</li>
+<li>安裝後，在 package.json 會多了 dependencies，並記錄該才下載的 express</li>
+<li>版本號說明如下:<ul>
+<li>^4.17.1<ul>
+<li>4:主要版本號</li>
+<li>17:次要版本號(小功能)</li>
+<li>1:bug修正</li>
+<li>^符號:安裝 4.x.x 自動更新後面版本(除了主要版本號)</li>
+<li>~符號:只安裝最後 bug 的版本號 (怕更新模組會影響到程式)</li>
+<li>只顯示版本號:永遠都是這個版本號</li>
+<li>latest: 永遠都是最新的版本(很少用)</li>
 </ul>
-<h3 id="Node-js-安裝"><a href="#Node-js-安裝" class="headerlink" title="Node.js 安裝"></a>Node.js 安裝</h3><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">連結</a><br>下載後可到 cmd 輸入 node -v，若有回應版本號，即表示有下載成功。</p>
-<h3 id="Node-js-執行-JS-檔案"><a href="#Node-js-執行-JS-檔案" class="headerlink" title="Node.js 執行 JS 檔案"></a>Node.js 執行 JS 檔案</h3><p>在一個資料夾內有一隻 app.js 檔案<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Hello World'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>如果要用 Node.js 運行，則在終端機打上 Node app.js</p>
-
+</li>
+</ul>
+</li>
+<li>在根目錄資料夾內會多一個 node_modules 的資料夾，裡面除了這次下載的 express，也有其他 express 相依的檔案。</li>
+</ul>
+<h3 id="很大一包的-node-modules"><a href="#很大一包的-node-modules" class="headerlink" title="很大一包的 node_modules"></a>很大一包的 node_modules</h3><ul>
+<li>不會進版控(忽略)。</li>
+<li>只要有 package.json 紀錄，其他開發者只需輸入 npm install 即可把我們有下載的模組都下載起來。</li>
+</ul>
+<h3 id="下載-gt-gt-正式、測試、全域"><a href="#下載-gt-gt-正式、測試、全域" class="headerlink" title="下載&gt;&gt; 正式、測試、全域"></a>下載&gt;&gt; 正式、測試、全域</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install express --save <span class="comment">//(正式環境)</span></span><br><span class="line">npm install express --save-dev <span class="comment">//(測試環境)</span></span><br><span class="line">npm install express -g <span class="comment">//安裝在全域</span></span><br></pre></td></tr></table></figure>
+<p>如圖所示，此為 –save-dev 在 package.json的狀況<br><img src="https://i.imgur.com/fIERO1J.jpg" alt="--save-dev"></p>
+<ul>
+<li>若是 Node.js 的新手，還沒有開發很久，不曉得自己在測試環境會用到什麼模組，可先用 –save</li>
+<li>模組安裝在全域環境並不會記錄到 package.json，雖然在此台電腦的所有專案都可以用到； 但如果這包檔案是需跟同事配合(協同)狀況的話，就不建議下載到全域，因為這時同事 npm install 實際可能會缺模組無法使用。(畢竟有的模組可能是運行在我們電腦的全域內)</li>
+</ul>
+<h3 id="nodemon-不需每次都重整-類似-vscode-的-golive"><a href="#nodemon-不需每次都重整-類似-vscode-的-golive" class="headerlink" title="nodemon 不需每次都重整 (類似 vscode 的 golive)"></a>nodemon 不需每次都重整 (類似 vscode 的 golive)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install nodemon -g <span class="comment">//安裝</span></span><br><span class="line">nodemon app.js (原本 node app.js) <span class="comment">//啟動 app.js</span></span><br></pre></td></tr></table></figure>
+<p>內容更動時，就不需 ctrl+c 取消再重啟。<br><img src="https://i.imgur.com/SnmuhmA.jpg" alt></p>
+<h3 id="npm-補充指令"><a href="#npm-補充指令" class="headerlink" title="npm 補充指令"></a>npm 補充指令</h3><ul>
+<li>npm list ：顯示安裝的 NPM 列表</li>
+<li>npm uninstall [模組名稱] ：刪除專案裡的 NPM</li>
+</ul>
+<h3 id="require-express-模組"><a href="#require-express-模組" class="headerlink" title="require express 模組"></a>require express 模組</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(express);</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -491,8 +530,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/04/javascript-understanding-weird-part/" rel="next" title="JS 的奇怪部分筆記">
-                <i class="fa fa-chevron-left"></i> JS 的奇怪部分筆記
+              <a href="/2019/07/26/node-module/" rel="next" title="Node.js 模組(內建)">
+                <i class="fa fa-chevron-left"></i> Node.js 模組(內建)
               </a>
             
           </div>
@@ -500,10 +539,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/26/node-module/" rel="prev" title="Node.js 模組(內建)">
-                Node.js 模組(內建) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -691,7 +726,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#V8-JS引擎"><span class="nav-number">1.</span> <span class="nav-text">V8 JS引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-從-Github-來看"><span class="nav-number">2.</span> <span class="nav-text">Node.js 從 Github 來看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-安裝"><span class="nav-number">3.</span> <span class="nav-text">Node.js 安裝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-執行-JS-檔案"><span class="nav-number">4.</span> <span class="nav-text">Node.js 執行 JS 檔案</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-js-NPM"><span class="nav-number">1.</span> <span class="nav-text">Node.js NPM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#npm-init-gt-gt-package-json"><span class="nav-number">1.0.1.</span> <span class="nav-text">npm init &gt;&gt; package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正式來安裝-下載-npm-的模組"><span class="nav-number">1.0.2.</span> <span class="nav-text">正式來安裝(下載) npm 的模組</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#很大一包的-node-modules"><span class="nav-number">1.0.3.</span> <span class="nav-text">很大一包的 node_modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下載-gt-gt-正式、測試、全域"><span class="nav-number">1.0.4.</span> <span class="nav-text">下載&gt;&gt; 正式、測試、全域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodemon-不需每次都重整-類似-vscode-的-golive"><span class="nav-number">1.0.5.</span> <span class="nav-text">nodemon 不需每次都重整 (類似 vscode 的 golive)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm-補充指令"><span class="nav-number">1.0.6.</span> <span class="nav-text">npm 補充指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require-express-模組"><span class="nav-number">1.0.7.</span> <span class="nav-text">require express 模組</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -869,9 +904,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://yaj55billy.github.io/2019/07/24/node-introduction/";
-    this.page.identifier = "2019/07/24/node-introduction/";
-    this.page.title = 'Node.js 介紹';
+    this.page.url = "https://yaj55billy.github.io/2019/07/27/node-npm/";
+    this.page.identifier = "2019/07/27/node-npm/";
+    this.page.title = 'Node.js NPM';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
