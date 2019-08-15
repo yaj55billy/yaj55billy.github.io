@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="JavaScript 原型繼承、建構式">
+<meta name="keywords" content="codeNote,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 原型繼承、建構式">
+<meta property="og:url" content="https://yaj55billy.github.io/2019/08/15/javascript-constructor/index.html">
+<meta property="og:site_name" content="BillyGi&#39;s NOTE">
+<meta property="og:description" content="JavaScript 原型繼承、建構式">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/XitvjxR.jpg">
+<meta property="og:image" content="https://i.imgur.com/rMAdAG4.jpg">
+<meta property="og:image" content="https://i.imgur.com/HempijQ.jpg">
+<meta property="og:image" content="https://i.imgur.com/xxfg883.jpg">
+<meta property="og:image" content="https://i.imgur.com/0xYNY75.jpg">
+<meta property="og:image" content="https://i.imgur.com/LP3NkGr.jpg">
+<meta property="og:updated_time" content="2019-08-15T15:08:41.164Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 原型繼承、建構式">
+<meta name="twitter:description" content="JavaScript 原型繼承、建構式">
+<meta name="twitter:image" content="https://i.imgur.com/XitvjxR.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaj55billy.github.io/2019/08/15/javascript-constructor/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JavaScript 原型繼承、建構式 | BillyGi's NOTE</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BillyGi's NOTE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">紀錄一些程式相關、讀書心得、生活雜談等等</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切換導航欄">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首頁</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>標籤</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分類</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>歸檔</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaj55billy.github.io/2019/08/15/javascript-constructor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="冠逸">
+      <meta itemprop="description" content="紀錄一些程式相關、讀書心得、生活雜談等等">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BillyGi's NOTE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JavaScript 原型繼承、建構式
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+
+              
+                
+              
+
+              <time title="創建時間：2019-08-15 23:02:15 / 修改時間：23:08:41" itemprop="dateCreated datePublished" datetime="2019-08-15T23:02:15+08:00">2019-08-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">評論數：</span>
+                <a href="/2019/08/15/javascript-constructor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/15/javascript-constructor/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript-原型繼承、建構式"><a href="#JavaScript-原型繼承、建構式" class="headerlink" title="JavaScript 原型繼承、建構式"></a>JavaScript 原型繼承、建構式</h1><a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近因為有機會要用 JS 寫到小遊戲，而裡頭可能會有一些遊戲項目，例如:球、人物、障礙物、場景等等。在看別人的小遊戲程式碼時，發現滿多都會使用到物件來整理、原型建構子來做功能。故這邊會來整理下自己所學的。</p>
+<p>一開始本來想先研究一下物件導向，但 Google 一輪後還是覺得霧傻傻，可能是自己接觸的程式語言不多(菜鳥)，過程會查到一些用詞，像是: 類別、多型、繼承，或者是會看到有人說 JS 不是物件導向的語言，他只是透過原型的概念來模擬。所以菜鳥的我就決定暫時不研究物件導向，直接來熟悉 JS 的原型概念，以及它實際上的運用等等。</p>
+<p>這次主要會以 online game 的角色相關來做範例，透過以前打遊戲的經驗，這樣整理起來自己是比較好吸收些 XD</p>
+<h3 id="物件與原型鍊"><a href="#物件與原型鍊" class="headerlink" title="物件與原型鍊"></a>物件與原型鍊</h3><p>接著來回憶一下以前打線上遊戲的角色(戰士)，並以角色狀況來做物件、原型鍊的範例。　<br>現在我們先把像是職業名稱、身高、擁有技能等等資料紀錄在物件內。程式碼如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gamePerson = &#123;</span><br><span class="line">  name: <span class="string">'戰士'</span>,</span><br><span class="line">  sex: <span class="string">'male'</span>,</span><br><span class="line">  height: <span class="number">180</span>,</span><br><span class="line">  jumpSkill: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'角色跳躍'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(gamePerson.name);</span><br><span class="line"><span class="built_in">console</span>.log(gamePerson.jumpSkill());</span><br></pre></td></tr></table></figure>
+<p>如上方程式碼所示，gamePerson.name 可以取得角色的名稱； gamePerson.jumpSkill() 可以呼叫這個角色的跳躍功能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gamePerson = &#123;</span><br><span class="line">  name: <span class="string">'戰士'</span>,</span><br><span class="line">  sex: <span class="string">'male'</span>,</span><br><span class="line">  height: <span class="number">180</span>,</span><br><span class="line">  jumpSkill: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'角色跳躍'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(gamePerson.hasOwnProperty(<span class="string">'name'</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(gamePerson.hasOwnProperty(<span class="string">'weight'</span>)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>再來我們可以再看看這個範例，我們對 gamePerson 這個物件去取用 hasOwnProperty()，並且會回傳布林值回來，那這個 hasOwnProperty()是什麼? 我們並沒有在此物件寫了這個功能。</p>
+<p>這時我們先來看看 Chrome console 介面，輸入 gamePerson 並打開<strong>proto</strong>，如下圖的紅框所示。簡單來說有一些內建功能， JS 都幫我們寫好了，所以今天不論是哪個物件都可以取用這些方法(原型繼承)。</p>
+<p><img src="https://i.imgur.com/XitvjxR.jpg" alt></p>
+<p>知道了原型，再來要繼續談原型鍊，我們再看看剛才的上圖:<br>如果我們要使用 hasOwnProperty()，由於在 gamePerson 的物件本身並沒有這個屬性(方法)可取用，再來 JS 就會往<strong>proto</strong>的地方找。 (這邊的<strong>proto</strong>是物件類別)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+<p>再來看看陣列的狀況，我們先做一個 test 陣列來看 console，當我們鍵入 test 時，會先發現它有一個陣列的<strong>proto</strong>，如果點開再往下繼續查找時，最後又會看到物件<strong>proto</strong>。<br>(參照下圖所示)</p>
+<p><img src="https://i.imgur.com/rMAdAG4.jpg" alt></p>
+<p><img src="https://i.imgur.com/HempijQ.jpg" alt></p>
+<p>當我們要使用一個功能(function)時，JS 會先在我們宣告的物件或陣列查找功能，如果找不到時，就會往上(陣列原型、物件原型)查找，<strong>而在這些往上查找原型的過程，就像鍊子一樣 (原型鍊)</strong></p>
+<ul>
+<li>特別注意不要去寫到原先的<strong>proto</strong></li>
+</ul>
+<p>了解以上原型的概念後，這個概念可用在 JS 的建構式</p>
+<h3 id="建構子函示-建構式"><a href="#建構子函示-建構式" class="headerlink" title="建構子函示 (建構式)"></a>建構子函示 (建構式)</h3><blockquote>
+<p>JavaScript 使用稱為建構子函式（constructor function）的特殊函式，定義物件與功能。開發者常常會不知道到底需建立多少物件，這時建構子可讓你高效率建立所需物件，並依需要為其添加資料與函式。<br>在新的物件實例透過建構子函式產生後，其核心將透過一種稱為原型鏈（Prototype chain，由原型定義，可參閱 Object prototypes）的參照鏈連在一起。</p>
+</blockquote>
+<p>這段是在 <a href="https://developer.mozilla.org/zh-TW/docs/Learn/JavaScript/Objects/Object-oriented_JS" target="_blank" rel="noopener">MDN 物件導向</a>看到的，那這段是什麼意思呢? 我們可以先往下看看範例，後面會再說明；另外這邊的說明會比較粗淺些，如果是要比較完善去了解，可以到 <a href="https://wcc723.github.io/javascript/2017/12/18/javascript-constructor/" target="_blank" rel="noopener">卡斯伯-JS 建構式</a>。</p>
+<p>假設我們現在有一個遊戲，通常遊戲都會有職業選擇(戰士、法師、弓箭手、盜賊)，而每個職業都會有一些共用的功能(例如:跳躍、到商城買東西、找NPC 等等…)，那我們要怎麼寫呢 ? </p>
+<p>每個職業都列出物件:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> warrior = &#123;</span><br><span class="line">    name: <span class="string">'劍士'</span>,</span><br><span class="line">    sex: <span class="string">'male'</span>,</span><br><span class="line">    height: <span class="number">180</span>,</span><br><span class="line">    jump: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'跳躍'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    buySomething: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'到商城買東西'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    findNpc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'找到1號NPC'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">var</span> magician = &#123;</span><br><span class="line">    name: <span class="string">'法師'</span>,</span><br><span class="line">    sex: <span class="string">'female'</span>,</span><br><span class="line">    height: <span class="number">160</span>,</span><br><span class="line">    jump: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'跳躍'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    buySomething: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'到商城買東西'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    findNpc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'找到1號NPC'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">var</span> bowman = &#123;</span><br><span class="line">    name: <span class="string">'弓箭手'</span>,</span><br><span class="line">    sex: <span class="string">'female'</span>,</span><br><span class="line">    height: <span class="number">165</span>,</span><br><span class="line">    jump: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'跳躍'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    buySomething: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'到商城買東西'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    findNpc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'找到1號NPC'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ...</span></span><br></pre></td></tr></table></figure></p>
+<p>如上程式碼範例所示，每個職業狀況(共用技能)都透過物件來建立，但這個方法如果在職業多或者狀況多的時候，我們在建立時會不斷重工。<br>試想狀況: 如果我們要加職業進來，或者多一些共用功能(例如:角色跑步)…</p>
+<p>為了不重工，我們來試試以一個物件當模板，其他職業去取用，這樣的概念是否可行?<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> peopleModel =&#123;</span><br><span class="line">    name: <span class="string">'職業'</span>,</span><br><span class="line">    sex: <span class="string">'male..'</span>,</span><br><span class="line">    height: <span class="number">170</span>,</span><br><span class="line">    jump: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'跳躍'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    buySomething: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'到商城買東西'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    findNpc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'找到1號NPC'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> warrior = peopleModel;</span><br><span class="line">warrior.name = <span class="string">'戰士'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> magician = peopleModel;</span><br><span class="line">magician.name = <span class="string">'法師'</span>;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://i.imgur.com/xxfg883.jpg" alt><br>如圖所示，會發現當我們使用同一個物件，讓兩個職業(戰士、法師)去使用時，最後”戰士”的名稱也被更改成”法師”了，因為 JS 物件有傳參考的特性，當物件賦予到另一個物件上時，兩者其實是使用相同的資料，當修改後者時前者也會跟著修改。</p>
+<p>這時候我們就可以來看看為何會需要有建構函式:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PeopleModel</span>(<span class="params">name, sex, height</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.sex = sex;</span><br><span class="line">  <span class="keyword">this</span>.height = height;</span><br><span class="line">  <span class="keyword">this</span>.jumpFunc = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'跳躍'</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">this</span>.buySomething = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'到商城買東西'</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">this</span>.findNpc = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'找到1號NPC'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> warrior = <span class="keyword">new</span> PeopleModel(<span class="string">'劍士'</span>, <span class="string">'男性'</span>, <span class="number">180</span>);</span><br><span class="line"><span class="keyword">var</span> magician = <span class="keyword">new</span> PeopleModel(<span class="string">'法師'</span>, <span class="string">'女性'</span>, <span class="number">165</span>);</span><br><span class="line"><span class="keyword">var</span> bowman = <span class="keyword">new</span> PeopleModel(<span class="string">'弓箭手'</span>, <span class="string">'女性'</span>, <span class="number">172</span>);</span><br><span class="line"></span><br><span class="line">warrior.buySomething();</span><br><span class="line">magician.buySomething();</span><br><span class="line">bowman.buySomething();</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/0xYNY75.jpg" alt></p>
+<p>如圖所示，在 Chrome console 看到每個職業都成功獨立出來，彼此不干擾並且可以共用同一個模板(原型)。</p>
+<ul>
+<li>在建構式中，我們會使用 function 來建立物件的樣板。</li>
+<li>使用 new 來套用此樣板，並根據狀況傳入不同參數，這時會產生一個獨立物件並記錄在變數中。</li>
+<li>使用建構式時，樣板 function 名稱第一個字為大寫，讓合作的朋友很快知道這邊是建構式。</li>
+</ul>
+<p>假設我們現在要新增一個功能，讓角色都能走到1號地圖，這邊除了在 PeopleModel 樣板內新增 function 外，我們也能這樣寫:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PeopleModel.prototype.goOneMap = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name + <span class="string">'到一號地圖'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/LP3NkGr.jpg" alt></p>
+<p>如圖所示，我們會發現 goOneMap 這個方法被寫在<strong>proto</strong>(原型)內，而且透過建構式 new 出來的不同角色都能取用這個方法。</p>
+<h3 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h3><p>之前在看 JS 的奇怪部份時，就有先接觸到這個概念，但那時一直在思考要怎麼發揮(實作)，剛好借著這機會再多了解；雖然後面真的寫小遊戲時，也不確定是否能用到 (後來查資料時，發現有一些遊戲引擎可以使用)。</p>
+<p>依照目前開發的案子來說，可能暫時也比較少機會用到 prototype 這個概念；不過我們在滿多套件的原始碼跟起手式都能看到建構函式的蹤影 XD 有一種越來越”稍微”看得懂別人寫這些套件的方式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue 的起手式</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'Hello Vue!'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Swiper 的起手式</span></span><br><span class="line"><span class="keyword">var</span> mySwiper = <span class="keyword">new</span> Swiper(<span class="string">'.swiper-container'</span>, &#123;</span><br><span class="line">    speed: <span class="number">400</span>,</span><br><span class="line">    spaceBetween: <span class="number">100</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/codeNote/" rel="tag"># codeNote</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/27/node-npm/" rel="next" title="Node.js NPM">
+                <i class="fa fa-chevron-left"></i> Node.js NPM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概要
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my.jpg" alt="冠逸">
+            
+              <p class="site-author-name" itemprop="name">冠逸</p>
+              <div class="site-description motion-element" itemprop="description">紀錄一些程式相關、讀書心得、生活雜談等等</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">文章</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分類</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">標籤</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/yaj55billy/" title="GitHub &rarr; https://github.com/yaj55billy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:yaj55ushydna@gmail.com" title="E-Mail &rarr; mailto:yaj55ushydna@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript-原型繼承、建構式"><span class="nav-number">1.</span> <span class="nav-text">JavaScript 原型繼承、建構式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件與原型鍊"><span class="nav-number">1.0.2.</span> <span class="nav-text">物件與原型鍊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建構子函示-建構式"><span class="nav-number">1.0.3.</span> <span class="nav-text">建構子函示 (建構式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#心得"><span class="nav-number">1.0.4.</span> <span class="nav-text">心得</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冠逸</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 強力驅動 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="5,10,255" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://billy-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://yaj55billy.github.io/2019/08/15/javascript-constructor/";
+    this.page.identifier = "2019/08/15/javascript-constructor/";
+    this.page.title = 'JavaScript 原型繼承、建構式';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://billy-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
