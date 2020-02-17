@@ -94,18 +94,22 @@
 
 
 
-  <meta name="keywords" content="codeNote,Node.js">
+  <meta name="description" content="範例開場先看個簡單範例，稍微了解下用原生 JS 處理跟 Vue 的差異。(範例內容:把 input 輸入的資料同步渲染在網頁其他地方)">
+<meta name="keywords" content="codeNote,Vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Node.js 介紹">
-<meta property="og:url" content="https://yaj55billy.github.io/2019/07/24/node-introduction/index.html">
+<meta property="og:title" content="Vue 的淺入淺出-為何要使用 Vue ?">
+<meta property="og:url" content="https://yaj55billy.github.io/2020/02/17/Vue-note0/index.html">
 <meta property="og:site_name" content="BillyGi&#39;s NOTE">
+<meta property="og:description" content="範例開場先看個簡單範例，稍微了解下用原生 JS 處理跟 Vue 的差異。(範例內容:把 input 輸入的資料同步渲染在網頁其他地方)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/BQL4eWW.png">
-<meta property="og:image" content="https://i.imgur.com/TCRsPpo.png">
-<meta property="og:updated_time" content="2019-07-24T14:00:40.661Z">
+<meta property="og:image" content="https://i.imgur.com/Jpod5o7.png">
+<meta property="og:image" content="https://i.imgur.com/7UTmHqS.jpg">
+<meta property="og:image" content="https://i.imgur.com/7FpclWe.jpg">
+<meta property="og:updated_time" content="2020-02-17T15:00:00.298Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Node.js 介紹">
-<meta name="twitter:image" content="https://i.imgur.com/BQL4eWW.png">
+<meta name="twitter:title" content="Vue 的淺入淺出-為何要使用 Vue ?">
+<meta name="twitter:description" content="範例開場先看個簡單範例，稍微了解下用原生 JS 處理跟 Vue 的差異。(範例內容:把 input 輸入的資料同步渲染在網頁其他地方)">
+<meta name="twitter:image" content="https://i.imgur.com/Jpod5o7.png">
 
 
 
@@ -113,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="https://yaj55billy.github.io/2019/07/24/node-introduction/">
+  <link rel="canonical" href="https://yaj55billy.github.io/2020/02/17/Vue-note0/">
 
 
 
@@ -123,7 +127,7 @@
   };
 </script>
 
-  <title>Node.js 介紹 | BillyGi's NOTE</title>
+  <title>Vue 的淺入淺出-為何要使用 Vue ? | BillyGi's NOTE</title>
   
 
 
@@ -322,7 +326,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaj55billy.github.io/2019/07/24/node-introduction/">
+    <link itemprop="mainEntityOfPage" href="https://yaj55billy.github.io/2020/02/17/Vue-note0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="冠逸">
@@ -339,7 +343,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Node.js 介紹
+          <h2 class="post-title" itemprop="name headline">Vue 的淺入淺出-為何要使用 Vue ?
 
               
             
@@ -365,7 +369,7 @@
                 
               
 
-              <time title="創建時間：2019-07-24 21:55:09 / 修改時間：22:00:40" itemprop="dateCreated datePublished" datetime="2019-07-24T21:55:09+08:00">2019-07-24</time>
+              <time title="創建時間：2020-02-17 21:59:43 / 修改時間：23:00:00" itemprop="dateCreated datePublished" datetime="2020-02-17T21:59:43+08:00">2020-02-17</time>
             
 
             
@@ -387,7 +391,7 @@
                 <span class="post-meta-item-text">分類於</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Node/" itemprop="url" rel="index"><span itemprop="name">Node</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
 
                 
                 
@@ -406,8 +410,8 @@
                 </span>
             
                 <span class="post-meta-item-text">評論數：</span>
-                <a href="/2019/07/24/node-introduction/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/24/node-introduction/" itemprop="commentCount"></span>
+                <a href="/2020/02/17/Vue-note0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/17/Vue-note0/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -435,21 +439,21 @@
       
 
       
-        <p><img src="https://i.imgur.com/BQL4eWW.png" alt><br><a id="more"></a></p>
-<h3 id="V8-JS引擎"><a href="#V8-JS引擎" class="headerlink" title="V8 JS引擎"></a>V8 JS引擎</h3><p><img src="https://i.imgur.com/TCRsPpo.png" alt></p>
-<ul>
-<li>V8 來自 Google 團隊，可以幫助我們解讀執行 JavaScript 程式碼，使之變為機器語言(0101)。</li>
-<li>chrome 瀏覽器、Node.js 內部都有 V8，所以在這邊我們都可以使用 JS 來撰寫程式。</li>
-</ul>
-<h3 id="Node-js-從-Github-來看"><a href="#Node-js-從-Github-來看" class="headerlink" title="Node.js 從 Github 來看"></a>Node.js 從 Github 來看</h3><p><a href="https://github.com/nodejs/node" target="_blank" rel="noopener">連結</a></p>
-<ul>
-<li>deps &gt;&gt; Node.js 裝的插件。</li>
-<li>src &gt;&gt; 核心程式碼，幫我們編譯 JS</li>
-<li>lib &gt;&gt; API 文件</li>
-</ul>
-<h3 id="Node-js-安裝"><a href="#Node-js-安裝" class="headerlink" title="Node.js 安裝"></a>Node.js 安裝</h3><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">連結</a><br>下載後可到 cmd 輸入 node -v，若有回應版本號，即表示有下載成功。</p>
-<h3 id="Node-js-執行-JS-檔案"><a href="#Node-js-執行-JS-檔案" class="headerlink" title="Node.js 執行 JS 檔案"></a>Node.js 執行 JS 檔案</h3><p>在一個資料夾內有一隻 app.js 檔案<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Hello World'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>如果要用 Node.js 運行，則在終端機打上 Node app.js</p>
+        <p><img src="https://i.imgur.com/Jpod5o7.png" alt></p>
+<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><p>開場先看個簡單範例，稍微了解下用原生 JS 處理跟 Vue 的差異。<br>(範例內容:把 input 輸入的資料同步渲染在網頁其他地方)</p>
+<a id="more"></a>
+<p>原生 JS 撰寫:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"js"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">value</span>=<span class="string">"這是原生 JS 的方式"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"showText"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!-- 多的區塊 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"showText2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> input = <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>),</span><br><span class="line">  title = <span class="built_in">document</span>.querySelector(<span class="string">".title"</span>),</span><br><span class="line">  showText = <span class="built_in">document</span>.querySelector(<span class="string">".showText"</span>),</span><br><span class="line">  showText2 = <span class="built_in">document</span>.querySelector(<span class="string">".showText2"</span>); <span class="comment">// 多的區塊</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inputFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> catchData = input.value;</span><br><span class="line">  title.innerText = catchData;</span><br><span class="line">  showText.innerText = catchData;</span><br><span class="line">  showText2.innerText = catchData; <span class="comment">// 多的區塊</span></span><br><span class="line">&#125;</span><br><span class="line">inputFunc();</span><br><span class="line">input.addEventListener(<span class="string">"input"</span>, inputFunc);</span><br></pre></td></tr></table></figure>
+<p>如上程式碼的註解部分，如果我們需把資料渲染到新的區塊(showText2)，除了需在 HTML 新增外，也需處理資料渲染的部分。</p>
+<p>畫面大概是這樣的: (中間白色區為 input)<br><img src="https://i.imgur.com/7UTmHqS.jpg" alt></p>
+<hr>
+<p>再來看看用 Vue.js 撰寫:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 渲染到畫面 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"msg"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 雙向綁定 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"vueShowText"</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 渲染到畫面 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"vueShowText2"</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 渲染到畫面 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> states = &#123;</span><br><span class="line">  msg: <span class="string">"這是使用 Vue 的文字"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: states</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如上程式碼，在 Vue 的操作上先把資料綁定在 input，然後透過雙括號的方式將資料渲染到 HTML。</p>
+<p>畫面大概是這樣的: (中間白色區為 input)<br><img src="https://i.imgur.com/7FpclWe.jpg" alt></p>
+<h2 id="為何要使用-Vue-js"><a href="#為何要使用-Vue-js" class="headerlink" title="為何要使用 Vue.js?"></a>為何要使用 Vue.js?</h2><p>不論是使用原生 JS 或者是 Vue.js 都可以做到一樣的事情，只是 Vue 的框架中把資料跟畫面的手牽起來，讓我們可以比較專心在處理資料。上方小範例雖然在程式碼的量並沒有差異很大，但還是能看出方便之處。 Vue.js 本身還有 template、components 等等可以減少重覆造輪子的使用方式；這邊先淺淺提到”資料跟畫面的關係”，在下篇文章會繼續記錄基礎的 Vue.js 操作。</p>
 
       
     </div>
@@ -478,7 +482,7 @@
           
             <a href="/tags/codeNote/" rel="tag"># codeNote</a>
           
-            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
           
         </div>
       
@@ -491,8 +495,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/04/javascript-understanding-weird-part/" rel="next" title="JS 的奇怪部分筆記">
-                <i class="fa fa-chevron-left"></i> JS 的奇怪部分筆記
+              <a href="/2019/08/15/javascript-constructor/" rel="next" title="JavaScript 原型繼承、建構式">
+                <i class="fa fa-chevron-left"></i> JavaScript 原型繼承、建構式
               </a>
             
           </div>
@@ -500,10 +504,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/26/node-module/" rel="prev" title="Node.js 模組(內建)">
-                Node.js 模組(內建) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -695,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#V8-JS引擎"><span class="nav-number">1.</span> <span class="nav-text">V8 JS引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-從-Github-來看"><span class="nav-number">2.</span> <span class="nav-text">Node.js 從 Github 來看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-安裝"><span class="nav-number">3.</span> <span class="nav-text">Node.js 安裝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-執行-JS-檔案"><span class="nav-number">4.</span> <span class="nav-text">Node.js 執行 JS 檔案</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#範例"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#為何要使用-Vue-js"><span class="nav-number">2.</span> <span class="nav-text">為何要使用 Vue.js?</span></a></li></ol></div>
             
 
           </div>
@@ -873,9 +873,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://yaj55billy.github.io/2019/07/24/node-introduction/";
-    this.page.identifier = "2019/07/24/node-introduction/";
-    this.page.title = 'Node.js 介紹';
+    this.page.url = "https://yaj55billy.github.io/2020/02/17/Vue-note0/";
+    this.page.identifier = "2020/02/17/Vue-note0/";
+    this.page.title = 'Vue 的淺入淺出-為何要使用 Vue ?';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
