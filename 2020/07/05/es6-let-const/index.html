@@ -1,237 +1,46 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content="#58b77a">
-  <title>es6-let-const | BillyGi&#39;s NOTE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="冠逸">
-  <meta name="keywords" content="紀錄一些程式相關、讀書心得、生活雜談等等">
-  <meta name="description" content="紀錄一些程式相關、讀書心得、生活雜談等等">
-  <script id="hexo-configurations">
-  var CONFIG = {
-    root: '/',
-    theme: 'lx',
-    version: '0.3.9',
-    localsearch:{
-      "enable": false,
-      "trigger": "auto",
-      "top_n_per_article": 1,
-      "unescape": false,
-      "preload": false
-      },
-    path: 'null'
-  };
-</script>
+<!DOCTYPE html><html class="appearance-dark" lang="zh-Hans"><head><meta charset="UTF-8"><title>es6-let-const</title><meta name="description" content="紀錄一些程式相關、讀書心得、生活雜談等等"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.png"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="ES6 let const 筆記
+let 跟 const 基本上跟 var 一樣都是拿來宣告變數的，不過 ES6 才有的 let 跟 const 修正了原先 var 宣告時會遇到的問題。
+使用 var 宣告會遇到的狀況:
+多行程式碼重覆宣告1234567891011var myName = &amp;#x27;Billy&amp;#x27;; /* ... 很多行程式... */var myName = &amp;#x27;Bill&amp;#x27;;console.log(myName); //Bill
 
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/css/main.min.css">
-  <style type="text/css">
-    pre,
-    code {
-      font-family: 'Fira Code', monospace;
-    }
-    html {
-      font-family: sans-serif;
-    }
-    body {
-      font-family: sans-serif;
-    }
-    h1, h2, h3, h4, h5, figure {
-      font-family: sans-serif;
-    }
-    .menu-container{
-      font-family: sans-serif;
-    }
-  </style>
+假設歷經很多程式碼，我們忘記前面是否有使用到 myName 變數時，這時後者的 myName 變數就會去蓋前者。
 
-  <script src="//cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/js/jquery.jside.menu.js"></script>
-	<script>
-	$(document).ready(function(){
-	$(".menu-container").jSideMenu({
-	    jSidePosition: "position-right",
-	    jSideSticky: true,
-	    jSideSkin: "greenish",
-	     });
-	}); 
-	</script>
-  
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-<link rel="alternate" href="/atom.xml" title="BillyGi's NOTE" type="application/atom+xml">
-</head>
-<body>
-<div class="single">
-
-<div id="page">
-<div id="lx-aside" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/post_cover.jpeg)" data-stellar-background-ratio="0.5">
-  <div class="overlay">
-  <div class="page-title">
-    <div class="avatar"><a href="/"><img src="/images/avatar.jpeg"></a></div>
-    <span>2020-07-05</span>
-    <h2>es6-let-const</h2>
-    <div class="tags"><i class="fa fa-tag"></i><a class="tag-link" href="/tags/JavaScript/">JavaScript</a> <i class="fa fa-tag"></i><a class="tag-link" href="/tags/codeNote/">codeNote</a></div>
-    </div>
-</div>
-</div>
-
-<div id="lx-main-content">
-  <div class="lx-post">
-    <div class="lx-entry padding">
-      <div>
-        <h1 id="ES6-let-const-筆記"><a href="#ES6-let-const-筆記" class="headerlink" title="ES6 let const 筆記"></a>ES6 let const 筆記</h1><a id="more"></a>
+汙染全域變數1234567891011for (var i = 0; i &amp;lt; 10; i++) &amp;#123; .."><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="BillyGi's NOTE" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">BillyGi's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">es6-let-const</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ES6-let-const-%E7%AD%86%E8%A8%98"><span class="toc-text">ES6 let const 筆記</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-var-%E5%AE%A3%E5%91%8A%E6%9C%83%E9%81%87%E5%88%B0%E7%9A%84%E7%8B%80%E6%B3%81"><span class="toc-text">使用 var 宣告會遇到的狀況:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-var-%E4%B8%8D%E6%B1%99%E6%9F%93%E5%85%A8%E5%9F%9F%E8%AE%8A%E6%95%B8%E7%9A%84%E6%96%B9%E5%BC%8F-%E7%AB%8B%E5%8D%B3%E5%87%BD%E5%BC%8F%E9%99%90%E5%88%B6%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">使用 var 不汙染全域變數的方式: 立即函式限制作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ES6-%E7%9A%84-let-%E5%8F%AF%E6%9B%B4%E6%94%B9-%E3%80%81const-%E5%B8%B8%E6%95%B8%E4%B8%8D%E5%8F%AF%E6%9B%B4%E6%94%B9-%E5%AE%A3%E5%91%8A"><span class="toc-text">使用 ES6 的 let(可更改)、const(常數不可更改) 宣告:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%80%8B%E5%BE%88%E6%9C%89%E6%84%9F%E7%9A%84%E7%AF%84%E4%BE%8B"><span class="toc-text">一個很有感的範例:</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/codeNote"><i class="tag post-item-tag">codeNote</i></a><a href="/tags/JavaScript"><i class="tag post-item-tag">JavaScript</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">es6-let-const</h1><time class="has-text-grey" datetime="2020-07-05T15:12:24.000Z">2020-07-05</time><article class="mt-2 post-content"><h1 id="ES6-let-const-筆記"><a href="#ES6-let-const-筆記" class="headerlink" title="ES6 let const 筆記"></a>ES6 let const 筆記</h1><span id="more"></span>
 <p>let 跟 const 基本上跟 var 一樣都是拿來宣告變數的，不過 ES6 才有的 let 跟 const 修正了原先 var 宣告時會遇到的問題。</p>
 <h2 id="使用-var-宣告會遇到的狀況"><a href="#使用-var-宣告會遇到的狀況" class="headerlink" title="使用 var 宣告會遇到的狀況:"></a>使用 var 宣告會遇到的狀況:</h2><ol>
-<li>多行程式碼重覆宣告<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myName = <span class="string">'Billy'</span>; </span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">. 很多行程式</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> myName = <span class="string">'Bill'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(myName); <span class="comment">//Bill</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>多行程式碼重覆宣告<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myName = <span class="string">&#x27;Billy&#x27;</span>; </span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">. 很多行程式</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> myName = <span class="string">&#x27;Bill&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(myName); <span class="comment">//Bill</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>假設歷經很多程式碼，我們忘記前面是否有使用到 myName 變數時，這時後者的 myName 變數就會去蓋前者。</p>
 <ol start="2">
-<li>汙染全域變數<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123; </span><br><span class="line">  <span class="built_in">console</span>.log(i) </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> answer = <span class="literal">true</span>; </span><br><span class="line"><span class="keyword">if</span> (answer) &#123; </span><br><span class="line">  <span class="keyword">var</span> myFeedback = <span class="string">'同意'</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(myFeedback); </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(myFeedback);</span><br></pre></td></tr></table></figure>
-</li>
+<li>汙染全域變數<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123; </span><br><span class="line">  <span class="built_in">console</span>.log(i) </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> answer = <span class="literal">true</span>; </span><br><span class="line"><span class="keyword">if</span> (answer) &#123; </span><br><span class="line">  <span class="keyword">var</span> myFeedback = <span class="string">&#x27;同意&#x27;</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(myFeedback); </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(myFeedback);</span><br></pre></td></tr></table></figure>
+當我們迴圈使用 var 或者判斷式使用 var 時，都可以在全域讀取到這個值(汙染到全域變數)。</li>
 </ol>
-<p>當我們迴圈使用 var 或者判斷式使用 var 時，都可以在全域讀取到這個值(汙染到全域變數)。</p>
 <h2 id="使用-var-不汙染全域變數的方式-立即函式限制作用域"><a href="#使用-var-不汙染全域變數的方式-立即函式限制作用域" class="headerlink" title="使用 var 不汙染全域變數的方式: 立即函式限制作用域"></a>使用 var 不汙染全域變數的方式: 立即函式限制作用域</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) &#123; </span><br><span class="line">     <span class="built_in">console</span>.log(j); </span><br><span class="line">   &#125; </span><br><span class="line"> &#125;()); </span><br><span class="line"> <span class="built_in">console</span>.log(j); <span class="comment">//讀不到值</span></span><br></pre></td></tr></table></figure>
+
+
 <h2 id="使用-ES6-的-let-可更改-、const-常數不可更改-宣告"><a href="#使用-ES6-的-let-可更改-、const-常數不可更改-宣告" class="headerlink" title="使用 ES6 的 let(可更改)、const(常數不可更改) 宣告:"></a>使用 ES6 的 let(可更改)、const(常數不可更改) 宣告:</h2><ol>
-<li>多行程式碼重覆宣告<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myName = <span class="string">'Billy'</span>; </span><br><span class="line"><span class="comment">/*  </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">.  </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> myName = <span class="string">'Bill'</span></span><br></pre></td></tr></table></figure>
+<li><p>多行程式碼重覆宣告</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myName = <span class="string">&#x27;Billy&#x27;</span>; </span><br><span class="line"><span class="comment">/*  </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">. </span></span><br><span class="line"><span class="comment">.  </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> myName = <span class="string">&#x27;Bill&#x27;</span>    </span><br></pre></td></tr></table></figure>
+<p>假設歷經很多程式碼，我們忘記前面是否有使用到 myName 變數時，這時使用 let 宣告時就會在 devTool 看到  <strong>Identifier ‘myName’ has already been declared</strong> (已經被宣告)</p>
 </li>
-</ol>
-<p>假設歷經很多程式碼，我們忘記前面是否有使用到 myName 變數時，這時使用 let 宣告時就會在 devTool 看到  <strong>Identifier ‘myName’ has already been declared</strong> (已經被宣告)</p>
-<ol start="2">
-<li>不汙染全域變數: <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;  </span><br><span class="line">  <span class="built_in">console</span>.log(i)  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<li><p>不汙染全域變數: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;  </span><br><span class="line">  <span class="built_in">console</span>.log(i)  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>如果我們使用 let 來宣告變數時，i 這個變數就只會在這個迴圈區塊{ }作用，而不會汙染到全域。</p>
-<ol start="3">
-<li>const 宣告的變數不能更改:<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>; </span><br><span class="line">x = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>const 宣告的變數不能更改:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>; </span><br><span class="line">x = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>使用 const 時，則會在 devtool 看到 Assignment to constant variable.</p>
 </li>
 </ol>
-<p>使用 const 時，則會在 devtool 看到 Assignment to constant variable.</p>
 <h2 id="一個很有感的範例"><a href="#一個很有感的範例" class="headerlink" title="一個很有感的範例:"></a>一個很有感的範例:</h2><p>這個範例在網路上很常看到，自己在剛開始寫 JS 時也踩過好幾次，那時候在趕案子也忘記當時是怎麼解決的 XD 所以特別紀錄這個範例。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123; </span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'這執行第'</span> + i + <span class="string">'次'</span>); </span><br><span class="line">  &#125;, <span class="number">30</span>) </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">// 只會讀取到最後一個 i</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">5</span>; j++) &#123; </span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'這執行第'</span> + j + <span class="string">'次'</span>); </span><br><span class="line">  &#125;, <span class="number">30</span>) </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">// j 依順序列出</span></span><br></pre></td></tr></table></figure>
-<p>如果使用 var i 為全域變數，加上 setTimeout() 是非同步事件，非同步事件會先放到事件貯列，等到最後才執行。(如圖)<br><img src="https://i.imgur.com/wkY0VGy.jpg" alt></p>
-<p>let 只存在於目前區塊的特性，每次迴圈都會留下塊作用域，也不會有印五次都是 5 情況發生。</p>
-<p><strong>如果不使用 let 要達到依序列出的話，可以用立即函式 + 傳參數的方式。</strong><br>QQ: 工作上還是需支援 IE ，所以不能 let 用下去<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123; </span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  </span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'這執行第'</span> + x + <span class="string">'次'</span>); </span><br><span class="line">    &#125;, <span class="number">30</span>)</span><br><span class="line">  &#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://i.imgur.com/QXJxwKB.jpg" alt></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123; </span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;這執行第&#x27;</span> + i + <span class="string">&#x27;次&#x27;</span>); </span><br><span class="line">  &#125;, <span class="number">30</span>) </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">// 只會讀取到最後一個 i</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">5</span>; j++) &#123; </span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;這執行第&#x27;</span> + j + <span class="string">&#x27;次&#x27;</span>); </span><br><span class="line">  &#125;, <span class="number">30</span>) </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">// j 依順序列出</span></span><br></pre></td></tr></table></figure>
 
-      </div>
-    </div>
-  </div>
-</div>
-<div class="lx-navigation">
-	<div class="lx-cover prev lx-cover-sm" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/footer-l.jpeg)">
-		<div class="overlay"></div>
-		<a class="copy" href="/2021/04/22/test20210422/">
-			<div class="display-t">
-				<div class="display-tc">
-					<div>
-						<span>Next</span>
-						<h3>test202...</h3>
-					</div>
-				</div>
-			</div>
-		</a>
-	</div>
-        <div class="lx-cover next lx-cover-sm" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/footer-r.jpeg)">
-		<div class="overlay"></div>
-		<a class="copy" href="/2020/06/02/during-this-time/">
-			<div class="display-t">
-				<div class="display-tc">
-					<div>
-						<span>Prev</span>
-						<h3>回歸並回顧</h3>
-					</div>
-				</div>
-			</div>
-		</a>
-	</div>
-</div>
+<p>如果使用 var i 為全域變數，加上 setTimeout() 是非同步事件，非同步事件會先放到事件貯列，等到最後才執行。(如圖)<br><img src="https://i.imgur.com/wkY0VGy.jpg"></p>
+<p>let 只存在於目前區塊的特性，每次迴圈都會留下塊作用域，也不會有印五次都是 5 情況發生。</p>
+<p><strong>如果不使用 let 要達到依序列出的話，可以用立即函式 + 傳參數的方式。</strong><br>QQ: 工作上還是需支援 IE ，所以不能 let 用下去</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123; </span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  </span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;這執行第&#x27;</span> + x + <span class="string">&#x27;次&#x27;</span>); </span><br><span class="line">    &#125;, <span class="number">30</span>)</span><br><span class="line">  &#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-</div>
-
-<footer>
-  <div>
-  Copyright &copy; 2019.<a href="/">BillyGi's NOTE</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
-  </div>
-</footer>
-
-</div>
-
-<button class="hamburger hamburger--arrow-r" type="button">
-    <div class="hamburger-box">
-      <div class="hamburger-inner"></div>
-    </div>
-</button> 
-<div class="menu visibility">
-  <div class="menu-head">
-    <span class="layer">
-      <div class="col">
-        <div class="row for-pic">
-          <div class="profile-pic">
-            <a href="/"><img src="/images/avatar.jpeg" alt="冠逸"></a>
-          </div>
-        </div>
-        <div class="row for-name">
-          <p>冠逸</p>
-          <span class="tagline">Hello, World!</span>
-        </div>
-      </div>
-    </span>
-  </div>
-  <nav class="menu-container">
-  <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
-    
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
-        <ul>
-          <li><a href="/guestbook/">Guestbook</a></li>
-        <li><a href="/about/">About</a></li>
-        </ul>
-    </li>
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
-        <ul>
-          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
-        </ul>
-    </li>
-  </ul>
-  </nav>
-</div>
-
-<div class="gototop js-top">
-  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
-</div>
-<script src="//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/js/jquery.easing.min.js"></script>
-<script>
-(function () {
-	"use strict";
-	var goToTop = function() {
-		$(".js-gotop").on("click", function(event){
-			event.preventDefault();
-			$("html, body").animate({
-				scrollTop: $("html").offset().top
-			}, 500, "easeInOutExpo");
-			return false;
-		});
-		$(window).scroll(function(){
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$(".js-top").addClass("active");
-			} else {
-				$(".js-top").removeClass("active");
-			}
-		});
-	};
-	$(function(){
-		goToTop();
-	});
-}());
-</script>
-
-
-</body>
-</html>
+<p><img src="https://i.imgur.com/QXJxwKB.jpg"></p>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2020/02/17/Vue-note0/" title="Vue 的淺入淺出-為何要使用 Vue ?"><span class="has-text-weight-semibold">Next: Vue 的淺入淺出-為何要使用 Vue ?</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com//"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/haojen"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--><a title="facebook" target="_blank" rel="noopener nofollow" href="//www.facebook.com//"><i class="iconfont icon-tian7_facebook"></i></a></section><p><span>Copyright ©</span><span> BillyGi 2021</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/post.js"></script></body></html>

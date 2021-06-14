@@ -1,102 +1,34 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content="#58b77a">
-  <title>Node.js 模組(內建) | BillyGi&#39;s NOTE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="冠逸">
-  <meta name="keywords" content="紀錄一些程式相關、讀書心得、生活雜談等等">
-  <meta name="description" content="紀錄一些程式相關、讀書心得、生活雜談等等">
-  <script id="hexo-configurations">
-  var CONFIG = {
-    root: '/',
-    theme: 'lx',
-    version: '0.3.9',
-    localsearch:{
-      "enable": false,
-      "trigger": "auto",
-      "top_n_per_article": 1,
-      "unescape": false,
-      "preload": false
-      },
-    path: 'null'
-  };
-</script>
+<!DOCTYPE html><html class="appearance-dark" lang="zh-Hans"><head><meta charset="UTF-8"><title>Node.js 模組(內建)</title><meta name="description" content="紀錄一些程式相關、讀書心得、生活雜談等等"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.png"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
 
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/css/main.min.css">
-  <style type="text/css">
-    pre,
-    code {
-      font-family: 'Fira Code', monospace;
-    }
-    html {
-      font-family: sans-serif;
-    }
-    body {
-      font-family: sans-serif;
-    }
-    h1, h2, h3, h4, h5, figure {
-      font-family: sans-serif;
-    }
-    .menu-container{
-      font-family: sans-serif;
-    }
-  </style>
+globalhttps://nodejs.org/dist/latest-v10.x/docs/api/globals.html#globals_global
 
-  <script src="//cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/js/jquery.jside.menu.js"></script>
-	<script>
-	$(document).ready(function(){
-	$(".menu-container").jSideMenu({
-	    jSidePosition: "position-right",
-	    jSideSticky: true,
-	    jSideSkin: "greenish",
-	     });
-	}); 
-	</script>
-  
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Fira Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-<link rel="alternate" href="/atom.xml" title="BillyGi's NOTE" type="application/atom+xml">
-</head>
-<body>
-<div class="single">
+Node global 跟瀏覽器的 window 不太相同 
+Node.js 比較嚴謹，每隻 JS 檔案就像一個模組，每個模組內的變數就是供這個模組使用，並不會汙染到全域的 global 。
+除非我們是用這樣的方式 &amp;gt;&amp;gt; global.a = 1
 
-<div id="page">
-<div id="lx-aside" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/post_cover.jpeg)" data-stellar-background-ratio="0.5">
-  <div class="overlay">
-  <div class="page-title">
-    <div class="avatar"><a href="/"><img src="/images/avatar.jpeg"></a></div>
-    <span>2019-07-26</span>
-    <h2>Node.js 模組(內建)</h2>
-    <div class="tags"><i class="fa fa-tag"></i><a class="tag-link" href="/tags/Node-js/">Node.js</a> <i class="fa fa-tag"></i><a class="tag-link" href="/tags/codeNote/">codeNote</a></div>
-    </div>
-</div>
-</div>
-
-<div id="lx-main-content">
-  <div class="lx-post">
-    <div class="lx-entry padding">
-      <div>
-        <p><img src="https://i.imgur.com/BQL4eWW.png" alt><br><a id="more"></a></p>
-<h3 id="global"><a href="#global" class="headerlink" title="global"></a>global</h3><p><a href="https://nodejs.org/dist/latest-v10.x/docs/api/globals.html#globals_global" target="_blank" rel="noopener">https://nodejs.org/dist/latest-v10.x/docs/api/globals.html#globals_global</a></p>
+require、module exports 模組現有兩隻檔案，如果我們要在 app.js 載入另一個 data.js，我們需要設定要求(require)跟輸出(module.exports)。
+12345// app.jsvar content = require(&amp;#x27;./da.."><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="BillyGi's NOTE" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">BillyGi's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Node.js 模組(內建)</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#global"><span class="toc-text">global</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#require%E3%80%81module-exports-%E6%A8%A1%E7%B5%84"><span class="toc-text">require、module exports 模組</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-%E6%A8%A1%E7%B5%84%E9%96%8B%E5%95%9F-Web-%E4%BC%BA%E6%9C%8D%E5%99%A8-%E2%80%93-createServer"><span class="toc-text">http 模組開啟 Web 伺服器 – createServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dirname%E3%80%81-filename"><span class="toc-text">__dirname、__filename</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PATH"><span class="toc-text">PATH</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/codeNote"><i class="tag post-item-tag">codeNote</i></a><a href="/tags/Node.js"><i class="tag post-item-tag">Node.js</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Node.js 模組(內建)</h1><time class="has-text-grey" datetime="2019-07-25T16:45:16.000Z">2019-07-26</time><article class="mt-2 post-content"><p><img src="https://i.imgur.com/BQL4eWW.png"></p>
+<span id="more"></span>
+<h3 id="global"><a href="#global" class="headerlink" title="global"></a>global</h3><p><a target="_blank" rel="noopener" href="https://nodejs.org/dist/latest-v10.x/docs/api/globals.html#globals_global">https://nodejs.org/dist/latest-v10.x/docs/api/globals.html#globals_global</a></p>
 <ul>
 <li>Node global 跟瀏覽器的 window 不太相同 </li>
 <li>Node.js 比較嚴謹，每隻 JS 檔案就像一個模組，每個模組內的變數就是供這個模組使用，並不會汙染到全域的 global 。</li>
 <li>除非我們是用這樣的方式 &gt;&gt; global.a = 1</li>
 </ul>
 <h3 id="require、module-exports-模組"><a href="#require、module-exports-模組" class="headerlink" title="require、module exports 模組"></a>require、module exports 模組</h3><p>現有兩隻檔案，如果我們要在 app.js 載入另一個 data.js，我們需要設定要求(require)跟輸出(module.exports)。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">var</span> content = <span class="built_in">require</span>(<span class="string">'./data'</span>); <span class="comment">//要求 路徑</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="built_in">console</span>.log(content);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data.js</span></span><br><span class="line"><span class="keyword">var</span> data = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">module</span>.exports = data; <span class="comment">//模組輸出 = 內容(資料)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// module.exports = &#123;</span></span><br><span class="line"><span class="comment">//   con: data,</span></span><br><span class="line"><span class="comment">//   title: 'title'</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="http-模組開啟-Web-伺服器-–-createServer"><a href="#http-模組開啟-Web-伺服器-–-createServer" class="headerlink" title="http 模組開啟 Web 伺服器 – createServer"></a>http 模組開啟 Web 伺服器 – createServer</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>); </span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, resp</span>) </span>&#123;</span><br><span class="line">  resp.writeHead(<span class="number">200</span>, &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>&#125;); <span class="comment">//表頭內容</span></span><br><span class="line">  resp.write(<span class="string">"Hello World"</span>);</span><br><span class="line">  resp.end();</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, resp</span>) </span>&#123;</span><br><span class="line">  resp.writeHead(<span class="number">200</span>, &#123; <span class="string">"Content-Type"</span>: <span class="string">"text/html"</span> &#125;); <span class="comment">//表頭內容</span></span><br><span class="line">  resp.write(<span class="string">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span>);</span><br><span class="line">  resp.end();</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">var</span> content = <span class="built_in">require</span>(<span class="string">&#x27;./data&#x27;</span>); <span class="comment">//要求 路徑</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="built_in">console</span>.log(content);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data.js</span></span><br><span class="line"><span class="keyword">var</span> data = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">module</span>.exports = data; <span class="comment">//模組輸出 = 內容(資料)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// module.exports = &#123;</span></span><br><span class="line"><span class="comment">//   con: data,</span></span><br><span class="line"><span class="comment">//   title: &#x27;title&#x27;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="http-模組開啟-Web-伺服器-–-createServer"><a href="#http-模組開啟-Web-伺服器-–-createServer" class="headerlink" title="http 模組開啟 Web 伺服器 – createServer"></a>http 模組開啟 Web 伺服器 – createServer</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>); </span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, resp</span>) </span>&#123;</span><br><span class="line">  resp.writeHead(<span class="number">200</span>, &#123;<span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/plain&quot;</span>&#125;); <span class="comment">//表頭內容</span></span><br><span class="line">  resp.write(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">  resp.end();</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);    </span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, resp</span>) </span>&#123;</span><br><span class="line">  resp.writeHead(<span class="number">200</span>, &#123; <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/html&quot;</span> &#125;); <span class="comment">//表頭內容</span></span><br><span class="line">  resp.write(<span class="string">&quot;&lt;h1&gt;Hello World&lt;/h1&gt;&quot;</span>);</span><br><span class="line">  resp.end();</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
 <p>如上程式碼部分，為開啟一個本地端的 web 伺服器。</p>
 <ul>
 <li>http 是 Node 內建模組，所以可以直接做 require</li>
-<li>req(request): 使用者透過瀏覽器輸入網址時，會有一個 request 的請求，這時 Node.js 會拿到 request 的資訊，例如從哪個 url 進來<br><img src="https://i.imgur.com/FERQ4RZ.jpg" alt></li>
+<li>req(request): 使用者透過瀏覽器輸入網址時，會有一個 request 的請求，這時 Node.js 會拿到 request 的資訊，例如從哪個 url 進來<br><img src="https://i.imgur.com/FERQ4RZ.jpg"></li>
 <li>resp (response): 回傳資料 </li>
 <li>Content-Type <ul>
 <li>text/plain &gt;&gt;文字格式</li>
@@ -111,18 +43,20 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參考 IT鐵人邦看到的，實驗不同網址帶進不同頁面</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">request, response</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> url = request.url;</span><br><span class="line">  <span class="keyword">var</span> method = request.method;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(method, url);</span><br><span class="line">  <span class="keyword">if</span> (url === <span class="string">'/page1'</span>) &#123;</span><br><span class="line">    response.writeHead(<span class="number">200</span>, &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/html"</span>&#125;);</span><br><span class="line">    response.write(</span><br><span class="line">      <span class="string">"&lt;!DOCTYPE html&gt;"</span> + </span><br><span class="line">      <span class="string">"&lt;html&gt;"</span> +</span><br><span class="line">        <span class="string">"&lt;body&gt;"</span> +</span><br><span class="line">          <span class="string">"&lt;h1&gt;page1&lt;/h1&gt;"</span> +</span><br><span class="line">        <span class="string">"&lt;/body&gt;"</span> +</span><br><span class="line">      <span class="string">"&lt;/html&gt;"</span></span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (url === <span class="string">'/page2'</span>)&#123;</span><br><span class="line">    response.writeHead(<span class="number">200</span>, &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/html"</span>&#125;);</span><br><span class="line">    response.write(</span><br><span class="line">      <span class="string">"&lt;!DOCTYPE html&gt;"</span> + </span><br><span class="line">      <span class="string">"&lt;html&gt;"</span> +</span><br><span class="line">        <span class="string">"&lt;body&gt;"</span> +</span><br><span class="line">          <span class="string">"&lt;h1&gt;page2&lt;/h1&gt;"</span> +</span><br><span class="line">        <span class="string">"&lt;/body&gt;"</span> +</span><br><span class="line">      <span class="string">"&lt;/html&gt;"</span></span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    response.writeHead(<span class="number">404</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  response.end();</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="dirname、filename"><a href="#dirname、filename" class="headerlink" title="dirname、filename"></a><strong>dirname、</strong>filename</h3><ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參考 IT鐵人邦看到的，實驗不同網址帶進不同頁面</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">request, response</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> url = request.url;</span><br><span class="line">  <span class="keyword">var</span> method = request.method;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(method, url);</span><br><span class="line">  <span class="keyword">if</span> (url === <span class="string">&#x27;/page1&#x27;</span>) &#123;</span><br><span class="line">    response.writeHead(<span class="number">200</span>, &#123;<span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/html&quot;</span>&#125;);</span><br><span class="line">    response.write(</span><br><span class="line">      <span class="string">&quot;&lt;!DOCTYPE html&gt;&quot;</span> + </span><br><span class="line">      <span class="string">&quot;&lt;html&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;body&gt;&quot;</span> +</span><br><span class="line">          <span class="string">&quot;&lt;h1&gt;page1&lt;/h1&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;/body&gt;&quot;</span> +</span><br><span class="line">      <span class="string">&quot;&lt;/html&gt;&quot;</span></span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (url === <span class="string">&#x27;/page2&#x27;</span>)&#123;</span><br><span class="line">    response.writeHead(<span class="number">200</span>, &#123;<span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/html&quot;</span>&#125;);</span><br><span class="line">    response.write(</span><br><span class="line">      <span class="string">&quot;&lt;!DOCTYPE html&gt;&quot;</span> + </span><br><span class="line">      <span class="string">&quot;&lt;html&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;body&gt;&quot;</span> +</span><br><span class="line">          <span class="string">&quot;&lt;h1&gt;page2&lt;/h1&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;/body&gt;&quot;</span> +</span><br><span class="line">      <span class="string">&quot;&lt;/html&gt;&quot;</span></span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    response.writeHead(<span class="number">404</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  response.end();</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="dirname、-filename"><a href="#dirname、-filename" class="headerlink" title="__dirname、__filename"></a>__dirname、__filename</h3><ul>
 <li>__dirname: 應用程式的資料夾路徑</li>
 <li>__filename: 應用程式的資料夾路徑跟檔案名稱</li>
 <li>設計路徑時會使用到</li>
 </ul>
-<h3 id="PATH"><a href="#PATH" class="headerlink" title="PATH"></a>PATH</h3><p><a href="https://nodejs.org/api/path.html" target="_blank" rel="noopener">文件網址</a></p>
+<h3 id="PATH"><a href="#PATH" class="headerlink" title="PATH"></a>PATH</h3><p><a target="_blank" rel="noopener" href="https://nodejs.org/api/path.html">文件網址</a></p>
 <ul>
 <li>處理路徑相關模組 returns 路徑</li>
 <li>針對路徑抓出我們要的部分</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line">path.basename(<span class="string">'/foo/bar/baz/asdf/quux.html'</span>);</span><br><span class="line"><span class="comment">// Returns: 'quux.html'</span></span><br><span class="line"></span><br><span class="line">path.extname(<span class="string">'index.html'</span>);</span><br><span class="line"><span class="comment">// Returns: '.html'</span></span><br><span class="line"></span><br><span class="line">path.dirname(<span class="string">'/xx/yy/zz.js'</span>);</span><br><span class="line"><span class="comment">// Returns: /xx/yy</span></span><br><span class="line"></span><br><span class="line">path.join(__dirname,<span class="string">'/xx'</span>);</span><br><span class="line"><span class="comment">// Returns: __dirname + '/xx'</span></span><br><span class="line"></span><br><span class="line">path.parse(<span class="string">'/home/user/dir/file.txt'</span>);</span><br><span class="line"><span class="comment">// Returns:</span></span><br><span class="line"><span class="comment">// &#123; root: '/',</span></span><br><span class="line"><span class="comment">//   dir: '/home/user/dir',</span></span><br><span class="line"><span class="comment">//   base: 'file.txt',</span></span><br><span class="line"><span class="comment">//   ext: '.txt',</span></span><br><span class="line"><span class="comment">//   name: 'file' &#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line">path.basename(<span class="string">&#x27;/foo/bar/baz/asdf/quux.html&#x27;</span>);</span><br><span class="line"><span class="comment">// Returns: &#x27;quux.html&#x27;</span></span><br><span class="line"></span><br><span class="line">path.extname(<span class="string">&#x27;index.html&#x27;</span>);</span><br><span class="line"><span class="comment">// Returns: &#x27;.html&#x27;</span></span><br><span class="line"></span><br><span class="line">path.dirname(<span class="string">&#x27;/xx/yy/zz.js&#x27;</span>);</span><br><span class="line"><span class="comment">// Returns: /xx/yy</span></span><br><span class="line"></span><br><span class="line">path.join(__dirname,<span class="string">&#x27;/xx&#x27;</span>);</span><br><span class="line"><span class="comment">// Returns: __dirname + &#x27;/xx&#x27;</span></span><br><span class="line"></span><br><span class="line">path.parse(<span class="string">&#x27;/home/user/dir/file.txt&#x27;</span>);</span><br><span class="line"><span class="comment">// Returns:</span></span><br><span class="line"><span class="comment">// &#123; root: &#x27;/&#x27;,</span></span><br><span class="line"><span class="comment">//   dir: &#x27;/home/user/dir&#x27;,</span></span><br><span class="line"><span class="comment">//   base: &#x27;file.txt&#x27;,</span></span><br><span class="line"><span class="comment">//   ext: &#x27;.txt&#x27;,</span></span><br><span class="line"><span class="comment">//   name: &#x27;file&#x27; &#125;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>basename: 抓檔名</li>
 <li>extname: 抓副檔名</li>
@@ -130,123 +64,4 @@
 <li>join: 路徑合併</li>
 <li>parse: 返回一個陣列，裡面有 root、dir、base、ext、name 屬性</li>
 </ul>
-
-      </div>
-    </div>
-  </div>
-</div>
-<div class="lx-navigation">
-	<div class="lx-cover prev lx-cover-sm" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/footer-l.jpeg)">
-		<div class="overlay"></div>
-		<a class="copy" href="/2019/07/27/node-npm/">
-			<div class="display-t">
-				<div class="display-tc">
-					<div>
-						<span>Next</span>
-						<h3>Node.js...</h3>
-					</div>
-				</div>
-			</div>
-		</a>
-	</div>
-        <div class="lx-cover next lx-cover-sm" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/footer-r.jpeg)">
-		<div class="overlay"></div>
-		<a class="copy" href="/2019/07/24/node-introduction/">
-			<div class="display-t">
-				<div class="display-tc">
-					<div>
-						<span>Prev</span>
-						<h3>Node.js...</h3>
-					</div>
-				</div>
-			</div>
-		</a>
-	</div>
-</div>
-
-</div>
-
-<footer>
-  <div>
-  Copyright &copy; 2019.<a href="/">BillyGi's NOTE</a><br>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme <a href="https://lx.js.org" target="_blank">Lx</a><br>
-  </div>
-</footer>
-
-</div>
-
-<button class="hamburger hamburger--arrow-r" type="button">
-    <div class="hamburger-box">
-      <div class="hamburger-inner"></div>
-    </div>
-</button> 
-<div class="menu visibility">
-  <div class="menu-head">
-    <span class="layer">
-      <div class="col">
-        <div class="row for-pic">
-          <div class="profile-pic">
-            <a href="/"><img src="/images/avatar.jpeg" alt="冠逸"></a>
-          </div>
-        </div>
-        <div class="row for-name">
-          <p>冠逸</p>
-          <span class="tagline">Hello, World!</span>
-        </div>
-      </div>
-    </span>
-  </div>
-  <nav class="menu-container">
-  <ul class="menu-items">
-    <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
-    <li><a href="/archives/"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
-    
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-bookmark fa-fw"></i>Pages</span>
-        <ul>
-          <li><a href="/guestbook/">Guestbook</a></li>
-        <li><a href="/about/">About</a></li>
-        </ul>
-    </li>
-    <li class="has-sub"><span class="dropdown-heading">
-      <i class="fa fa-link fa-fw"></i>Friends</span>
-        <ul>
-          <li> <a href="https://lx.js.org" target="_blank">Theme-Lx</a></li>
-        </ul>
-    </li>
-  </ul>
-  </nav>
-</div>
-
-<div class="gototop js-top">
-  <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
-</div>
-<script src="//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/js/jquery.easing.min.js"></script>
-<script>
-(function () {
-	"use strict";
-	var goToTop = function() {
-		$(".js-gotop").on("click", function(event){
-			event.preventDefault();
-			$("html, body").animate({
-				scrollTop: $("html").offset().top
-			}, 500, "easeInOutExpo");
-			return false;
-		});
-		$(window).scroll(function(){
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$(".js-top").addClass("active");
-			} else {
-				$(".js-top").removeClass("active");
-			}
-		});
-	};
-	$(function(){
-		goToTop();
-	});
-}());
-</script>
-
-
-</body>
-</html>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2019/07/27/node-npm/" title="Node.js NPM"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Node.js NPM</span></a><a class="button is-default" href="/2019/07/24/node-introduction/" title="Node.js 介紹"><span class="has-text-weight-semibold">Next: Node.js 介紹</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com//"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/haojen"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--><a title="facebook" target="_blank" rel="noopener nofollow" href="//www.facebook.com//"><i class="iconfont icon-tian7_facebook"></i></a></section><p><span>Copyright ©</span><span> BillyGi 2021</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/post.js"></script></body></html>
