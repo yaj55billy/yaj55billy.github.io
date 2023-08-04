@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Billy's 人生實驗所
 subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+description: '學習從 Taker 變為 Giver！'
+keywords: 
+author: Billy Ji
+language: zh-TW
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://yaj55billy.github.io/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:

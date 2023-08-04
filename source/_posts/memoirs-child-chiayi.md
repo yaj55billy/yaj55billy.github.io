@@ -4,6 +4,7 @@ date: 2023-02-22
 tags:
   - [生活]
 description: 小學四年級時，曾在嘉義過溝短暫待了一年。而前天早晨夢到了相關的人事物，起床後忽然很好奇那邊現在的景象......之後就文思泉湧的產生了這篇文章。
+cover: https://i.imgur.com/0uwIEUZ.png
 ---
 
 <!-- heroImagePath: '/images/memoirs-child-chiayi.jpg' -->

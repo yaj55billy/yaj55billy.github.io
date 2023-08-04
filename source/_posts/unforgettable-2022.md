@@ -4,9 +4,8 @@ date: 2022-12-23
 tags:
   - [生活]
 description: 2022 也即將踏上尾聲，如果要我對 2022 下一些關鍵字的話，我會選擇「**痛苦**」、「**爭執**」、「**覺察**」、「**掙扎**」、「**疑難雜症**」等這五組字詞。
+cover: https://imgur.com/0C7J62U.jpg
 ---
-
-<!-- heroImagePath: '/images/unforgettable-2022.jpg' -->
 
 2022 也即將踏上尾聲，如果要我對 2022 下一些關鍵字的話，我會選擇「**痛苦**」、「**爭執**」、「**覺察**」、「**掙扎**」、「**疑難雜症**」等這五組字詞。
 
@@ -44,3 +43,5 @@ description: 2022 也即將踏上尾聲，如果要我對 2022 下一些關鍵�
 雖然乘載了許多負面，但很幸運的在這過程中也遇到幾位貴人幫助，引導我去接觸正念冥想，指出我個性、習慣可以調整的部分，建議我可以去看什麼書籍，在這難熬的時間陪我聊天，給予我心理上的支持。讓我的心情從「**死死卡快活**」轉變到「**即使難看的掙扎著，我也要做好現在能做的事情......**」。
 
 **感謝家人、醫生們、好友、催眠師、收驚老師、公司老闆及同事、新認識的朋友，這些恩情我會記在心裡的。**
+
+Photo by <a href="https://unsplash.com/@kellysikkema?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kelly Sikkema</a> on <a href="https://unsplash.com/photos/UCnYf3lVnr8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
