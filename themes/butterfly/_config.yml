@@ -10,9 +10,9 @@ nav:
 # Menu 目錄
 menu:
   首頁: / || fas fa-home
-  標籤: /tags/ || fas fa-tags
-  生活: /tags/生活 || fas fa-book
-  # 前端: /tags/前端 || fas fa-code
+  # 分類: /categories/ || fas fa-folder-open
+  生活: /categories/生活 || fas fa-book
+  前端: /categories/前端 || fas fa-code
   # Archives: /archives/ || fas fa-archive
   # Categories: /categories/ || fas fa-folder-open
   # List||fas fa-list:
@@ -72,7 +72,7 @@ tag_per_img:
 
 # If the banner of category page not setting, it will show the top_img
 # note: category page, not categories page (子分類頁面的 top_img)
-category_img:
+category_img: "#3ca5e6"
 
 # The banner image of category page
 # format:
@@ -225,7 +225,7 @@ aside:
   display:
     archive: false
     tag: true
-    category: false
+    category: true
   card_author:
     enable: true
     description:
@@ -243,9 +243,9 @@ aside:
     sort: date # date or updated
     sort_order: # Don't modify the setting unless you know how it works
   card_categories:
-    enable: false
+    enable: true
     limit: 8 # if set 0 will show all
-    expand: none # none/true/false
+    expand: true # none/true/false
     sort_order: # Don't modify the setting unless you know how it works
   card_tags:
     enable: true
@@ -636,7 +636,7 @@ index_top_img_height:
 # The user interface setting of category and tag page (category和tag頁的UI設置)
 # index - same as Homepage UI (index 值代表 UI將與首頁的UI一樣)
 # default - same as archives UI 默認跟archives頁面UI一樣
-category_ui: # 留空或 index
+category_ui: index # 留空或 index
 tag_ui: index # 留空或 index
 
 # Website Background (設置網站背景)
