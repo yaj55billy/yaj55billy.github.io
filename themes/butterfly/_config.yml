@@ -418,8 +418,8 @@ comments:
 # disqus
 # https://disqus.com/
 disqus:
-  shortname:
-  apikey: # For newest comments widget
+  shortname: billys-ren-sheng-shi-yan-suo
+  apikey: KetAbgXgzYQajqB2jL36GCEbW8mF3EaM7SK7lr5OOp1xo1hNdLFTXFy78xBsBwq8 # For newest comments widget
 
 # Alternative Disqus - Render comments with Disqus API
 # DisqusJS 評論系統，可以實現在網路審查地區載入 Disqus 評論列表，兼容原版
