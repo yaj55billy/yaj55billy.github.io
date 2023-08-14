@@ -1,12 +1,12 @@
 ---
 title: Pinia 筆記
-date: 2023-08-12 
+date: 2023-08-14
 tags:
   - 前端
   - pinia
 categories:
   - 前端
-description: xxx
+description: 目前正在複習 Vue ，這邊也把 Pinia 做個筆記。Pinia 跟先前的 Vuex 都是拿來做狀態管理的...
 cover: https://i.imgur.com/BkwBMOG.png
 ---
 
@@ -25,7 +25,9 @@ cover: https://i.imgur.com/BkwBMOG.png
 
 ----
 
-## 撰寫
+## 筆記
+
+### 基本使用
 
 先以 store/counter.js 作為範例，我們需要先從 pinia 引入 defineStore 這個功能。
 
@@ -44,50 +46,50 @@ import { defineStore } from 'pinia';
 
 // composition 
 export const useCounterStore = defineStore('counter', () => {
-	const count = ref(0);
-	const doubleCount = computed(() => count.value * 2);
-	function increment() {
-		count.value++
-	}
-	return { count, doubleCount, increment }
+  const count = ref(0);
+  const doubleCount = computed(() => count.value * 2);
+  function increment() {
+    count.value++
+  }
+  return { count, doubleCount, increment }
 })
   
 // option
 export const useCounterStore = defineStore({
-	id: "counter",
-	state: () => ({
-		counter: 0,
-	}),
-	getters: {
-		doubleCount: (state) => state.counter * 2,
-	},
-	action: {
-		addCount() {
-			this.counter ++;
-		},
-	}
+  id: "counter",
+  state: () => ({
+    counter: 0,
+  }),
+  getters: {
+    doubleCount: (state) => state.counter * 2,
+  },
+  action: {
+    addCount() {
+      this.counter ++;
+    },
+  }
 });
 ```
 
 在元件的引用中，先透過路徑 import useCounterStore 這個功能，然後再放到 store 這個變數。這邊因為使用了 script setup 這個語法糖，所以不用使用 return 就可在樣板中使用。
 
-（這支範例程式是 .vue 檔案，不過因為程式碼無法產生高亮反應，所以先以 html 作為替代）
+（這支範例程式是 .vue 檔案，不過因為程式碼無法產生高亮反應，所以以 html 作為替代）
 
 ```html
 <script setup> 
-	import { ref } from 'vue'; 
-	import { useCounterStore } from "@/stores/counter.js"; 
-	const store = useCounterStore(); 
-	const triggerStoreIncrement = () => { 
-		store.increment(); 
-	}
+  import { ref } from 'vue'; 
+  import { useCounterStore } from "@/stores/counter.js"; 
+  const store = useCounterStore(); 
+  const triggerStoreIncrement = () => { 
+    store.increment(); 
+  }
 </script> 
 <template> 
-	<h1>Pinia</h1> 
-	pinia資料：{{ store.count }} 
-	<button type="button" @click="triggerStoreIncrement">
-		觸發 pinia increment
-	</button> 
+  <h1>Pinia</h1> 
+  pinia資料：{{ store.count }} 
+  <button type="button" @click="triggerStoreIncrement">
+    觸發 pinia increment
+  </button> 
 </template> 
 
 ```
@@ -107,109 +109,69 @@ import axios from "axios";
 import { defineStore } from 'pinia';
 
 export const useProductsStore = defineStore('product', () => {
-	const products = ref([]);
-	const fetchApi = async() => {
-		try {
-			const res = await axios.get('https://fakestoreapi.com/products');
-			products.value = res.data;
-		} catch (error) {
-			// error
-		}
-	}
-	return { products, fetchApi }
+  const products = ref([]);
+  const fetchApi = async() => {
+    try {
+      const res = await axios.get('https://fakestoreapi.com/products');
+      products.value = res.data;
+    } catch (error) {
+      // error
+    }
+  }
+  return { products, fetchApi }
 })
 
 ```
 
 ```html products.vue
 <script setup>
-	import { useProductsStore } from "@/stores/products.js";
-	const store = useProductsStore();
-	const triggerStoreFetchApi = () => {
-		store.fetchApi();
-	}
+  import { useProductsStore } from "@/stores/products.js";
+  const store = useProductsStore();
+  const triggerStoreFetchApi = () => {
+    store.fetchApi();
+  }
 </script>
 
 <template>
-	<h1>產品頁</h1>
-	<div>{{ store.products }}</div>
-	<button type="button" @click="triggerStoreFetchApi">Get API</button>
+  <h1>產品頁</h1>
+  <div>{{ store.products }}</div>
+  <button type="button" @click="triggerStoreFetchApi">Get API</button>
 </template>
 
 ```
 
 ### 關於解構的可能問題
 
-在元件中透過解構，我們可以達到更乾淨的 template，
+當我們從元件去接 pinia 資料或方法時，可以透過解構達到更乾淨的 template，讓我們不用在 template 寫 `store.xxxxxxx`；不過如果是跟 ref 相關的資料 (ref、computed) ，解構會造成資料失去響應式，這時就可以用 pinia 提供的 `storeToRefs()`，來達成解構 ref 資料但不失去響應式。
 
-
-當我們從元件去接 pinia 的資料時，只要是 ref 相關，
-
+解構方面的問題，主要是對於 ref 相關資料；如果是 reactive 或函式就可以直接解構使用。
 
 ```html
 <script setup> 
-	import { ref } from 'vue'; 
-	import { useCounterStore } from "@/stores/counter.js"; 
-	const store = useCounterStore(); 
+  import { ref } from 'vue'; 
+  import { useCounterStore } from "@/stores/counter.js"; 
+  const store = useCounterStore(); 
+
   const { count } = storeToRefs(store); 
-	const triggerStoreIncrement = () => { 
-		store.increment(); 
-	}
+  const { increment } = store; // 函式直接解構使用
 </script> 
+
 <template> 
-	<h1>Pinia</h1> 
-	pinia資料：{{ store.count }} 
-	<button type="button" @click="triggerStoreIncrement">
-		觸發 pinia increment
-	</button> 
+  <h1>Pinia</h1> 
+  pinia資料：{{ count }} 
+  <button type="button" @click="increment">
+    觸發 increment
+  </button> 
 </template> 
 
 ```
 
-這邊先簡單紀錄：
-- 在 pinia 的函式可直接解構使用
-- 在 pinia 的資料不能直接解構，因為有包一層 proxy 物件，如果解構會無法有響應式。
-	- storeToRefs() 
-
-### pinia store 不同檔案的資料傳遞
+----
 
 
 
-```js
-import { ref } from 'vue';
-import axios from "axios";
-import { defineStore, storeToRefs } from 'pinia';
-
-import { useCounterStore } from "./counter.js"; // 引用另一支 pinia 檔案
-
-export const useProductsStore = defineStore('product', () => {
-	const counterStore = useCounterStore(); // 使用時命名需做個區隔
-	const { count } = storeToRefs(counterStore); // 解構
-	// ... 略
-}
-
-// ... 略
-
-```
-
-ref computed 會回傳 ref 物件，所以解構要經過處理
-reactive 跟 function 則不用，直接從 store 引出來即可
 
 
-
-```js counter.js
-import { ref, computed } from 'vue';
-import { defineStore } from 'pinia';
-
-export const useCounterStore = defineStore('counter', () => {
-	const count = ref(0);
-	const doubleCount = computed(() => count.value * 2);
-	function increment() {
-		count.value++
-	}
-	return { count, doubleCount, increment }
-})
-```
 
 
 
