@@ -35,8 +35,8 @@ React 的優點是體驗 JS 的美好，而缺點也是 JS 的美好；Vue 的�
   - 驗證 api：驗證成功就可以使用 todo，如果驗證失敗，就用 popup 提醒使用者，並導回登入頁
   - 取得待辦資料 (getTodo)
   - 待辦的新增、刪除、編輯、狀態切換（成功與失敗的提醒）
-  - 全部、待完成、已完成的篩選
-  - TodoItem 元件 
+  - 全部、待完成、已完成的待辦篩選
+  - 從 todo 分出的元件 
   - 已完成待辦的數量顯示、清除已完成項目功能
   - 登出，popup 提醒使用者，然後導到登入頁
 
@@ -50,7 +50,7 @@ React 的優點是體驗 JS 的美好，而缺點也是 JS 的美好；Vue 的�
 首先在專案中，引入 React Router `npm i react-router-dom`，然後在 main.jsx 進入點，從 React Router 引用 `<HashRouter>` 並包在 `<App>` 的外層。
 
 接著可以照著課程指導的步驟：
-1. 建立元件
+1. 建立元件（頁面元件放在 view 資料夾）
 2. 設置路由表 （import 元件）
 3. 加入連結 （這邊不會用到）
 
@@ -67,11 +67,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 ```
 
 ```jsx App.jsx
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import "./styles/all.sass";
 import SignUp from "./views/SignUp.jsx";
 import SignIn from "./views/SignIn.jsx";
 import Todo from "./views/Todo.jsx";
-import "./App.css";
 
 function App() {
   return (
@@ -80,7 +80,6 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/todo" element={<Todo />} />
-        <Route path="*" element={<NotFound />}></Route> 
       </Routes>
     </>
   );
@@ -93,12 +92,12 @@ export default App;
 
 跟第三週一樣把 api 獨立成一支 js 來管理，不過內容有一些不同，因為在 todo 頁面驗證後，會在 todoBase 這個 axios 實體帶入以下這個設定：`todoBase.defaults.headers.common["Authorization"] = todoToken`，所以在 todo 頁面用到的 api 就可以省略 headers 這個參數
 
-```js
+```js api/index.js
 import axios from "axios";
 
 // todolist api
 export const todoBase = axios.create({
-	baseURL: "https://todolist-api.hexschool.io",
+  baseURL: "https://todolist-api.hexschool.io",
 });
 
 // 註冊
@@ -200,11 +199,13 @@ return (
 ```
 
 再來是註冊的程式部分：
+- 當填好表單按下註冊按鈕時，會執行 onSubmit 這個函式，並在參數中帶進表單資料，接著就會運行註冊的 api 
 - 註冊成功或失敗時，會使用 sweetalert2 引入的 popup 來通知使用者
 - 註冊成功或失敗時，會將表單欄位清空。這邊是從 useForm 引出 reset 的功能
+- 註冊成功時，會透過 navigate 導到登入頁面
 - `const [isDisabled, setDisabled] = useState(false);` 這個狀態的定義，主要是綁在註冊按鈕的 disabled，在 api 過程讓按鈕為不能點擊的狀態，直到 api 過程結束（防止按鈕被連續點擊）
 
-```jsx
+```jsx signUp.jsx
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -262,10 +263,10 @@ const SignUp = () => {
 - 登入成功或失敗時，會使用 sweetalert2 引入的 popup 來通知使用者
 - 登入成功或失敗時，會將表單欄位清空。這邊是從 useForm 引出 reset 的功能
 - 登入成功後，會從回應資料取出 token，並存到 document.cookie，待之後 todo 頁面再取出
-- 登入成功後，使用 useNavigate 導向到 todo 頁面
+- 登入成功後，使用 navigate 導向到 todo 頁面
 - `const [isDisabled, setDisabled] = useState(false);` 這個狀態的定義，主要是綁在登入按鈕的 disabled，在 api 過程讓按鈕為不能點擊的狀態，直到 api 過程結束（防止按鈕被連續點擊）
 
-```jsx
+```jsx signIn.jsx
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -334,9 +335,9 @@ const SignIn = () => {
 
 進到 todo 頁面時，首先需先經過 token 的驗證，驗證成功才能在此頁面操作，否則就會通知驗證失敗並導回登入頁。
 
-1. 從 document.cookie 取出剛才在登入成功時設置的 token
+1. 從 document.cookie 取出剛才在登入成功時設置的 token，並存取在 todoToken 這個變數中
 2. 設置 checkLogin 這個函式，內容會使用 apiUsersCheckout 這支驗證 api，記得要帶上 `headers:{Authorization: todoToken}`
-    - 驗證成功時會設置 nickname， 以及將 token 設置在 todoBase 這個實體，接著透過 getTodos() 獲取所有待辦項目。（這個步驟還未定義 getTodos()）
+    - 驗證成功時會設置 nickname， 以及將 token 設置在 todoBase 這個實體，之後在 todo 頁面的 api 操作都不需帶上 `headers:{Authorization: todoToken}`，接著透過 getTodos() 獲取所有待辦項目。（這個步驟還未定義 getTodos()）
     - 驗證失敗時，會用 popup 來通知，之後導回登入頁面
 3. 透過 useEffect 去執行 checkLogin 這個函式（第二個空陣列參數，表示只有最開始時會執行一次）
 
@@ -403,7 +404,7 @@ const Todo = () => {
 再來我們要定義 getTodos 這個函式，內容透過 apiGetTodos() 這支取得所有待辦的 api 來取得資料。
 不論在驗證後，以及新增、刪除、修改待辦等動作都會來執行這個函式，重新抓取最新資料。
 
-```jsx
+```jsx todo.jsx
 // ... 略
 import { useState, useEffect } from "react";
 import {
@@ -436,7 +437,7 @@ const Todo = () => {
 
 ### 待辦的新增、刪除、編輯、狀態切換
 
-在待辦的新增、刪除、編輯、狀態切換等函式中，除了使用各個功能的 api，也會使用 SweetAlert2 的 Toast 設置，在 api 行為的成功與失敗通知使用者。
+在待辦的新增、刪除、編輯、狀態切換等函式中，除了從 api/index.js 取得各個 api 操作，也使用上 SweetAlert2 的 Toast 設置，在 api 執行後的成功或失敗做個通知。
 
 提醒：
 - 在每個 api 執行後，記得呼叫 getTodos()，重新獲得最新資料
@@ -444,7 +445,7 @@ const Todo = () => {
 - 刪除與編輯記得要帶上 id 
 - 編輯待辦（updateTodo），記得要清空暫存的物件（`setEditTarget({})`）
 
-```jsx
+```jsx todo.jsx
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -557,11 +558,11 @@ const Todo = () => {
 }
 ```
 
-### 全部、待完成、已完成的篩選
+### 全部、待完成、已完成的待辦篩選
 
 1. 如同我們前面定義的 `const [todoType, setTodoType] = useState("all");`，這個部分用來定義 todo 篩選的三種狀態：全部（all）、待完成（active）、已完成（completed）
 2. 再來我們用 todoTypeChange 這個函式來定義 todoType 狀態的切換，這是使用按鈕點擊（帶上狀態）來觸發
-3. 根據 todoType 狀態的不同，用 todo.filter 來篩選出我們需要的資料，並存在 filterTodo 這個變數中。
+3. 根據 todoType 狀態的不同，用 todo.filter 來篩選出我們需要的資料，並存在 filterTodo 這個變數中，之後在樣板中是以 filterTodo.map() 來渲染
 4. 根據 todoType 狀態的不同，做 active class 的切換
 
 ```jsx
@@ -628,7 +629,7 @@ const Todo = () => {
 }
 ```
 
-### TodoItem 元件 
+### 從 todo 分出的元件
 
 這次有從 todo 頁面中，分出 TodoItem（todo 項目）、TodoCategory（todo 篩選）這兩個元件。
 而這個段落會來提一下 TodoItem 這個元件，根據這個元件所需，我們得傳入 todo 項目的資訊（id、content、status），以及一些待辦的函式（刪除、狀態切換、編輯...等），可看下方程式碼的註解。
@@ -692,7 +693,7 @@ const Todo = () => {
           return (
             <TodoItem
               key={item.id} // id
-              id={item.id} 
+              id={item.id} // id
               content={item.content} // input text
               status={item.status} // 狀態，預設為待完成
               toggleTodo={toggleTodo} // 狀態切換的函式
@@ -804,10 +805,10 @@ export default TodoItem;
 
 已完成待辦的數量顯示比較單純，宣告 todoCompleted 這個變數去儲存 todo 篩選已完成的項目，然後再用 `{todoCompleted.length}` 渲染到畫面上。
 
-而清除已完成項目的功能，一樣用 todo 去篩選已完成項目，然後帶入這些已完成項目的 id 到 apiDeleteTodos 做刪除處理。用 Promise.all 等待全部已完成的項目都被刪除後，再用 Toast 通知使用者。
+而清除已完成項目的功能，一樣用 todo 去篩選已完成項目，然後帶入這些已完成項目的 id 到 apiDeleteTodos 做刪除處理。因為要刪除的項目不只一個，所以會使用到 Promise.all 來等待全部已完成的項目都被刪除後，再用 Toast 通知使用者。
 （記得 getTodos() 重新獲取資料。）
 
-```jsx
+```jsx todo.jsx
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -872,57 +873,58 @@ const Todo = () => {
 
 ### 登出
 
-登出時，記得做 cookie 的清理： document.cookie = "token=; expires=;";
-登出成功時，會告知使用者並導回登入頁
+登出在執行 apiUsersSignOut() 時，記得清理 document.cookie (`document.cookie = "token=; expires=;"`)
 
-```jsx
+在登出成功時，會透過 navigate 導回登入頁面
+
+```jsx todo.jsx
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
-	apiUsersCheckout,
-	apiGetTodos,
-	apiPostTodos,
-	apiDeleteTodos,
-	apiPatchTodos,
-	apiPutTodos,
-	todoBase,
-	apiUsersSignOut,
+  apiUsersCheckout,
+  apiGetTodos,
+  apiPostTodos,
+  apiDeleteTodos,
+  apiPatchTodos,
+  apiPutTodos,
+  todoBase,
+  apiUsersSignOut,
 } from "../api";
 // ... 略
 
 const Todo = () => {
-	// ... 略
+  // ... 略
 
   const navigate = useNavigate();
 
   // ... 略
 
   // 登出
-	const signOut = () => {
-		apiUsersSignOut()
-			.then(() => {
-				document.cookie = "token=; expires=;";
-				Swal.fire({
-					title: "您已登出",
-					text: "為您導回登入頁面...",
-					icon: "success",
-					showConfirmButton: false,
-					timer: 1500,
-				});
-				setTimeout(() => {
-					navigate("/");
-				}, 1500);
-			})
-			.catch(() => {
-				Swal.fire({
-					title: "登出失敗，請再檢查看看",
-					icon: "error",
-					showConfirmButton: false,
-					timer: 1500,
-				});
-			});
-	};
+  const signOut = () => {
+    apiUsersSignOut()
+      .then(() => {
+        document.cookie = "token=; expires=;";
+        Swal.fire({
+          title: "您已登出",
+          text: "為您導回登入頁面...",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "登出失敗，請再檢查看看",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
+  };
 
   return(
     // ... 略
@@ -942,7 +944,16 @@ const Todo = () => {
 
 ## 結尾
 
+透過這幾週跟著作業產出拆解文章，比較有感的部分是**狀況的掌握**，不論正在製作哪個功能，或者正卡關在什麼地方，都比較不會混亂跟一片空白。
 
+講到一片空白，也來分享自己先前看書所學習到的。基本上來說，即使現在的科技相當發達，我們大腦主要還是以**求生**作為導向，所以當我們面臨太多資訊、思考太多時，大腦會容易處於當機狀態（避免過度耗能）。回想一下學生時期在準備考試時，是不是會突然開始整理房間呢？因為大腦判斷準備考試實在太麻煩（太耗能）了。而依循大腦這樣的特性，再來延伸說到**寫文章**跟**拆解任務**。
 
-（若有什麼部分寫錯，也再麻煩跟我說，感恩！）
+關於**寫文章**這件事，過去我自己也都無法維持住，所以往往寫個一陣子就會放掉；後來在一些探索下，我知道了無法維持的原因，因為會很貪心的在寫文章這件事添加很多資訊（完美主義作祟），像是要寫到什麼程度、別人怎麼看、是否容易理解...等等，可是這樣太多的**想法**、**期待**、**資訊**只會讓大腦很快的當機，初步就無法維持習慣，畢竟阻力實在太大了。
+
+所以我們可以先**降低門檻**，以自己為出發點：對於什麼議題有興趣、什麼部分之後會用到、想要練習什麼，或者單純分享自己踩到的雷。放掉只是想像的期待，寫的好與壞其實都沒關係，畢竟還在起頭建立習慣。像是我 8 月中做的這個 [Pinia 筆記](https://www.billyji.com/2023/08/14/learn-pinia/)，雖然簡簡單單，但沒多久我在寫 Nuxt 專案時就派上用場了。如果嘗試後真的寫不下去也沒關係，也許你是透過大量練習、實戰在組織自己知識的人；也可能是在多些經驗後，發現寫筆記、Blog 對自己的重要性，**It's all ok**。
+
+再來討論到**拆解任務**，這也是我操作後相當推薦的方法。剛開始成為前端時，每當新專案一來（或者舊專案要修改），二話不說就是直接打開編輯器開工；不過當工作累積一些經驗後，變成專案一來會先規劃跟拆解，基本上我電腦桌的附近一定會擺上筆記本或紙。而這樣的拆解在專案的進行上會比較順，也是順著大腦的特性走，讓它不會一次進太多資訊而當機。不過在實際專案上，因為有時間上的壓力，無法像上課這樣拆解的比較細，所以可以好好利用上課來嘗試拆解。
+
+感謝你看到這邊，一不注意就在結尾處提了比較多。若有什麼部分寫錯，也再麻煩跟我說，感恩！
+
 
