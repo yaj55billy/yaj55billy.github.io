@@ -487,16 +487,16 @@ const Todo = () => {
           icon: "success",
           title: "新增待辦成功",
         });
+        getTodos();
       })
       .catch(() => {
         Toast.fire({
           icon: "error",
           title: "新增待辦失敗，請再檢查看看",
         });
+      }).finally(() => {
+        setInput(""); // 清空
       });
-
-    setInput(""); // 清空
-    getTodos();
   };
 
   // 刪除項目
@@ -507,6 +507,7 @@ const Todo = () => {
           icon: "success",
           title: "刪除待辦成功",
         });
+        getTodos();
       })
       .catch(() => {
         Toast.fire({
@@ -514,7 +515,6 @@ const Todo = () => {
           title: "刪除待辦失敗，請再檢查看看",
         });
       });
-    getTodos();
   };
 
   // 切換狀態（是否完成）
@@ -525,6 +525,7 @@ const Todo = () => {
           icon: "success",
           title: "待辦狀態更新成功",
         });
+        getTodos();
       })
       .catch(() => {
         Toast.fire({
@@ -532,7 +533,6 @@ const Todo = () => {
           title: "待辦狀態更新失敗，請再檢查看看",
         });
       });
-    getTodos();
   };
 
   // 編輯項目
@@ -543,15 +543,16 @@ const Todo = () => {
           icon: "success",
           title: "編輯待辦成功",
         });
+        getTodos();
       })
       .catch(() => {
         Toast.fire({
           icon: "error",
           title: "編輯待辦失敗，請再檢查看看",
         });
+      }).finally(() => {
+        setEditTarget({});
       });
-    setEditTarget({});
-    getTodos();
   };
 
   //...略
@@ -850,8 +851,8 @@ const Todo = () => {
         icon: "success",
         title: "清除已完成項目成功",
       });
+      getTodos();
     });
-    getTodos();
   };
 
   return (
@@ -956,4 +957,4 @@ const Todo = () => {
 
 感謝你看到這邊，一不注意就在結尾處提了比較多。若有什麼部分寫錯，也再麻煩跟我說，感恩！
 
-
+（感謝 Evan 同學發現待辦 CRUD 沒寫好的部分！）
