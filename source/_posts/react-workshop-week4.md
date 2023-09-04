@@ -37,7 +37,8 @@ React 的優點是體驗 JS 的美好，而缺點也是 JS 的美好；Vue 的�
   - 待辦的新增、刪除、編輯、狀態切換（成功與失敗的提醒）
   - 全部、待完成、已完成的待辦篩選
   - 從 todo 分出的元件 
-  - 已完成待辦的數量顯示、清除已完成項目功能
+  - 待完成待辦的數量顯示、清除已完成項目功能
+    - （2023.09.04 調整，原先寫錯成"已完成待辦的數量顯示"，程式以及這篇文章已調整為"待完成"）
   - 登出，popup 提醒使用者，然後導到登入頁
 
 [第四週作品](https://www.billyji.com/react-workshop-week4-todolist/#/)
@@ -237,9 +238,9 @@ const SignUp = () => {
           navigate("/");
         }, 1500);
       })
-      .catch(() => {
+      .catch((error) => {
         Swal.fire({
-          title: "註冊失敗，請再檢查看看~",
+          title: error.response.data.message,
           icon: "error",
           showConfirmButton: false,
           timer: 1500,
@@ -496,6 +497,7 @@ const Todo = () => {
         });
       }).finally(() => {
         setInput(""); // 清空
+        setTodoType("all"); // 將頁籤切換為「全部」
       });
   };
 
@@ -802,11 +804,11 @@ export default TodoItem;
 
 ```
 
-### 已完成待辦的數量顯示、清除已完成項目功能
+### "待完成"待辦的數量顯示、清除"已完成"項目功能
 
-已完成待辦的數量顯示比較單純，宣告 todoCompleted 這個變數去儲存 todo 篩選已完成的項目，然後再用 `{todoCompleted.length}` 渲染到畫面上。
+"待完成"待辦的數量顯示比較單純，宣告 todoUnCompleted 這個變數去儲存 todo 篩選待完成的項目，然後再用 `{todoUnCompleted.length}` 渲染到畫面上。
 
-而清除已完成項目的功能，一樣用 todo 去篩選已完成項目，然後帶入這些已完成項目的 id 到 apiDeleteTodos 做刪除處理。因為要刪除的項目不只一個，所以會使用到 Promise.all 來等待全部已完成的項目都被刪除後，再用 Toast 通知使用者。
+而清除"已完成"項目的功能，則是使用 todo 去篩選已完成項目，然後帶入這些已完成項目的 id 到 apiDeleteTodos 做刪除處理。因為要刪除的項目不只一個，所以會使用到 Promise.all 來等待全部已完成的項目都被刪除後，再用 Toast 通知使用者。
 （記得 getTodos() 重新獲取資料。）
 
 ```jsx todo.jsx
@@ -835,9 +837,9 @@ const Todo = () => {
   // ... 略
 
   // 從原先 list 資料去 filter
-  const todoCompleted = todo.filter((item) => {
-    return item.status;
-  });
+	const todoUnCompleted = todo.filter((item) => {
+		return !item.status;
+	});
 
   // 清除已完成項目
   const clearTodoCompleted = () => {
@@ -859,7 +861,7 @@ const Todo = () => {
     // ... 略
     <div className="todo__bottom">
       <p className="todo__bottom__text">
-        {todoCompleted.length} 個已完成項目
+        {todoUnCompleted.length} 個已完成項目
       </p>
       <button
         className="todo__bottom__btn"
@@ -958,3 +960,4 @@ const Todo = () => {
 感謝你看到這邊，一不注意就在結尾處提了比較多。若有什麼部分寫錯，也再麻煩跟我說，感恩！
 
 （感謝 Evan 同學發現待辦 CRUD 沒寫好的部分！）
+（感謝助教提供優化部分！）
