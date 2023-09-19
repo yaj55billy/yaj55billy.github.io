@@ -10,11 +10,10 @@ nav:
 # Menu 目錄
 menu:
   首頁: / || fas fa-home
-  # 分類: /categories/ || fas fa-folder-open
+  近況: /nowpage || fas fa-star
   生活: /categories/生活 || fas fa-book
   前端: /categories/前端 || fas fa-code
   # Archives: /archives/ || fas fa-archive
-  # Categories: /categories/ || fas fa-folder-open
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
