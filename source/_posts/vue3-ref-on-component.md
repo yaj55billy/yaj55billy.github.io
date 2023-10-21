@@ -8,6 +8,7 @@ categories:
   - 前端
 description: 筆記在 Vue3 中，如何取得子組件中的 ref
 cover: https://i.imgur.com/Zwb2dxR.jpg
+hidden: true
 ---
 
 <!-- Photo by <a href="https://unsplash.com/@lautaroandreani?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lautaro Andreani</a> on <a href="https://unsplash.com/photos/xkBaqlcqeb4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
