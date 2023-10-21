@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Billy's 人生實驗所
+title: '比利的前端紀錄'
 subtitle: ''
-description: '學習從 Taker 變為 Giver！'
+description: '學習從 Taker 變為 Giver'
 keywords: 
 author: Billy Ji
 language: zh-TW
@@ -46,12 +46,12 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace: ''
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
-  enable: false
+  enable: true
   preprocess: true
   line_number: true
   tab_replace: ''
