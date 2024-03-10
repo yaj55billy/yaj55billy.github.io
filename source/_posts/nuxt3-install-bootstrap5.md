@@ -2,7 +2,6 @@
 title: 在 Nuxt3 使用 Bootstrap5
 date: 2023-08-24
 tags:
-  - 前端
   - Nuxt3
   - Bootstrap5
 categories:
@@ -25,7 +24,8 @@ cover: https://i.imgur.com/OpmAfpH.jpg
 
 這邊先提一個最簡易的配置，如果只是做個 Demo，沒有要使用到客製化，那麽就可以在 nuxt.config.ts 直接引入 CDN 使用。
 
-```ts nuxt.config.ts
+```ts 
+// nuxt.config.ts
 import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   app: {
@@ -51,7 +51,8 @@ export default defineNuxtConfig({
 
 這邊是在 assets 創建一個 main.scss，然後 `@import "./variables";` 這個部分是從 node_module bootstrap 複製過來的，這樣就可以去客製一些 bootstrap 變數（例如：顏色、距離等等）。然後也能帶上自己要寫的 scss。
 
-```ts nuxt.config.ts
+```ts 
+// nuxt.config.ts
 import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   css: [
@@ -62,7 +63,8 @@ export default defineNuxtConfig({
 
 ```
  
-```scss main.scss
+```scss 
+// main.scss
 @import "bootstrap/scss/functions";
 @import "./variables";
 @import "bootstrap/scss/bootstrap";
@@ -79,7 +81,8 @@ export default defineNuxtConfig({
 
 接下來把 node_module 中的 bootstrap.bundle.js 給引用進來，接著 `nuxtApp.provide("bootstrap", bootstrap)` 將 bootstrap.bundle.js 的功能引用到 Nuxt 中。
 
-```js useBootstrap.client.js
+```js 
+// useBootstrap.client.js
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle";
 
 export default defineNuxtPlugin((nuxtApp) => {

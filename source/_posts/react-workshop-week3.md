@@ -2,7 +2,6 @@
 title: 六角學院 React 入門工作坊第三週
 date: 2023-08-28
 tags:
-  - 前端
   - 六角學院 
   - React
 categories:
@@ -139,7 +138,8 @@ const onSubmit = (data) => {
 3. 把 api 的 crud 操作包裝在函式內，並 export 出去。這邊也先根據 api 文件去配置需要的參數，像是 data、id、headers
     - 在函式命名上我以 api 做開頭，表示這是處理 api 相關
 
-```js api/index.js
+```js 
+// api/index.js
 import axios from "axios";
 
 const todoBase = axios.create({
@@ -190,7 +190,8 @@ export const apiPutTodos = (id, data, headers) =>
 
 （範例中為了說明主要內容，所以會省略較多程式碼）
 
-```jsx Todo.jsx
+```jsx 
+// Todo.jsx
 // ...略
 import {
   apiPostTodos,

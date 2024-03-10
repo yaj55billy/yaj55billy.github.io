@@ -2,7 +2,6 @@
 title: 六角學院 React 入門工作坊第二週
 date: 2023-08-19
 tags:
-  - 前端
   - 六角學院 
   - React
 categories:
@@ -498,7 +497,8 @@ const App = () => {
 這邊就以購物車的元件作為主要範例，其他元件拆法都是一致的。首先我們先在 src 新增 components 資料夾，並新增元件(Cart.jsx)。
 
 接著在 Cart.jsx 先建好預設，並 import propTypes 以及預設 propTypes 物件：
-```jsx Cart.jsx
+```jsx 
+// Cart.jsx
 import propTypes from "prop-types";
 
 const Cart = () => {
@@ -516,7 +516,8 @@ export default Cart;
 然後在 App.jsx 引入 Cart.jsx
 
 
-```jsx Cart.jsx
+```jsx 
+// Cart.jsx
 import propTypes from "prop-types";
 const Cart = () => {
 return (
@@ -548,7 +549,8 @@ return (
 
 ```
 
-```jsx App.jsx
+```jsx 
+// App.jsx
 import { useState, useEffect } from "react";
 import Cart from "@/components/Cart";
 // ... 略
@@ -575,7 +577,8 @@ const App = () => {
 
 ![](https://i.imgur.com/WCPjccp.png)
 
-```jsx Cart.jsx
+```jsx 
+// Cart.jsx
 import propTypes from "prop-types";
 const Cart = ({ cart, deleteCartItem, updateCart, total, note, setNote,
 createOder }) => {
@@ -601,7 +604,8 @@ Cart.propTypes = {
 
 根據在 Cart.jsx 所需要的資料或功能，我們就可以從父層傳入相對應的資料跟功能。
 
-```jsx app.jsx
+```jsx 
+// app.jsx
 import Cart from "@/components/Cart";
 // ...略
 

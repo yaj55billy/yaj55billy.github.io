@@ -2,10 +2,8 @@
 title: JavaScript 傳值與傳參考
 date: 2023-10-26 10:51:17
 tags:
-  - 前端
   - JavaScript
-  - 傳值與傳參考
-  - 複習（補債）
+  - 技術債
 categories:
   - 前端
 description: 關於 JavaScript 的傳值與傳參考特性

@@ -2,7 +2,6 @@
 title: Pinia 筆記
 date: 2023-08-14
 tags:
-  - 前端
   - pinia
 categories:
   - 前端
@@ -103,7 +102,8 @@ export const useCounterStore = defineStore({
 
 不過現在 pinia + composition api，變得比較簡潔（自由？），如下方程式碼所示：
 
-```js products.js
+```js 
+// products.js
 import { ref } from 'vue';
 import axios from "axios";
 import { defineStore } from 'pinia';
@@ -123,7 +123,8 @@ export const useProductsStore = defineStore('product', () => {
 
 ```
 
-```html products.vue
+```html
+<!-- products.vue -->
 <script setup>
   import { useProductsStore } from "@/stores/products.js";
   const store = useProductsStore();

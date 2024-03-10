@@ -2,7 +2,6 @@
 title: 六角學院 React 入門工作坊第四週（最終）
 date: 2023-08-31
 tags:
-  - 前端
   - 六角學院 
   - React
 categories:
@@ -55,7 +54,8 @@ React 的優點是體驗 JS 的美好，而缺點也是 JS 的美好；Vue 的�
 2. 設置路由表 （import 元件）
 3. 加入連結 （這邊不會用到）
 
-```jsx main.jsx
+```jsx 
+// main.jsx
 import ReactDOM from "react-dom/client";
 import { HashRouter } from "react-router-dom";
 import App from "./App.jsx";
@@ -67,7 +67,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 ```
 
-```jsx App.jsx
+```jsx 
+// App.jsx
 import { Routes, Route } from "react-router-dom";
 import "./styles/all.sass";
 import SignUp from "./views/SignUp.jsx";
@@ -93,7 +94,8 @@ export default App;
 
 跟第三週一樣把 api 獨立成一支 js 來管理，不過內容有一些不同，因為在 todo 頁面驗證後，會在 todoBase 這個 axios 實體帶入以下這個設定：`todoBase.defaults.headers.common["Authorization"] = todoToken`，所以在 todo 頁面用到的 api 就可以省略 headers 這個參數
 
-```js api/index.js
+```js 
+// api/index.js
 import axios from "axios";
 
 // todolist api
@@ -134,7 +136,8 @@ export const apiPutTodos = (id, data) => todoBase.put(`/todos/${id}`, data);
 
 這邊單純呈現註冊頁的畫面部分：
 
-```jsx signUp.jsx
+```jsx 
+// signUp.jsx
 // ... 略
 
 return (
@@ -206,7 +209,8 @@ return (
 - 註冊成功時，會透過 navigate 導到登入頁面
 - `const [isDisabled, setDisabled] = useState(false);` 這個狀態的定義，主要是綁在註冊按鈕的 disabled，在 api 過程讓按鈕為不能點擊的狀態，直到 api 過程結束（防止按鈕被連續點擊）
 
-```jsx signUp.jsx
+```jsx 
+// signUp.jsx
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -267,7 +271,8 @@ const SignUp = () => {
 - 登入成功後，使用 navigate 導向到 todo 頁面
 - `const [isDisabled, setDisabled] = useState(false);` 這個狀態的定義，主要是綁在登入按鈕的 disabled，在 api 過程讓按鈕為不能點擊的狀態，直到 api 過程結束（防止按鈕被連續點擊）
 
-```jsx signIn.jsx
+```jsx 
+// signIn.jsx
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -342,7 +347,8 @@ const SignIn = () => {
     - 驗證失敗時，會用 popup 來通知，之後導回登入頁面
 3. 透過 useEffect 去執行 checkLogin 這個函式（第二個空陣列參數，表示只有最開始時會執行一次）
 
-```jsx todo.jsx
+```jsx 
+// todo.jsx
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -405,7 +411,8 @@ const Todo = () => {
 再來我們要定義 getTodos 這個函式，內容透過 apiGetTodos() 這支取得所有待辦的 api 來取得資料。
 不論在驗證後，以及新增、刪除、修改待辦等動作都會來執行這個函式，重新抓取最新資料。
 
-```jsx todo.jsx
+```jsx 
+// todo.jsx
 // ... 略
 import { useState, useEffect } from "react";
 import {
@@ -446,7 +453,8 @@ const Todo = () => {
 - 刪除與編輯記得要帶上 id 
 - 編輯待辦（updateTodo），記得要清空暫存的物件（`setEditTarget({})`）
 
-```jsx todo.jsx
+```jsx 
+// todo.jsx
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -637,7 +645,8 @@ const Todo = () => {
 這次有從 todo 頁面中，分出 TodoItem（todo 項目）、TodoCategory（todo 篩選）這兩個元件。
 而這個段落會來提一下 TodoItem 這個元件，根據這個元件所需，我們得傳入 todo 項目的資訊（id、content、status），以及一些待辦的函式（刪除、狀態切換、編輯...等），可看下方程式碼的註解。
 
-```jsx todo.jsx
+```jsx 
+// todo.jsx
 // ... 略
 import TodoItem from "../components/TodoItem";
 import TodoCategory from "../components/TodoCategory";
@@ -721,7 +730,8 @@ export default Todo;
 再來會提到 editTarget 跟 setEditTarget 的部分，在定義上是用來存取暫時資料，方便用於程式上的判斷。當我們初始去點擊編輯 icon 時，就會觸發 `setEditTarget({ id, content })`，並將項目的 id 跟 content(input) 給傳入做暫時資料。
 而這樣的暫時資料，可以在畫面使用 `editTarget.id === id` 這樣的方式，來判斷我們點到的是哪一個項目，並顯示相對應的內容。例如我們點到第二個項目，對於這個項目就會顯示一個 input 框，以及一個 check icon，而當我們點擊 check icon 時，就會觸發 updateTodo 的功能，並將 id 跟新的 content(input) 帶進去執行編輯的 api。
 
-```jsx TodoItem.jsx
+```jsx 
+// TodoItem.jsx
 import propTypes from "prop-types";
 
 const TodoItem = ({
@@ -811,7 +821,8 @@ export default TodoItem;
 而清除"已完成"項目的功能，則是使用 todo 去篩選已完成項目，然後帶入這些已完成項目的 id 到 apiDeleteTodos 做刪除處理。因為要刪除的項目不只一個，所以會使用到 Promise.all 來等待全部已完成的項目都被刪除後，再用 Toast 通知使用者。
 （記得 getTodos() 重新獲取資料。）
 
-```jsx todo.jsx
+```jsx 
+// todo.jsx
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -880,7 +891,8 @@ const Todo = () => {
 
 在登出成功時，會透過 navigate 導回登入頁面
 
-```jsx todo.jsx
+```jsx 
+// todo.jsx
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";

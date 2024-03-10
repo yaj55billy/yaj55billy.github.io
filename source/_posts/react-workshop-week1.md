@@ -2,7 +2,6 @@
 title: 六角學院 React 入門工作坊第一週
 date: 2023-08-11
 tags:
-  - 前端
   - 六角學院 
   - React
 categories:
