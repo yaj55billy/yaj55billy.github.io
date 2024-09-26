@@ -1,13 +1,11 @@
 ---
 title: 六角學院 React 入門工作坊第二週
 date: 2023-08-19
-tags:
-  - 六角學院 
-  - React
-categories:
-  - 前端
-description: 第二週作業的過程
-cover: https://i.imgur.com/Zwb2dxR.jpg
+excerpt: 第二週作業的過程
+index_img: https://i.imgur.com/Zwb2dxR.jpg
+banner_img: https://i.imgur.com/Zwb2dxR.jpg
+tags: [六角學院, React]
+categories: [前端]
 ---
 
 Photo by <a href="https://unsplash.com/@lautaroandreani?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lautaro Andreani</a> on <a href="https://unsplash.com/photos/xkBaqlcqeb4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -22,30 +20,33 @@ Photo by <a href="https://unsplash.com/@lautaroandreani?utm_source=unsplash&utm_
 [第二週作品](https://www.billyji.com/react-workshop-week2/)
 
 大致的流程為：
+
 1. 思考資料與切版（練習 Tailwind）
-2. 程式邏輯撰寫 
+2. 程式邏輯撰寫
 3. 拆元件
 
-----
+---
 
 ## 思考資料與切版（練習 Tailwind）
 
 在開始動工之前，先來初步釐清會有什麼資料（功能）：
 
 - 菜單資料
+
   - `const [menu] = useState(data)`，放進 data 初始資料
   - 根據菜單的點擊，會帶 id、品項、描述、單價等等資料到購物車
   - 同一品項重覆點選時（該品項已經存在購物車），則在購物車資料中，將該品項數量 + 1
 
 - 購物車資料
+
   - `const [cart, setCart] = useState([])`，初始購物車為空 Array
-  - 除了菜單帶過來的資料外，也要多定義數量 `qty` 跟小計（數量*價錢）
+  - 除了菜單帶過來的資料外，也要多定義數量 `qty` 跟小計（數量\*價錢）
   - 刪除品項跟更新品項數量的功能
   - 定義購物價錢總計 `const [sum, setSum] = useState(0)`
-  - 備註 `const [note, setNote] = useState("")`; 
+  - 備註 `const [note, setNote] = useState("")`;
   - 點擊送出訂單時，會帶購物車資料到訂單
 
-- 訂單資料： 
+- 訂單資料：
   - `const [order, setOrder] = useState([])`，初始為空 Array
   - 除了從購物車帶過來的資料，也多定義一個 id
 
@@ -61,81 +62,74 @@ Photo by <a href="https://unsplash.com/@lautaroandreani?utm_source=unsplash&utm_
 
 ```jsx
 const App = () => {
-  const [menu] = useState(data); // 原始 menu
-  
-  return (
-    // ...略
-    <ul className="flex flex-wrap -mx-3">
-      {menu.map((item) => {
-        return (
-          <li key={item.id} className="md:w-1/2 w-full px-3 pb-6">
-            <div className="rounded-lg border-2 p-3 cursor-pointer border-brown-light hover:bg-brown-100">
-              <h3 className="text-xl text-brown font-medium">
-                {item.name} <span>${item.price}</span>
-              </h3>
-              <p className="mt-1 text-md text-brown">
-                {item.description}
-              </p>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
-    // ...略
-  )
+	const [menu] = useState(data); // 原始 menu
 
-}
-
+	return (
+		// ...略
+		<ul className="flex flex-wrap -mx-3">
+			{menu.map((item) => {
+				return (
+					<li key={item.id} className="md:w-1/2 w-full px-3 pb-6">
+						<div className="rounded-lg border-2 p-3 cursor-pointer border-brown-light hover:bg-brown-100">
+							<h3 className="text-xl text-brown font-medium">
+								{item.name} <span>${item.price}</span>
+							</h3>
+							<p className="mt-1 text-md text-brown">{item.description}</p>
+						</div>
+					</li>
+				);
+			})}
+		</ul>
+		// ...略
+	);
+};
 ```
 
 ### 選擇飲品點擊時，將資料帶入購物車
 
 - 購物車資料預設為 []
 - 在選擇飲品的 List，新增 onClick 事件觸發 addCart，並在參數中帶上資料 (menu item)
-- 在 addCart function 做一個 tempCart 的新陣列，並多帶上預設數量 qty 
+- 在 addCart function 做一個 tempCart 的新陣列，並多帶上預設數量 qty
 
 ```jsx
 const App = () => {
-  const [menu] = useState(data); // 原始 menu
-  const [cart, setCart] = useState([]); // 購物車資料
+	const [menu] = useState(data); // 原始 menu
+	const [cart, setCart] = useState([]); // 購物車資料
 
-  const addCart = (item) => {
-    const tempCart = [
-      ...cart, // [] 淺拷貝
-      {
-        ...item,
-        qty: 1, // 數量預設為 1
-      },
-    ];
-    setCart(tempCart);
-  };
+	const addCart = (item) => {
+		const tempCart = [
+			...cart, // [] 淺拷貝
+			{
+				...item,
+				qty: 1, // 數量預設為 1
+			},
+		];
+		setCart(tempCart);
+	};
 
-  return (
-    // ...略
-    <ul className="flex flex-wrap -mx-3">
-      {menu.map((item) => {
-        return (
-          <li
-            key={item.id}
-            className="md:w-1/2 w-full px-3 pb-6"
-            onClick={() => addCart(item)}
-          >
-            <div className="rounded-lg border-2 p-3 cursor-pointer border-brown-light hover:bg-brown-100">
-              <h3 className="text-xl text-brown font-medium">
-                {item.name} <span>${item.price}</span>
-              </h3>
-              <p className="mt-1 text-md text-brown">
-                {item.description}
-              </p>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
-    // ... 略
-  )
-
-}
+	return (
+		// ...略
+		<ul className="flex flex-wrap -mx-3">
+			{menu.map((item) => {
+				return (
+					<li
+						key={item.id}
+						className="md:w-1/2 w-full px-3 pb-6"
+						onClick={() => addCart(item)}
+					>
+						<div className="rounded-lg border-2 p-3 cursor-pointer border-brown-light hover:bg-brown-100">
+							<h3 className="text-xl text-brown font-medium">
+								{item.name} <span>${item.price}</span>
+							</h3>
+							<p className="mt-1 text-md text-brown">{item.description}</p>
+						</div>
+					</li>
+				);
+			})}
+		</ul>
+		// ... 略
+	);
+};
 ```
 
 ### 購物車資料定義到畫面
@@ -145,69 +139,61 @@ const App = () => {
 
 ```jsx
 const App = () => {
-  const [menu] = useState(data); // 原始 menu
-  const [cart, setCart] = useState([]); // 購物車資料
+	const [menu] = useState(data); // 原始 menu
+	const [cart, setCart] = useState([]); // 購物車資料
 
-  const addCart = (item) => {
-    const tempCart = [
-      ...cart, // [] 淺拷貝
-      {
-        ...item,
-        qty: 1, // 數量預設為 1
-      },
-    ];
-    setCart(tempCart);
-  };
+	const addCart = (item) => {
+		const tempCart = [
+			...cart, // [] 淺拷貝
+			{
+				...item,
+				qty: 1, // 數量預設為 1
+			},
+		];
+		setCart(tempCart);
+	};
 
 	return (
-    // ...略
-    <tbody>
-      {cart.map((item) => {
-        return (
-          <tr key={item.id}>
-            <td className="p-3 border-b border-dashed border-brown-light">
-              <h3 className="text-xl text-brown font-medium">
-                {item.name}
-              </h3>
-              <p className="mt-1 text-md text-brown">
-                {item.description}
-              </p>
-              <button
-                type="button"
-                className="mt-2 text-red-400 text-sm"
-              >
-                刪除品項
-              </button>
-            </td>
-            <td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown w-32">
-              <select
-                name=""
-                id=""
-                className="w-1/2 h-[32px] rounded-md text-center bg-brown-100 focus:outline-none focus:border-brown-dark"
-                value={item.qty}
-              >
-                {[...Array(10).keys()].map((item) => {
-                  return (
-                    <option value={item + 1} key={item}>
-                      {item + 1}
-                    </option>
-                  );
-                })}
-              </select>
-            </td>
-            <td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown">
-              {item.price}
-            </td>
-            <td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown">
-              {item.price * item.qty}
-            </td>
-          </tr>
-        );
-      })}
-    </tbody>
-  )
-
-}
+		// ...略
+		<tbody>
+			{cart.map((item) => {
+				return (
+					<tr key={item.id}>
+						<td className="p-3 border-b border-dashed border-brown-light">
+							<h3 className="text-xl text-brown font-medium">{item.name}</h3>
+							<p className="mt-1 text-md text-brown">{item.description}</p>
+							<button type="button" className="mt-2 text-red-400 text-sm">
+								刪除品項
+							</button>
+						</td>
+						<td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown w-32">
+							<select
+								name=""
+								id=""
+								className="w-1/2 h-[32px] rounded-md text-center bg-brown-100 focus:outline-none focus:border-brown-dark"
+								value={item.qty}
+							>
+								{[...Array(10).keys()].map((item) => {
+									return (
+										<option value={item + 1} key={item}>
+											{item + 1}
+										</option>
+									);
+								})}
+							</select>
+						</td>
+						<td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown">
+							{item.price}
+						</td>
+						<td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown">
+							{item.price * item.qty}
+						</td>
+					</tr>
+				);
+			})}
+		</tbody>
+	);
+};
 ```
 
 ### 判斷購物車是否為空
@@ -215,7 +201,7 @@ const App = () => {
 以 `cart.length === 0` 來判斷要顯示的畫面
 
 ```jsx
-{ cart.length === 0 
+{ cart.length === 0
   ? (
   <div className="rounded-lg border-2 border-brown-light mt-4 p-4 text-center text-brown font-bold">
     尚未選擇飲品～
@@ -257,30 +243,30 @@ const App = () => {
 
 ```jsx
 const addCart = (item) => {
-  const conformIndex = cart.findIndex((cartItem) => item.id === cartItem.id);
+	const conformIndex = cart.findIndex((cartItem) => item.id === cartItem.id);
 
-  if (conformIndex === -1) {
-    // -1 表示購物車還沒有這個品項
-    const tempCart = [
-      ...cart, // [] 淺拷貝
-      {
-        ...item,
-        qty: 1, // 數量預設為 1
-      },
-    ];
-    setCart(tempCart);
-  } else {
-    // 購物車原先就有此品項
-    const tempCart = cart.map((cartItem) => {
-      return item.id === cartItem.id
-        ? {
-            ...cartItem,
-            qty: cartItem.qty < 10 ? cartItem.qty + 1 : cartItem.qty,
-          }
-        : { ...cartItem };
-    });
-    setCart(tempCart);
-  }
+	if (conformIndex === -1) {
+		// -1 表示購物車還沒有這個品項
+		const tempCart = [
+			...cart, // [] 淺拷貝
+			{
+				...item,
+				qty: 1, // 數量預設為 1
+			},
+		];
+		setCart(tempCart);
+	} else {
+		// 購物車原先就有此品項
+		const tempCart = cart.map((cartItem) => {
+			return item.id === cartItem.id
+				? {
+						...cartItem,
+						qty: cartItem.qty < 10 ? cartItem.qty + 1 : cartItem.qty,
+				  }
+				: { ...cartItem };
+		});
+		setCart(tempCart);
+	}
 };
 ```
 
@@ -317,47 +303,46 @@ const App = () => {
 
 ```jsx
 const App = () => {
-  const [menu] = useState(data); // 原始 menu
-  const [cart, setCart] = useState([]); // 購物車資料
-  const [total, setTotal] = useState(0); // 總計
+	const [menu] = useState(data); // 原始 menu
+	const [cart, setCart] = useState([]); // 購物車資料
+	const [total, setTotal] = useState(0); // 總計
 
-  // ... 略
+	// ... 略
 
-  const updateCart = (item, value) => {
-    const tempCart = cart.map((cartItem) => {
-      return item.id === cartItem.id
-        ? {
-            ...cartItem,
-            qty: Number(value),
-          }
-        : { ...cartItem };
-    });
-    setCart(tempCart);
-  };
+	const updateCart = (item, value) => {
+		const tempCart = cart.map((cartItem) => {
+			return item.id === cartItem.id
+				? {
+						...cartItem,
+						qty: Number(value),
+				  }
+				: { ...cartItem };
+		});
+		setCart(tempCart);
+	};
 
-  return (
-    // ... 略
-    <td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown w-32">
-      <select
-        name=""
-        id=""
-        className="w-1/2 h-[32px] rounded-md text-center bg-brown-100 focus:outline-none focus:border-brown-dark"
-        value={item.qty}
-        onChange={(e) => updateCart(item, e.target.value)}
-      >
-        {[...Array(10).keys()].map((item) => {
-          return (
-            <option value={item + 1} key={item}>
-              {item + 1}
-            </option>
-          );
-        })}
-      </select>
-    </td>
-    // ...略
-  )
-}
-
+	return (
+		// ... 略
+		<td className="p-3 border-b border-dashed border-brown-light text-center text-md text-brown w-32">
+			<select
+				name=""
+				id=""
+				className="w-1/2 h-[32px] rounded-md text-center bg-brown-100 focus:outline-none focus:border-brown-dark"
+				value={item.qty}
+				onChange={(e) => updateCart(item, e.target.value)}
+			>
+				{[...Array(10).keys()].map((item) => {
+					return (
+						<option value={item + 1} key={item}>
+							{item + 1}
+						</option>
+					);
+				})}
+			</select>
+		</td>
+		// ...略
+	);
+};
 ```
 
 ### 刪除購物車品項
@@ -366,12 +351,13 @@ const App = () => {
 
 筆記：`item.id === cartItem.id` 表示符合條件的只有一筆；所以反過來寫的話，就是除了這一筆之外的資料都要留著。
 （畫面略)
+
 ```jsx
 const deleteCartItem = (item) => {
-  const tempCart = cart.filter((cartItem) => {
-    return item.id !== cartItem.id;
-  });
-  setCart(tempCart);
+	const tempCart = cart.filter((cartItem) => {
+		return item.id !== cartItem.id;
+	});
+	setCart(tempCart);
 };
 ```
 
@@ -385,30 +371,30 @@ const deleteCartItem = (item) => {
 
 ```jsx
 const App = () => {
-  const [menu] = useState(data); // 原始 menu
-  const [cart, setCart] = useState([]); // 購物車資料
-  const [total, setTotal] = useState(0); // 總計
-  const [note, setNote] = useState(""); // 備註
-  const [order, setOrder] = useState([]); // 訂單
+	const [menu] = useState(data); // 原始 menu
+	const [cart, setCart] = useState([]); // 購物車資料
+	const [total, setTotal] = useState(0); // 總計
+	const [note, setNote] = useState(""); // 備註
+	const [order, setOrder] = useState([]); // 訂單
 
-  // ... 略
+	// ... 略
 
-  const createOder = () => {
-    const tempOrder = [
-      ...order, 
-      {
-        id: new Date().getTime(),
-        cart,
-        note,
-        total,
-      },
-    ];
+	const createOder = () => {
+		const tempOrder = [
+			...order,
+			{
+				id: new Date().getTime(),
+				cart,
+				note,
+				total,
+			},
+		];
 
-    setOrder(tempOrder);
-    setCart([]);
-    setNote("");
-  };
-}
+		setOrder(tempOrder);
+		setCart([]);
+		setNote("");
+	};
+};
 ```
 
 ### 定義訂單到畫面
@@ -416,74 +402,64 @@ const App = () => {
 先用 `order.length === 0` 判斷要顯示什麼畫面。接著把資料帶到畫面中。
 
 ```jsx
-  <div className="mx-auto lg:w-3/5 w-full">
-    {/* 訂單  */}
-    {order.length === 0 ? (
-      <div className="rounded-lg border-2 border-brown-light mt-4 p-4 text-center text-brown font-bold">
-        尚未建立訂單～
-      </div>
-    ) : (
-      order.map((item) => {
-        return (
-          <div
-            className="rounded-lg border-2 border-brown-light mt-4 p-4 text-brown text-center"
-            key={item.id}
-          >
-            <h2 className="text-2xl font-bold text-primary text-left">
-              訂單
-            </h2>
-            <p className="mt-1 text-md text-brown text-left">
-              編號：{item.id}
-            </p>
-            <p className="mt-1 text-md text-brown text-left">
-              備註：{item.note}
-            </p>
-            <div className="mt-2 mb-4">
-              <table className="w-full">
-                <thead className="border-b-2 border-brown-light">
-                  <tr>
-                    <th className="p-3 font-medium text-brown">品項</th>
-                    <th className="p-3 font-medium text-brown">數量</th>
-                    <th className="p-3 font-medium text-brown">小計</th>
-                  </tr>
-                </thead>
-                <tbody className="">
-                  {item.cart.map((innerItem) => {
-                    return (
-                      <tr
-                        key={innerItem.id}
-                        className="border-b border-brown-light"
-                      >
-                        <td className="p-3 text-brown">
-                          {innerItem.name}
-                        </td>
-                        <td className="p-3 text-brown">
-                          {innerItem.qty}
-                        </td>
-                        <td className="p-3 text-brown">
-                          {innerItem.qty * innerItem.price}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="2"></td>
-                    <td colSpan="1" className="p-3">
-                      <h3 className="text-center text-xl text-brown font-medium">
-                        總計: ${item.total}
-                      </h3>
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        );
-      })
-    )}
-  </div>
+<div className="mx-auto lg:w-3/5 w-full">
+	{/* 訂單  */}
+	{order.length === 0 ? (
+		<div className="rounded-lg border-2 border-brown-light mt-4 p-4 text-center text-brown font-bold">
+			尚未建立訂單～
+		</div>
+	) : (
+		order.map((item) => {
+			return (
+				<div
+					className="rounded-lg border-2 border-brown-light mt-4 p-4 text-brown text-center"
+					key={item.id}
+				>
+					<h2 className="text-2xl font-bold text-primary text-left">訂單</h2>
+					<p className="mt-1 text-md text-brown text-left">編號：{item.id}</p>
+					<p className="mt-1 text-md text-brown text-left">備註：{item.note}</p>
+					<div className="mt-2 mb-4">
+						<table className="w-full">
+							<thead className="border-b-2 border-brown-light">
+								<tr>
+									<th className="p-3 font-medium text-brown">品項</th>
+									<th className="p-3 font-medium text-brown">數量</th>
+									<th className="p-3 font-medium text-brown">小計</th>
+								</tr>
+							</thead>
+							<tbody className="">
+								{item.cart.map((innerItem) => {
+									return (
+										<tr
+											key={innerItem.id}
+											className="border-b border-brown-light"
+										>
+											<td className="p-3 text-brown">{innerItem.name}</td>
+											<td className="p-3 text-brown">{innerItem.qty}</td>
+											<td className="p-3 text-brown">
+												{innerItem.qty * innerItem.price}
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colSpan="2"></td>
+									<td colSpan="1" className="p-3">
+										<h3 className="text-center text-xl text-brown font-medium">
+											總計: ${item.total}
+										</h3>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			);
+		})
+	)}
+</div>
 ```
 
 ## 拆元件
@@ -497,7 +473,8 @@ const App = () => {
 這邊就以購物車的元件作為主要範例，其他元件拆法都是一致的。首先我們先在 src 新增 components 資料夾，並新增元件(Cart.jsx)。
 
 接著在 Cart.jsx 先建好預設，並 import propTypes 以及預設 propTypes 物件：
-```jsx 
+
+```jsx
 // Cart.jsx
 import propTypes from "prop-types";
 
@@ -506,7 +483,7 @@ const Cart = () => {
 }
 
 Cart.propTypes = {
-	
+
 };
 
 export default Cart;
@@ -515,8 +492,7 @@ export default Cart;
 將 App.jsx 中的購物車內容，移動到 Cart.jsx 的樣板中。
 然後在 App.jsx 引入 Cart.jsx
 
-
-```jsx 
+```jsx
 // Cart.jsx
 import propTypes from "prop-types";
 const Cart = () => {
@@ -549,35 +525,34 @@ return (
 
 ```
 
-```jsx 
+```jsx
 // App.jsx
 import { useState, useEffect } from "react";
 import Cart from "@/components/Cart";
 // ... 略
 
 const App = () => {
-  // ... 略
-  return (
-    <div className="bg-[#F8F6F2] min-h-screen">
-      <div className="container mx-auto px-3 py-8">
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-          // 略 ...
-          <Cart />
-        </div>
-        <hr className="mt-4 mb-6" />
-        // ...略
-      </div>
-    </div>
-  );
-}
-
+	// ... 略
+	return (
+		<div className="bg-[#F8F6F2] min-h-screen">
+			<div className="container mx-auto px-3 py-8">
+				<div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+					// 略 ...
+					<Cart />
+				</div>
+				<hr className="mt-4 mb-6" />
+				// ...略
+			</div>
+		</div>
+	);
+};
 ```
 
 在 Cart.jsx 定義好預計要傳過來的資料跟功能，如下圖所示，我們可以根據紅字（沒有定義）來知道預計要傳過來的資料跟功能。接著透過 Cart.propTypes 定義好要傳進來的資料型別、功能
 
 ![](https://i.imgur.com/WCPjccp.png)
 
-```jsx 
+```jsx
 // Cart.jsx
 import propTypes from "prop-types";
 const Cart = ({ cart, deleteCartItem, updateCart, total, note, setNote,
@@ -604,39 +579,37 @@ Cart.propTypes = {
 
 根據在 Cart.jsx 所需要的資料或功能，我們就可以從父層傳入相對應的資料跟功能。
 
-```jsx 
+```jsx
 // app.jsx
 import Cart from "@/components/Cart";
 // ...略
 
 const App = () => {
-  // ... 略
-  return (
-    <div className="bg-[#F8F6F2] min-h-screen">
-      <div className="container mx-auto px-3 py-8">
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-          // ... 略
-          <Cart
-            cart={cart}
-            deleteCartItem={deleteCartItem}
-            updateCart={updateCart}
-            total={total}
-            note={note}
-            setNote={setNote}
-            createOder={createOder}
-          />
-        </div>
-        <hr className="mt-4 mb-6" />
-        // ... 略
-      </div>
-    </div>
-  );
-}
-
+	// ... 略
+	return (
+		<div className="bg-[#F8F6F2] min-h-screen">
+			<div className="container mx-auto px-3 py-8">
+				<div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+					// ... 略
+					<Cart
+						cart={cart}
+						deleteCartItem={deleteCartItem}
+						updateCart={updateCart}
+						total={total}
+						note={note}
+						setNote={setNote}
+						createOder={createOder}
+					/>
+				</div>
+				<hr className="mt-4 mb-6" />
+				// ... 略
+			</div>
+		</div>
+	);
+};
 ```
 
-
-----
+---
 
 ## 結尾
 
@@ -645,6 +618,3 @@ const App = () => {
 在寫這週紀錄的結尾時，就在想第三週跟第四週可能會換種方式紀錄，雖然這樣的步驟拆解，可以讓我刻意練習思路；主要是考量到自己的其他規劃，不過目前倒還不曉得要改用什麼方式，也許下週就會有靈感了（？）。
 
 （若有什麼部分寫錯，也再麻煩跟我說，感恩！）
-
-
-

@@ -1,25 +1,24 @@
 ---
 title: mongoDB 資料庫（資料表操作）
-date: 2024-03-10 20:51:16
-tags:
-  - MongoDB
-  - Mongo Shell
-categories:
-  - 前端
-description: 用自己的口語，再次筆記練習 mongoDB 的資料庫與資料表操作
-cover: https://i.imgur.com/R9qXjKc.jpeg
+date: 2024-03-10
+excerpt: 用自己的口語，再次筆記練習 mongoDB 的資料庫與資料表操作
+index_img: https://i.imgur.com/R9qXjKc.jpeg
+banner_img: https://i.imgur.com/R9qXjKc.jpeg
+tags: [MongoDB, Mongo Shell]
+categories: [前端]
 ---
 
-:::tip
+<!-- :::tip
 關於 **mongoDB 資料庫與資料表操作**
 用自己的口語再次筆記練習
-:::
+::: -->
 
 ## 前置操作
 
 （需要先安裝 MongoDB、Mongo Shell、MongoDB Compass）
 
 ### 使用 mongod 開啟伺服器應用（資料庫）
+
 ```bash
 mongod --dbpath `db資料夾路徑` --logpath `log資料夾路徑`
 ```
@@ -54,6 +53,7 @@ use `資料庫名稱`
 ### insert 相關
 
 **insertOne 新增單筆資料：** 在 posts 這個資料表中，新增一筆資料(document)，這筆資料有七個欄位（如果一開始沒有 posts 這個資料表，則會在輸入指令時幫我們新增）
+
 ```bash
 db.posts.insertOne({
     "name":"Billy",
@@ -102,7 +102,7 @@ db.posts.updateOne(
 )
 ```
 
-篩選一筆特定資料(document)，將裡頭的 tags 陣列欄位，再新增一個新 tags 
+篩選一筆特定資料(document)，將裡頭的 tags 陣列欄位，再新增一個新 tags
 
 ```bash
 db.posts.updateOne(
@@ -110,7 +110,7 @@ db.posts.updateOne(
 ,{$push:{tags:"遊記"}})
 
 // 驗證
-// db.posts.find({ 
+// db.posts.find({
    // "_id":ObjectId("65dcxxx...")
 // })
 
@@ -180,7 +180,7 @@ db.posts.deleteMany({})
 
 ### find 相關
 
-查詢全部 posts 的資料列表(document) 
+查詢全部 posts 的資料列表(document)
 
 ```bash
 db.posts.find()
@@ -232,7 +232,7 @@ db.posts.find(
 )
 ```
 
-project 保護欄位：查詢 tags 欄位中，有包含到"幹話"的資料列表，然後將 _id 欄位設置隱藏（在有些狀況中，我們不可透露重要資訊在 user）
+project 保護欄位：查詢 tags 欄位中，有包含到"幹話"的資料列表，然後將 \_id 欄位設置隱藏（在有些狀況中，我們不可透露重要資訊在 user）
 
 ```bash
 db.posts.find(
@@ -353,12 +353,12 @@ db.posts.replaceOne(
 
 **Comparison Query Operators 表格**
 
-| $eq | 等於 |
-| --- | --- |
-| $ne | 不等於 |
-| $gt | 大於 |
-| $lt | 小於 |
-| $gte | 大於等於 |
-| $lte | 小於等於 |
-| $in | 存在某個值 |
+| $eq  | 等於         |
+| ---- | ------------ |
+| $ne  | 不等於       |
+| $gt  | 大於         |
+| $lt  | 小於         |
+| $gte | 大於等於     |
+| $lte | 小於等於     |
+| $in  | 存在某個值   |
 | $nin | 不存在某個值 |

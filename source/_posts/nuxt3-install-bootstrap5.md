@@ -1,13 +1,11 @@
 ---
-title: 在 Nuxt3 使用 Bootstrap5
-date: 2023-08-24
-tags:
-  - Nuxt3
-  - Bootstrap5
-categories:
-  - 前端
-description: 記錄在 Nuxt3 如何安裝並引用 Bootstrap5
-cover: https://i.imgur.com/OpmAfpH.jpg
+title: "在 Nuxt3 使用 Bootstrap5"
+date: "2023-08-24"
+excerpt: "記錄在 Nuxt3 如何安裝並引用 Bootstrap5"
+index_img: https://i.imgur.com/OpmAfpH.jpg
+banner_img: https://i.imgur.com/OpmAfpH.jpg
+tags: [Nuxt3, Bootstrap5]
+categories: [前端]
 ---
 
 ## 前言
@@ -16,7 +14,7 @@ cover: https://i.imgur.com/OpmAfpH.jpg
 
 （一開始在考慮 Nuxt3 的套件整合上，本來是有考慮翻到 Tailwind，不過考慮到重切時間跟專注度，決定還是先專心熟悉 Nuxt3）
 
-----
+---
 
 ## 設置部分
 
@@ -24,21 +22,32 @@ cover: https://i.imgur.com/OpmAfpH.jpg
 
 這邊先提一個最簡易的配置，如果只是做個 Demo，沒有要使用到客製化，那麽就可以在 nuxt.config.ts 直接引入 CDN 使用。
 
-```ts 
+```ts
 // nuxt.config.ts
-import { defineNuxtConfig } from 'nuxt'
+import { defineNuxtConfig } from "nuxt";
 export default defineNuxtConfig({
-  app: {
-    head: {
-      link: [
-        { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css', integrity: 'sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU', crossorigin: 'anonymous' }
-      ],
-      script: [
-        { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js', integrity: 'sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ', crossorigin: 'anonymous' }
-      ]
-    }
-  }
-})
+	app: {
+		head: {
+			link: [
+				{
+					rel: "stylesheet",
+					href: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css",
+					integrity:
+						"sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU",
+					crossorigin: "anonymous",
+				},
+			],
+			script: [
+				{
+					src: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js",
+					integrity:
+						"sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ",
+					crossorigin: "anonymous",
+				},
+			],
+		},
+	},
+});
 ```
 
 ### 安裝
@@ -51,19 +60,18 @@ export default defineNuxtConfig({
 
 這邊是在 assets 創建一個 main.scss，然後 `@import "./variables";` 這個部分是從 node_module bootstrap 複製過來的，這樣就可以去客製一些 bootstrap 變數（例如：顏色、距離等等）。然後也能帶上自己要寫的 scss。
 
-```ts 
+```ts
 // nuxt.config.ts
-import { defineNuxtConfig } from 'nuxt'
+import { defineNuxtConfig } from "nuxt";
 export default defineNuxtConfig({
-  css: [
-    // 'bootstrap/scss/bootstrap.scss',
-    '@/assets/styles/main.scss',
-  ],
+	css: [
+		// 'bootstrap/scss/bootstrap.scss',
+		"@/assets/styles/main.scss",
+	],
 });
-
 ```
- 
-```scss 
+
+```scss
 // main.scss
 @import "bootstrap/scss/functions";
 @import "./variables";
@@ -81,7 +89,7 @@ export default defineNuxtConfig({
 
 接下來把 node_module 中的 bootstrap.bundle.js 給引用進來，接著 `nuxtApp.provide("bootstrap", bootstrap)` 將 bootstrap.bundle.js 的功能引用到 Nuxt 中。
 
-```js 
+```js
 // useBootstrap.client.js
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle";
 
@@ -95,38 +103,31 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ```html
 <script setup>
+	// bootstrap js
+	const { $bootstrap } = useNuxtApp();
 
-// bootstrap js
-const { $bootstrap } = useNuxtApp();
+	// ... 其他程式略
 
-// ... 其他程式略
+	$fetch(api, {
+		method: "GET",
+		headers: headers,
+	}).then((res) => {
+		const { data } = res;
+		// ... 略
+		productModalHandle.show();
+	});
 
-$fetch(api, {
-  method: "GET",
-  headers: headers,
-})
-  .then((res) => {
-    const { data } = res;
-    // ... 略
-    productModalHandle.show();
-  })
-	
-onMounted(() => {
-  productModalHandle = new $bootstrap.Modal(productModal.value, {}); // 記得綁上 ref
-  delProductModalHandle = new $bootstrap.Modal(delProductModal.value, {});
-});
+	onMounted(() => {
+		productModalHandle = new $bootstrap.Modal(productModal.value, {}); // 記得綁上 ref
+		delProductModalHandle = new $bootstrap.Modal(delProductModal.value, {});
+	});
 </script>
-
 ```
 
-----
+---
 
 ## 結尾
 
 以上是參考這篇 [stackoverflow](https://stackoverflow.com/questions/71795143/how-to-use-bootstrap5-with-vite-and-nuxt3)，並做個延伸。
 
 如果有遇到 sass 的 abs 警告，則可以試著把 sass 的版本降低。
-
-
-
-
