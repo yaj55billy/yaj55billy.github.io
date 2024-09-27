@@ -1,1 +1,738 @@
-<!doctype html><html lang="en"><head><!-- hexo injector head_begin start --><meta name="author" content="Billy Ji"></meta><!-- hexo injector head_begin end --><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><script type="module" crossorigin src="/static/js/120aa8f8.js"></script><link rel="stylesheet" href="/static/css/a14e1a22.css"><!-- hexo injector head_end start --><script rel="prefetch" async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script rel="preload" src="https://unpkg.com/blueimp-md5@^2.19.0/js/md5.min.js"></script><script rel="preload" src="https://unpkg.com/lodash@^4.17.21/lodash.min.js"></script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Rubik" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body id="body-container"><noscript><strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div></body></html>
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="關於 JavaScript 的傳值與傳參考特性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 傳值與傳參考">
+<meta property="og:url" content="https://yaj55billy.github.io/post/js-value-or-reference.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="關於 JavaScript 的傳值與傳參考特性">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/DvyeScP.jpg">
+<meta property="article:published_time" content="2023-10-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-26T06:12:02.612Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="技術債">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/DvyeScP.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>JavaScript 傳值與傳參考 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://i.imgur.com/DvyeScP.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaScript 傳值與傳參考"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-26 00:00" pubdate>
+          2023年10月26日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JavaScript 傳值與傳參考</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="JavaScript-的資料型別"><a href="#JavaScript-的資料型別" class="headerlink" title="JavaScript 的資料型別"></a>JavaScript 的資料型別</h2><p>在討論到傳值(Call by Value)或傳參考(Call by Reference)之前，我們先來了解 JavaScript 的資料型別，它分為「原始型別」跟「物件型別」兩大分類。</p>
+<p>原始型別(純值)：</p>
+<ul>
+<li>Boolean</li>
+<li>String</li>
+<li>Number</li>
+<li>Null</li>
+<li>Undefined</li>
+<li>BigInt</li>
+<li>Symbol</li>
+</ul>
+<p>物件型別：<br>除了以上七種原始型別之外，其他都歸類為物件型別。（所以並沒有陣列型別、函式型別）</p>
+<h2 id="傳值-Call-by-Value-、傳參考-Call-by-Reference"><a href="#傳值-Call-by-Value-、傳參考-Call-by-Reference" class="headerlink" title="傳值(Call by Value)、傳參考 (Call by Reference)"></a>傳值(Call by Value)、傳參考 (Call by Reference)</h2><p>了解到 JavaScript 的資料型別後，若以一般、基本狀況來說，<strong>原始型別的資料依循傳值的特性；而物件型別的資料則依循傳參考的特性</strong>。</p>
+<h3 id="傳值-Call-by-Value"><a href="#傳值-Call-by-Value" class="headerlink" title="傳值(Call by Value)"></a>傳值(Call by Value)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> num1 = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">var</span> num2 = <span class="hljs-number">10</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num1 === num2); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> num1 = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">var</span> num2 = num1;<br>num2 = <span class="hljs-number">100</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num1 === num2); <span class="hljs-comment">// false</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num1, num2); <span class="hljs-comment">// 10, 100</span><br></code></pre></td></tr></table></figure>
+
+<p>如上方兩個範例所示，如果你有一些些 JS 基礎，對於 <code>console.log</code> 的內容應該不會意外，我們以第二個範例作執行流程：</p>
+<ol>
+<li><code>var num1 = 10;</code>，宣告一個 num1 的變數，並指定為 10，這裡會建立一個記憶體(假設為 0x01)來儲存 10 這個值。</li>
+<li><code>var num2 = num1;</code>，宣告一個 num2 的變數，並指定為 num1，這裡的 num2 會建立另一個記憶體(假設為 0x02)，並將 num1 的值(10)複製過來儲存。</li>
+<li><code>num2 = 100;</code> 將 num2 的值改為 100。</li>
+<li><code>console.log(num1 === num2); console.log(num1, num2)</code> num2 的更動並不會影響到 num1，因為他們存在於兩個不同的記憶體位置，num1 的值為 10，而 num2 的值為 100。</li>
+</ol>
+<p><strong>在原始型別的變數赋值和傳遞是以”值”來進行的，值跟值的關係是獨立不連動的。</strong></p>
+<h3 id="傳參考-Call-by-Reference"><a href="#傳參考-Call-by-Reference" class="headerlink" title="傳參考 (Call by Reference)"></a>傳參考 (Call by Reference)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj1 = &#123;<br>	<span class="hljs-attr">num</span>: <span class="hljs-number">10</span>,<br>&#125;;<br><span class="hljs-keyword">var</span> obj2 = &#123;<br>	<span class="hljs-attr">num</span>: <span class="hljs-number">10</span>,<br>&#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj1 === obj2); <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+
+<p>物件在建立時，一樣會產生記憶體，不過這邊的變數儲存的是”記憶體位置”，而不是值（內容）。如上方範例所示，即使兩個物件內容是一致的，在<code>console.log</code>是得到不相等的，因為 obj1 跟 obj2 的記憶體參照位置不同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj1 = &#123;<br>	<span class="hljs-attr">num</span>: <span class="hljs-number">10</span>,<br>&#125;;<br><span class="hljs-keyword">var</span> obj2 = obj1;<br>obj2.<span class="hljs-property">num</span> = <span class="hljs-number">100</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj1.<span class="hljs-property">num</span>, obj2.<span class="hljs-property">num</span>); <span class="hljs-comment">// 100, 100</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj1 === obj2); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p>我們再從這個範例拆解來更了解傳參考：</p>
+<ol>
+<li><code>var obj1 = &#123; num: 10 &#125;</code>，我們建立了一個內容為 <code>&#123;num: 10&#125;</code>的物件，而這個內容會儲存到記憶體(假設為 0x01)，而 obj1 這個變數是指向這個 0x01 的位置。</li>
+<li><code>var obj2 = obj1;</code>，接著我們將 obj1 給賦予到 obj2 變數，不過因為不是”創建”物件，所以 obj2 變數是指向到 0x01 的位置，也就是說 obj2 跟 obj1 都指向相同的記憶體位置。</li>
+<li><code>obj2.num = 100;</code>，雖然以變數名稱來說，似乎是針對 obj2 裡頭的內容做調整，但其實是調整到 0x01 這個記憶體位置所對應的內容。</li>
+<li><code>console.log(obj1.num, obj2.num);</code>，因為都是在 0x01 這個記憶體位置，所以兩者是相同且連動的。</li>
+</ol>
+<p><strong>在物件型別中，變數的赋值和傳遞是以”記憶體位置”來做參照的。</strong></p>
+<h2 id="例外跟結論"><a href="#例外跟結論" class="headerlink" title="例外跟結論"></a>例外跟結論</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj1 = &#123;<br>	<span class="hljs-attr">num</span>: <span class="hljs-number">10</span>,<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">changeNum</span>(<span class="hljs-params">param</span>) &#123;<br>	param.<span class="hljs-property">num</span> = <span class="hljs-number">100</span>;<br>&#125;<br><br><span class="hljs-title function_">changeNum</span>(obj1);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj1); <span class="hljs-comment">// &#123;num: 100&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>在上個段落的一開始提到，若以一般、基本狀況來說，原始型別的資料依循傳值的特性，而物件型別的資料則依循傳參考的特性。所以對於上方的範例結果，應該不會感到意外，即使作為 param 參數，它還是指向同個記憶體位置。</p>
+<p>而有了一般狀況，就會有例外，接著我們來看例外的狀況是什麼。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj1 = &#123;<br>	<span class="hljs-attr">num</span>: <span class="hljs-number">10</span>,<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">changeNum</span>(<span class="hljs-params">param</span>) &#123;<br>	param = &#123; <span class="hljs-attr">num</span>: <span class="hljs-number">1000</span> &#125;;<br>&#125;<br><br><span class="hljs-title function_">changeNum</span>(obj1);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj1); <span class="hljs-comment">// 仍然是 num: 10</span><br></code></pre></td></tr></table></figure>
+
+<p>如果依照剛才提到的傳參考，因為記憶體的指向，我們應該會推敲<code>console.log(obj1);</code>的結果是 <code>&#123; num: 1000 &#125;</code>；不過實際上得到的結果是 <code>&#123;num: 10&#125;</code>，也就是參數(param)中指向新物件時，記憶體將會重新指向，而與原先的物件(obj1)將沒有關聯性。<br>所以主流上對於這個特性，比較大宗是以 Call by Sharing 這個名詞來做解釋，我自己在複習（<del>補技術債</del>）時也燒腦了一下；不過後來覺得不用太拘泥在這些名詞，而是知道 JS 的這些特性，盡可能避免踩雷。</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9789864344130?list_name=srh">0 陷阱！0 誤解！8 天重新認識 JavaScript！</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786263332973?list_name=srh">看完這本就會懂！帶你無痛提升 JavaScript 面試力</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.huli.tw/2018/06/23/javascript-call-by-value-or-reference/">深入探討 JavaScript 中的參數傳遞：call by value 還是 reference？</a></p>
+<p><a target="_blank" rel="noopener" href="https://pjchender.blogspot.com/2016/03/javascriptby-referenceby-value.html">[筆記] 談談 JavaScript 中 by reference 和 by value 的重要觀念</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@mengchiang000/js%E5%9F%BA%E6%9C%AC%E8%A7%80%E5%BF%B5-call-by-value-%E9%82%84%E6%98%AFreference-%E5%8F%88%E6%88%96%E6%98%AF-sharing-22a87ca478fc">JS 基本觀念：call by value 還是 reference 又或是 sharing?</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/" class="print-no-link">#JavaScript</a>
+      
+        <a href="/tags/%E6%8A%80%E8%A1%93%E5%82%B5/" class="print-no-link">#技術債</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JavaScript 傳值與傳參考</div>
+      <div>https://yaj55billy.github.io/post/js-value-or-reference.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2023年10月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/mongod-mongosh.html" title="mongoDB 資料庫（資料表操作）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">mongoDB 資料庫（資料表操作）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/react-workshop-week4.html" title="六角學院 React 入門工作坊第四週（最終）">
+                        <span class="hidden-mobile">六角學院 React 入門工作坊第四週（最終）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>

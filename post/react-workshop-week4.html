@@ -1,1 +1,824 @@
-<!doctype html><html lang="en"><head><!-- hexo injector head_begin start --><meta name="author" content="Billy Ji"></meta><!-- hexo injector head_begin end --><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><script type="module" crossorigin src="/static/js/120aa8f8.js"></script><link rel="stylesheet" href="/static/css/a14e1a22.css"><!-- hexo injector head_end start --><script rel="prefetch" async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script rel="preload" src="https://unpkg.com/blueimp-md5@^2.19.0/js/md5.min.js"></script><script rel="preload" src="https://unpkg.com/lodash@^4.17.21/lodash.min.js"></script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Rubik" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body id="body-container"><noscript><strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div></body></html>
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第四週與拆解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="六角學院 React 入門工作坊第四週（最終）">
+<meta property="og:url" content="https://yaj55billy.github.io/post/react-workshop-week4.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="第四週與拆解">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+<meta property="article:published_time" content="2023-08-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-26T06:18:09.330Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="六角學院">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>六角學院 React 入門工作坊第四週（最終） - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://i.imgur.com/Zwb2dxR.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="六角學院 React 入門工作坊第四週（最終）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-31 00:00" pubdate>
+          2023年8月31日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">六角學院 React 入門工作坊第四週（最終）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Photo by <a target="_blank" rel="noopener" href="https://unsplash.com/@lautaroandreani?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lautaro Andreani</a> on <a target="_blank" rel="noopener" href="https://unsplash.com/photos/xkBaqlcqeb4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這週很有感的課程內容：<br>React 的優點是體驗 JS 的美好，而缺點也是 JS 的美好；Vue 的優點是幫開發者做了很多，而缺點也是幫開發者做了很多。<br>這段很符合我學習 Vue 跟 React 的心情寫照，2020 參加六角的 Vue 直播班時，剛開始覺得 Vue 的語法有點麻煩，要記滿多規矩的，雖然後來習慣就好了；而今年接觸 React 時，剛開始覺得好自由（<del>真香</del>），但隨著接觸時間稍長，就開始想起 Vue 的好 XD （框架都是工具，最重要的還是要達成什麼）</p>
+<p>因為已經有了第三週的打底，所以這週的作業時間就會比較短。這邊先拆解一下流程：</p>
+<ul>
+<li>React Router：初步分好註冊、登入、Todo 頁面</li>
+<li>刻畫面：這個部分就不列在文章內容中。本來第三週還滿懶惰的，所以是拿課程範例來改；不過等到要做最終作業時，又有點手癢想手刻一下…</li>
+<li>註冊頁面<ul>
+<li>除了原先的註冊 api，也會引入 SweetAlert2 做註冊成功或失敗的 popup 提示 (全部頁面都會使用)</li>
+<li>註冊成功後，導向到登入頁面</li>
+<li>防止註冊按鈕被連續點擊</li>
+</ul>
+</li>
+<li>登入頁面<ul>
+<li>登入成功與失敗，會用 popup 做提示。登入成功時，設置秒數導至 todo 頁面</li>
+<li>登入成功後取得 token，並儲存在 document.cookie</li>
+<li>防止登入按鈕被連續點擊</li>
+</ul>
+</li>
+<li>Todo 頁面<ul>
+<li>state 定義</li>
+<li>驗證 api：驗證成功就可以使用 todo，如果驗證失敗，就用 popup 提醒使用者，並導回登入頁</li>
+<li>取得待辦資料 (getTodo)</li>
+<li>待辦的新增、刪除、編輯、狀態切換（成功與失敗的提醒）</li>
+<li>全部、待完成、已完成的待辦篩選</li>
+<li>從 todo 分出的元件</li>
+<li>待完成待辦的數量顯示、清除已完成項目功能<ul>
+<li>（2023.09.04 調整，原先寫錯成”已完成待辦的數量顯示”，程式以及這篇文章已調整為”待完成”）</li>
+</ul>
+</li>
+<li>登出，popup 提醒使用者，然後導到登入頁</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.billyji.com/react-workshop-week4-todolist/#/">第四週作品</a><br><a target="_blank" rel="noopener" href="https://github.com/yaj55billy/react-workshop-week4-todolist">第四週程式碼</a></p>
+<hr>
+<h2 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h2><p>首先在專案中，引入 React Router <code>npm i react-router-dom</code>，然後在 main.jsx 進入點，從 React Router 引用 <code>&lt;HashRouter&gt;</code> 並包在 <code>&lt;App&gt;</code> 的外層。</p>
+<p>接著可以照著課程指導的步驟：</p>
+<ol>
+<li>建立元件（頁面元件放在 view 資料夾）</li>
+<li>設置路由表 （import 元件）</li>
+<li>加入連結 （這邊不會用到）</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// main.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactDOM</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-dom/client&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">HashRouter</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./App.jsx&quot;</span>;<br><br><span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;root&quot;</span>)).<span class="hljs-title function_">render</span>(<br>	<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">HashRouter</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">HashRouter</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// App.jsx</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Routes</span>, <span class="hljs-title class_">Route</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./styles/all.sass&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">SignUp</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./views/SignUp.jsx&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">SignIn</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./views/SignIn.jsx&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Todo</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./views/Todo.jsx&quot;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">Routes</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">SignIn</span> /&gt;</span>&#125; /&gt;</span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/signup&quot;</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">SignUp</span> /&gt;</span>&#125; /&gt;</span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/todo&quot;</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">Todo</span> /&gt;</span>&#125; /&gt;</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">Routes</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/&gt;</span></span><br>	);<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p>跟第三週一樣把 api 獨立成一支 js 來管理，不過內容有一些不同，因為在 todo 頁面驗證後，會在 todoBase 這個 axios 實體帶入以下這個設定：<code>todoBase.defaults.headers.common[&quot;Authorization&quot;] = todoToken</code>，所以在 todo 頁面用到的 api 就可以省略 headers 這個參數</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// api/index.js</span><br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;axios&quot;</span>;<br><br><span class="hljs-comment">// todolist api</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> todoBase = axios.<span class="hljs-title function_">create</span>(&#123;<br>	<span class="hljs-attr">baseURL</span>: <span class="hljs-string">&quot;https://todolist-api.hexschool.io&quot;</span>,<br>&#125;);<br><br><span class="hljs-comment">// 註冊</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersSignUp</span> = (<span class="hljs-params">data</span>) =&gt; todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/users/sign_up&quot;</span>, data);<br><br><span class="hljs-comment">// 登入</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersSignIn</span> = (<span class="hljs-params">data</span>) =&gt; todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/users/sign_in&quot;</span>, data);<br><br><span class="hljs-comment">// 驗證</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersCheckout</span> = (<span class="hljs-params">headers</span>) =&gt;<br>	todoBase.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/users/checkout&quot;</span>, headers);<br><br><span class="hljs-comment">// 登出</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersSignOut</span> = (<span class="hljs-params"></span>) =&gt; todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/users/sign_out&quot;</span>, &#123;&#125;);<br><br><span class="hljs-comment">// 取得所有待辦</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiGetTodos</span> = (<span class="hljs-params"></span>) =&gt; todoBase.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/todos/&quot;</span>);<br><br><span class="hljs-comment">// 新增待辦</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiPostTodos</span> = (<span class="hljs-params">data</span>) =&gt; todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/todos/&quot;</span>, data);<br><br><span class="hljs-comment">// 刪除待辦</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiDeleteTodos</span> = (<span class="hljs-params">id</span>) =&gt; todoBase.<span class="hljs-title function_">delete</span>(<span class="hljs-string">`/todos/<span class="hljs-subst">$&#123;id&#125;</span>`</span>);<br><br><span class="hljs-comment">// 切換待辦狀態</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiPatchTodos</span> = (<span class="hljs-params">id</span>) =&gt; todoBase.<span class="hljs-title function_">patch</span>(<span class="hljs-string">`/todos/<span class="hljs-subst">$&#123;id&#125;</span>/toggle`</span>, &#123;&#125;);<br><br><span class="hljs-comment">// 編輯待辦文字</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiPutTodos</span> = (<span class="hljs-params">id, data</span>) =&gt; todoBase.<span class="hljs-title function_">put</span>(<span class="hljs-string">`/todos/<span class="hljs-subst">$&#123;id&#125;</span>`</span>, data);<br></code></pre></td></tr></table></figure>
+
+<h2 id="註冊"><a href="#註冊" class="headerlink" title="註冊"></a>註冊</h2><p>這邊單純呈現註冊頁的畫面部分：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// signUp.jsx</span><br><span class="hljs-comment">// ... 略</span><br><br><span class="hljs-keyword">return</span> (<br>	<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sign-up&quot;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;content__header&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;content__title&quot;</span>&gt;</span>註冊帳號<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;content__body&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form&quot;</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">&#123;handleSubmit(onSubmit)&#125;</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__item&quot;</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__label&quot;</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">&quot;signupEmail&quot;</span>&gt;</span></span><br><span class="language-xml">						Email</span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__input&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;signupEmail&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;請輸入 email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">						&#123;<span class="hljs-attr">...register</span>(&quot;<span class="hljs-attr">email</span>&quot;)&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">					/&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__item&quot;</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__label&quot;</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">&quot;nickname&quot;</span>&gt;</span></span><br><span class="language-xml">						您的暱稱</span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__input&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;nickname&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;請輸入您的暱稱&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">						&#123;<span class="hljs-attr">...register</span>(&quot;<span class="hljs-attr">nickname</span>&quot;)&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">					/&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__item&quot;</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__label&quot;</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">&quot;signupPassword&quot;</span>&gt;</span></span><br><span class="language-xml">						密碼</span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__input&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;signupPassword&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;請輸入密碼&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">						&#123;<span class="hljs-attr">...register</span>(&quot;<span class="hljs-attr">password</span>&quot;)&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">					/&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-center mt-6&quot;</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__button&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span></span><br><span class="language-xml">						註冊帳號</span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-center mt-3&quot;</span>&gt;</span></span><br><span class="language-xml">					已有帳號了？<span class="hljs-tag">&lt;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/&quot;</span>&gt;</span>登入<span class="hljs-tag">&lt;/<span class="hljs-name">NavLink</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<p>再來是註冊的程式部分：</p>
+<ul>
+<li>當填好表單按下註冊按鈕時，會執行 onSubmit 這個函式，並在參數中帶進表單資料，接著就會運行註冊的 api</li>
+<li>註冊成功或失敗時，會使用 sweetalert2 引入的 popup 來通知使用者</li>
+<li>註冊成功或失敗時，會將表單欄位清空。這邊是從 useForm 引出 reset 的功能</li>
+<li>註冊成功時，會透過 navigate 導到登入頁面</li>
+<li><code>const [isDisabled, setDisabled] = useState(false);</code> 這個狀態的定義，主要是綁在註冊按鈕的 disabled，在 api 過程讓按鈕為不能點擊的狀態，直到 api 過程結束（防止按鈕被連續點擊）</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// signUp.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Swal</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;sweetalert2&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">NavLink</span>, useNavigate &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useForm &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-hook-form&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; apiUsersSignUp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">SignUp</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> [isDisabled, setDisabled] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>);<br>  <span class="hljs-keyword">const</span> &#123; register, handleSubmit, reset &#125; = <span class="hljs-title function_">useForm</span>();<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">resetHandle</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">reset</span>();<br>  &#125;;<br><br>  <span class="hljs-keyword">const</span> navigate = <span class="hljs-title function_">useNavigate</span>();<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">onSubmit</span> = (<span class="hljs-params">data</span>) =&gt; &#123;<br>    <span class="hljs-title function_">setDisabled</span>(<span class="hljs-literal">true</span>);<br>    <span class="hljs-title function_">apiUsersSignUp</span>(data)<br>      .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">fire</span>(&#123;<br>          <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;恭喜註冊成功！&quot;</span>,<br>          <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;為您導至登入頁...&quot;</span>,<br>          <span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>          <span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>          <span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>        &#125;);<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>          <span class="hljs-title function_">navigate</span>(<span class="hljs-string">&quot;/&quot;</span>);<br>        &#125;, <span class="hljs-number">1500</span>);<br>      &#125;)<br>      .<span class="hljs-title function_">catch</span>(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> &#123;<br>        <span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">fire</span>(&#123;<br>          <span class="hljs-attr">title</span>: error.<span class="hljs-property">response</span>.<span class="hljs-property">data</span>.<span class="hljs-property">message</span>,<br>          <span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>          <span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>          <span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>        &#125;);<br>      &#125;)<br>      .<span class="hljs-title function_">finally</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">setDisabled</span>(<span class="hljs-literal">false</span>);<br>        <span class="hljs-title function_">resetHandle</span>();<br>      &#125;);<br>  &#125;;<br>  <span class="hljs-keyword">return</span>(<br>    <span class="hljs-comment">// ... 略</span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="登入"><a href="#登入" class="headerlink" title="登入"></a>登入</h2><p>跟註冊頁面相似，所以這邊只呈現程式部分：</p>
+<ul>
+<li>登入成功或失敗時，會使用 sweetalert2 引入的 popup 來通知使用者</li>
+<li>登入成功或失敗時，會將表單欄位清空。這邊是從 useForm 引出 reset 的功能</li>
+<li>登入成功後，會從回應資料取出 token，並存到 document.cookie，待之後 todo 頁面再取出</li>
+<li>登入成功後，使用 navigate 導向到 todo 頁面</li>
+<li><code>const [isDisabled, setDisabled] = useState(false);</code> 這個狀態的定義，主要是綁在登入按鈕的 disabled，在 api 過程讓按鈕為不能點擊的狀態，直到 api 過程結束（防止按鈕被連續點擊）</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// signIn.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Swal</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;sweetalert2&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">NavLink</span>, useNavigate &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useForm &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-hook-form&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; apiUsersSignIn &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">SignIn</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [isDisabled, setDisabled] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>);<br>	<span class="hljs-keyword">const</span> &#123; register, handleSubmit, reset &#125; = <span class="hljs-title function_">useForm</span>();<br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">resetHandle</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-title function_">reset</span>();<br>	&#125;;<br><br>	<span class="hljs-keyword">const</span> navigate = <span class="hljs-title function_">useNavigate</span>();<br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">onSubmit</span> = (<span class="hljs-params">data</span>) =&gt; &#123;<br>		<span class="hljs-title function_">setDisabled</span>(<span class="hljs-literal">true</span>);<br>		<span class="hljs-title function_">apiUsersSignIn</span>(data)<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>				<span class="hljs-keyword">const</span> &#123; token &#125; = res.<span class="hljs-property">data</span>;<br>				<span class="hljs-keyword">const</span> tomorrow = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>				tomorrow.<span class="hljs-title function_">setDate</span>(tomorrow.<span class="hljs-title function_">getDate</span>() + <span class="hljs-number">1</span>);<br>				<span class="hljs-variable language_">document</span>.<span class="hljs-property">cookie</span> = <span class="hljs-string">`token=<span class="hljs-subst">$&#123;token&#125;</span>;expires=<span class="hljs-subst">$&#123;tomorrow.toUTCString()&#125;</span>`</span>;<br>				<span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;登入成功！&quot;</span>,<br>					<span class="hljs-attr">text</span>: <span class="hljs-string">&quot;為您導至 Todo 頁面...&quot;</span>,<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>					<span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>					<span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>				&#125;);<br>				<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>					<span class="hljs-title function_">navigate</span>(<span class="hljs-string">&quot;/todo&quot;</span>);<br>				&#125;, <span class="hljs-number">1500</span>);<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;登入失敗&quot;</span>,<br>					<span class="hljs-attr">text</span>: <span class="hljs-string">&quot;請檢查帳密是否正確，或是否有註冊過。&quot;</span>,<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>					<span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>					<span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>				&#125;);<br>			&#125;)<br>			.<span class="hljs-title function_">finally</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title function_">setDisabled</span>(<span class="hljs-literal">false</span>);<br>				<span class="hljs-title function_">resetHandle</span>();<br>			&#125;);<br>	&#125;;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Todo-頁"><a href="#Todo-頁" class="headerlink" title="Todo 頁"></a>Todo 頁</h2><h3 id="state-定義"><a href="#state-定義" class="headerlink" title="state 定義"></a>state 定義</h3><p>首先我們先定義好會用到的 state：</p>
+<ul>
+<li>todo 資料：<code>const [todo, setTodo] = useState([])</code></li>
+<li>todo 資料的分類（全部、待完成、已完成）：<code>const [todoType, setTodoType] = useState(&quot;all&quot;);</code></li>
+<li>待辦事項 input：<code>const [input, setInput] = useState(&quot;&quot;)</code></li>
+<li>用戶的 nickname：<code>const [nickname, setNickname] = useState(&quot;&quot;)</code></li>
+<li>編輯的時候會使用上暫存物件：<code>const [editTarget, setEditTarget] = useState(&#123;&#125;)</code></li>
+</ul>
+<h3 id="驗證-api"><a href="#驗證-api" class="headerlink" title="驗證 api"></a>驗證 api</h3><p>進到 todo 頁面時，首先需先經過 token 的驗證，驗證成功才能在此頁面操作，否則就會通知驗證失敗並導回登入頁。</p>
+<ol>
+<li>從 document.cookie 取出剛才在登入成功時設置的 token，並存取在 todoToken 這個變數中</li>
+<li>設置 checkLogin 這個函式，內容會使用 apiUsersCheckout 這支驗證 api，記得要帶上 <code>headers:&#123;Authorization: todoToken&#125;</code><ul>
+<li>驗證成功時會設置 nickname， 以及將 token 設置在 todoBase 這個實體，之後在 todo 頁面的 api 操作都不需帶上 <code>headers:&#123;Authorization: todoToken&#125;</code>，接著透過 getTodos() 獲取所有待辦項目。（這個步驟還未定義 getTodos()）</li>
+<li>驗證失敗時，會用 popup 來通知，之後導回登入頁面</li>
+</ul>
+</li>
+<li>透過 useEffect 去執行 checkLogin 這個函式（第二個空陣列參數，表示只有最開始時會執行一次）</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// todo.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Swal</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;sweetalert2&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useNavigate &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useState, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123;<br>	apiUsersCheckout,<br>	apiGetTodos,<br>	apiPostTodos,<br>	apiDeleteTodos,<br>	apiPatchTodos,<br>	apiPutTodos,<br>	todoBase,<br>	apiUsersSignOut,<br>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-comment">// ... 略</span><br>	<span class="hljs-keyword">const</span> navigate = <span class="hljs-title function_">useNavigate</span>();<br><br>	<span class="hljs-keyword">const</span> todoToken = <span class="hljs-variable language_">document</span>.<span class="hljs-property">cookie</span><br>		.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;; &quot;</span>)<br>		.<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">row</span>) =&gt;</span> row.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&quot;token=&quot;</span>))<br>		?.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;=&quot;</span>)[<span class="hljs-number">1</span>];<br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">checkLogin</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-title function_">apiUsersCheckout</span>(&#123;<br>			<span class="hljs-attr">headers</span>: &#123;<br>				<span class="hljs-title class_">Authorization</span>: todoToken,<br>			&#125;,<br>		&#125;)<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>				<span class="hljs-title function_">setNickname</span>(res.<span class="hljs-property">data</span>.<span class="hljs-property">nickname</span>);<br>				todoBase.<span class="hljs-property">defaults</span>.<span class="hljs-property">headers</span>.<span class="hljs-property">common</span>[<span class="hljs-string">&quot;Authorization&quot;</span>] = todoToken;<br>				<span class="hljs-title function_">getTodos</span>();<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;驗證失敗，請先登入&quot;</span>,<br>					<span class="hljs-attr">text</span>: <span class="hljs-string">&quot;稍後導至登入頁&quot;</span>,<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>					<span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>					<span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>				&#125;);<br>				<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>					<span class="hljs-title function_">navigate</span>(<span class="hljs-string">&quot;/&quot;</span>);<br>				&#125;, <span class="hljs-number">1500</span>);<br>			&#125;);<br>	&#125;;<br><br>	<span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>		<span class="hljs-title function_">checkLogin</span>();<br>	&#125;, []);<br>	<span class="hljs-comment">// ... 略</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="取得待辦資料-getTodos"><a href="#取得待辦資料-getTodos" class="headerlink" title="取得待辦資料 (getTodos)"></a>取得待辦資料 (getTodos)</h3><p>再來我們要定義 getTodos 這個函式，內容透過 apiGetTodos() 這支取得所有待辦的 api 來取得資料。<br>不論在驗證後，以及新增、刪除、修改待辦等動作都會來執行這個函式，重新抓取最新資料。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// todo.jsx</span><br><span class="hljs-comment">// ... 略</span><br><span class="hljs-keyword">import</span> &#123; useState, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123;<br>	apiUsersCheckout,<br>	apiGetTodos,<br>	apiPostTodos,<br>	apiDeleteTodos,<br>	apiPatchTodos,<br>	apiPutTodos,<br>	todoBase,<br>	apiUsersSignOut,<br>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [todo, setTodo] = <span class="hljs-title function_">useState</span>([]);<br>	<span class="hljs-comment">// ... 略</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">getTodos</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-title function_">apiGetTodos</span>()<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>				<span class="hljs-title function_">setTodo</span>(res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>);<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> &#123;<br>				<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(err);<br>			&#125;);<br>	&#125;;<br>	<span class="hljs-comment">// ... 略</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="待辦的新增、刪除、編輯、狀態切換"><a href="#待辦的新增、刪除、編輯、狀態切換" class="headerlink" title="待辦的新增、刪除、編輯、狀態切換"></a>待辦的新增、刪除、編輯、狀態切換</h3><p>在待辦的新增、刪除、編輯、狀態切換等函式中，除了從 api&#x2F;index.js 取得各個 api 操作，也使用上 SweetAlert2 的 Toast 設置，在 api 執行後的成功或失敗做個通知。</p>
+<p>提醒：</p>
+<ul>
+<li>在每個 api 執行後，記得呼叫 getTodos()，重新獲得最新資料</li>
+<li>待辦新增（addTodo）記得要清空 input（<code>setInput(&quot;&quot;)</code>）</li>
+<li>刪除與編輯記得要帶上 id</li>
+<li>編輯待辦（updateTodo），記得要清空暫存的物件（<code>setEditTarget(&#123;&#125;)</code>）</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// todo.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Swal</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;sweetalert2&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useNavigate &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useState, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123;<br>	apiUsersCheckout,<br>	apiGetTodos,<br>	apiPostTodos,<br>	apiDeleteTodos,<br>	apiPatchTodos,<br>	apiPutTodos,<br>	todoBase,<br>	apiUsersSignOut,<br>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [todo, setTodo] = <span class="hljs-title function_">useState</span>([]);<br>	<span class="hljs-keyword">const</span> [todoType, setTodoType] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;all&quot;</span>);<br>	<span class="hljs-keyword">const</span> [input, setInput] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br>	<span class="hljs-keyword">const</span> [nickname, setNickname] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br>	<span class="hljs-keyword">const</span> [editTarget, setEditTarget] = <span class="hljs-title function_">useState</span>(&#123;&#125;);<br><br>	<span class="hljs-comment">// ...略</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title class_">Toast</span> = <span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">mixin</span>(&#123;<br>		<span class="hljs-attr">toast</span>: <span class="hljs-literal">true</span>,<br>		<span class="hljs-attr">position</span>: <span class="hljs-string">&quot;top-end&quot;</span>,<br>		<span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>		<span class="hljs-attr">customClass</span>: &#123;<br>			<span class="hljs-attr">popup</span>: <span class="hljs-string">&quot;colored-toast&quot;</span>,<br>		&#125;,<br>		<span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>		<span class="hljs-attr">timerProgressBar</span>: <span class="hljs-literal">true</span>,<br>	&#125;);<br><br>	<span class="hljs-comment">// 新增項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">addTodo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-keyword">if</span> (input === <span class="hljs-string">&quot;&quot;</span>) <span class="hljs-keyword">return</span>;<br>		<span class="hljs-title function_">apiPostTodos</span>(&#123; <span class="hljs-attr">content</span>: input &#125;)<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;新增待辦成功&quot;</span>,<br>				&#125;);<br>				<span class="hljs-title function_">getTodos</span>();<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;新增待辦失敗，請再檢查看看&quot;</span>,<br>				&#125;);<br>			&#125;)<br>			.<span class="hljs-title function_">finally</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title function_">setInput</span>(<span class="hljs-string">&quot;&quot;</span>); <span class="hljs-comment">// 清空</span><br>				<span class="hljs-title function_">setTodoType</span>(<span class="hljs-string">&quot;all&quot;</span>); <span class="hljs-comment">// 將頁籤切換為「全部」</span><br>			&#125;);<br>	&#125;;<br><br>	<span class="hljs-comment">// 刪除項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">deleteTodo</span> = (<span class="hljs-params">id</span>) =&gt; &#123;<br>		<span class="hljs-title function_">apiDeleteTodos</span>(id)<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;刪除待辦成功&quot;</span>,<br>				&#125;);<br>				<span class="hljs-title function_">getTodos</span>();<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;刪除待辦失敗，請再檢查看看&quot;</span>,<br>				&#125;);<br>			&#125;);<br>	&#125;;<br><br>	<span class="hljs-comment">// 切換狀態（是否完成）</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">toggleTodo</span> = (<span class="hljs-params">id</span>) =&gt; &#123;<br>		<span class="hljs-title function_">apiPatchTodos</span>(id)<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;待辦狀態更新成功&quot;</span>,<br>				&#125;);<br>				<span class="hljs-title function_">getTodos</span>();<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;待辦狀態更新失敗，請再檢查看看&quot;</span>,<br>				&#125;);<br>			&#125;);<br>	&#125;;<br><br>	<span class="hljs-comment">// 編輯項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">updateTodo</span> = (<span class="hljs-params">id, content</span>) =&gt; &#123;<br>		<span class="hljs-title function_">apiPutTodos</span>(id, &#123; content &#125;)<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;編輯待辦成功&quot;</span>,<br>				&#125;);<br>				<span class="hljs-title function_">getTodos</span>();<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;編輯待辦失敗，請再檢查看看&quot;</span>,<br>				&#125;);<br>			&#125;)<br>			.<span class="hljs-title function_">finally</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title function_">setEditTarget</span>(&#123;&#125;);<br>			&#125;);<br>	&#125;;<br><br>	<span class="hljs-comment">//...略</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="全部、待完成、已完成的待辦篩選"><a href="#全部、待完成、已完成的待辦篩選" class="headerlink" title="全部、待完成、已完成的待辦篩選"></a>全部、待完成、已完成的待辦篩選</h3><ol>
+<li>如同我們前面定義的 <code>const [todoType, setTodoType] = useState(&quot;all&quot;);</code>，這個部分用來定義 todo 篩選的三種狀態：全部（all）、待完成（active）、已完成（completed）</li>
+<li>再來我們用 todoTypeChange 這個函式來定義 todoType 狀態的切換，這是使用按鈕點擊（帶上狀態）來觸發</li>
+<li>根據 todoType 狀態的不同，用 todo.filter 來篩選出我們需要的資料，並存在 filterTodo 這個變數中，之後在樣板中是以 filterTodo.map() 來渲染</li>
+<li>根據 todoType 狀態的不同，做 active class 的切換</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> [todo, setTodo] = <span class="hljs-title function_">useState</span>([]);<br>  <span class="hljs-keyword">const</span> [todoType, setTodoType] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;all&quot;</span>);<br>  <span class="hljs-comment">// ... 略</span><br><br>  <span class="hljs-comment">// 切換：全部、待完成、已完成</span><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">todoTypeChange</span> = (<span class="hljs-params">status</span>) =&gt; &#123;<br>    <span class="hljs-title function_">setTodoType</span>(status);<br>  &#125;;<br><br>  <span class="hljs-comment">// 根據 todoType ，決定顯示要什麼資料</span><br>  <span class="hljs-keyword">const</span> filterTodo = todo.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (todoType === <span class="hljs-string">&quot;completed&quot;</span>) &#123;<br>      <span class="hljs-keyword">return</span> item.<span class="hljs-property">status</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (todoType === <span class="hljs-string">&quot;active&quot;</span>) &#123;<br>      <span class="hljs-keyword">return</span> !item.<span class="hljs-property">status</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>  &#125;);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="hljs-comment">// ... 略</span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__category&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">todo__category__list</span> $&#123;</span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">todoType</span> === <span class="hljs-string">&quot;all&quot;</span> ? &quot;<span class="hljs-attr">active</span>&quot; <span class="hljs-attr">:</span> &quot;&quot;</span></span><br><span class="hljs-tag"><span class="language-xml">        &#125;`&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> todoTypeChange(&quot;all&quot;)&#125;</span><br><span class="language-xml">      &gt;</span><br><span class="language-xml">        全部</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">todo__category__list</span> $&#123;</span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">todoType</span> === <span class="hljs-string">&quot;active&quot;</span> ? &quot;<span class="hljs-attr">active</span>&quot; <span class="hljs-attr">:</span> &quot;&quot;</span></span><br><span class="hljs-tag"><span class="language-xml">        &#125;`&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> todoTypeChange(&quot;active&quot;)&#125;</span><br><span class="language-xml">      &gt;</span><br><span class="language-xml">        待完成</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">todo__category__list</span> $&#123;</span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">todoType</span> === <span class="hljs-string">&quot;completed&quot;</span> ? &quot;<span class="hljs-attr">active</span>&quot; <span class="hljs-attr">:</span> &quot;&quot;</span></span><br><span class="hljs-tag"><span class="language-xml">        &#125;`&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> todoTypeChange(&quot;completed&quot;)&#125;</span><br><span class="language-xml">      &gt;</span><br><span class="language-xml">        已完成</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__list&quot;</span>&gt;</span></span><br><span class="language-xml">      &#123;filterTodo.map((item) =&gt; &#123;</span><br><span class="language-xml">        return (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">TodoItem</span></span></span><br><span class="hljs-tag"><span class="language-xml">            // <span class="hljs-attr">...略</span></span></span><br><span class="hljs-tag"><span class="language-xml">          /&gt;</span></span><br><span class="language-xml">        );</span><br><span class="language-xml">      &#125;)&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>    <span class="hljs-comment">// ... 略</span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="從-todo-分出的元件"><a href="#從-todo-分出的元件" class="headerlink" title="從 todo 分出的元件"></a>從 todo 分出的元件</h3><p>這次有從 todo 頁面中，分出 TodoItem（todo 項目）、TodoCategory（todo 篩選）這兩個元件。<br>而這個段落會來提一下 TodoItem 這個元件，根據這個元件所需，我們得傳入 todo 項目的資訊（id、content、status），以及一些待辦的函式（刪除、狀態切換、編輯…等），可看下方程式碼的註解。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// todo.jsx</span><br><span class="hljs-comment">// ... 略</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">TodoItem</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../components/TodoItem&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">TodoCategory</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../components/TodoCategory&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [todo, setTodo] = <span class="hljs-title function_">useState</span>([]);<br>	<span class="hljs-keyword">const</span> [todoType, setTodoType] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;all&quot;</span>);<br>	<span class="hljs-keyword">const</span> [input, setInput] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br>	<span class="hljs-keyword">const</span> [nickname, setNickname] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br>	<span class="hljs-keyword">const</span> [editTarget, setEditTarget] = <span class="hljs-title function_">useState</span>(&#123;&#125;);<br><br>	<span class="hljs-comment">// ... 略</span><br><br>	<span class="hljs-comment">// 刪除項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">deleteTodo</span> = (<span class="hljs-params">id</span>) =&gt; &#123;<br>		<span class="hljs-comment">// ... 略</span><br>	&#125;;<br><br>	<span class="hljs-comment">// 切換狀態（是否完成）</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">toggleTodo</span> = (<span class="hljs-params">id</span>) =&gt; &#123;<br>		<span class="hljs-comment">// ... 略</span><br>	&#125;;<br><br>	<span class="hljs-comment">// 編輯項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">updateTodo</span> = (<span class="hljs-params">id, content</span>) =&gt; &#123;<br>		<span class="hljs-comment">// ... 略</span><br>	&#125;;<br><br>	<span class="hljs-comment">// 切換：全部、待完成、已完成</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">todoTypeChange</span> = (<span class="hljs-params">status</span>) =&gt; &#123;<br>		<span class="hljs-title function_">setTodoType</span>(status);<br>	&#125;;<br><br>	<span class="hljs-comment">// 根據 todoType ，決定顯示要什麼資料</span><br>	<span class="hljs-keyword">const</span> filterTodo = todo.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;<br>		<span class="hljs-keyword">if</span> (todoType === <span class="hljs-string">&quot;completed&quot;</span>) &#123;<br>			<span class="hljs-keyword">return</span> item.<span class="hljs-property">status</span>;<br>		&#125;<br>		<span class="hljs-keyword">if</span> (todoType === <span class="hljs-string">&quot;active&quot;</span>) &#123;<br>			<span class="hljs-keyword">return</span> !item.<span class="hljs-property">status</span>;<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>	&#125;);<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="hljs-comment">// ... 略</span><br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__content&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">TodoCategory</span> <span class="hljs-attr">todoType</span>=<span class="hljs-string">&#123;todoType&#125;</span> <span class="hljs-attr">todoTypeChange</span>=<span class="hljs-string">&#123;todoTypeChange&#125;</span> /&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__list&quot;</span>&gt;</span></span><br><span class="language-xml">				&#123;filterTodo.map((item) =&gt; &#123;</span><br><span class="language-xml">					return (</span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">TodoItem</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span> // <span class="hljs-attr">id</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">id</span>=<span class="hljs-string">&#123;item.id&#125;</span> // <span class="hljs-attr">id</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">content</span>=<span class="hljs-string">&#123;item.content&#125;</span> // <span class="hljs-attr">input</span> <span class="hljs-attr">text</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">status</span>=<span class="hljs-string">&#123;item.status&#125;</span> // <span class="hljs-attr">狀態</span>，<span class="hljs-attr">預設為待完成</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">toggleTodo</span>=<span class="hljs-string">&#123;toggleTodo&#125;</span> // <span class="hljs-attr">狀態切換的函式</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">deleteTodo</span>=<span class="hljs-string">&#123;deleteTodo&#125;</span> // <span class="hljs-attr">刪除項目的函式</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">editTarget</span>=<span class="hljs-string">&#123;editTarget&#125;</span> // <span class="hljs-attr">當前編輯的暫存物件</span> （<span class="hljs-attr">存</span> <span class="hljs-attr">id</span>、<span class="hljs-attr">content</span>)</span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">setEditTarget</span>=<span class="hljs-string">&#123;setEditTarget&#125;</span> // <span class="hljs-attr">當前編輯的暫存物件</span></span></span><br><span class="hljs-tag"><span class="language-xml">							<span class="hljs-attr">updateTodo</span>=<span class="hljs-string">&#123;updateTodo&#125;</span> // <span class="hljs-attr">編輯項目的函式</span></span></span><br><span class="hljs-tag"><span class="language-xml">						/&gt;</span></span><br><span class="language-xml">					);</span><br><span class="language-xml">				&#125;)&#125;</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Todo</span>;<br></code></pre></td></tr></table></figure>
+
+<p>接下來是 TodoItem.jsx 這個元件本身，要使用透過父層（props）傳進來的資料或函式時，需先引用 propTypes 來做定義。</p>
+<p>再來會提到 editTarget 跟 setEditTarget 的部分，在定義上是用來存取暫時資料，方便用於程式上的判斷。當我們初始去點擊編輯 icon 時，就會觸發 <code>setEditTarget(&#123; id, content &#125;)</code>，並將項目的 id 跟 content(input) 給傳入做暫時資料。<br>而這樣的暫時資料，可以在畫面使用 <code>editTarget.id === id</code> 這樣的方式，來判斷我們點到的是哪一個項目，並顯示相對應的內容。例如我們點到第二個項目，對於這個項目就會顯示一個 input 框，以及一個 check icon，而當我們點擊 check icon 時，就會觸發 updateTodo 的功能，並將 id 跟新的 content(input) 帶進去執行編輯的 api。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// TodoItem.jsx</span><br><span class="hljs-keyword">import</span> propTypes <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;prop-types&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">TodoItem</span> = (<span class="hljs-params">&#123;</span><br><span class="hljs-params">	id,</span><br><span class="hljs-params">	content,</span><br><span class="hljs-params">	status,</span><br><span class="hljs-params">	toggleTodo,</span><br><span class="hljs-params">	deleteTodo,</span><br><span class="hljs-params">	editTarget,</span><br><span class="hljs-params">	setEditTarget,</span><br><span class="hljs-params">	updateTodo,</span><br><span class="hljs-params">&#125;</span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">atChange</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-title function_">toggleTodo</span>(id);<br>	&#125;;<br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">atClickDelete</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-title function_">deleteTodo</span>(id);<br>	&#125;;<br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">atClickEdit</span> = (<span class="hljs-params">id, content</span>) =&gt; &#123;<br>		<span class="hljs-title function_">updateTodo</span>(id, content);<br>	&#125;;<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__item&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__label&quot;</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">&#123;id&#125;</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">					<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__check&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">					<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">					<span class="hljs-attr">id</span>=<span class="hljs-string">&#123;id&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">					<span class="hljs-attr">checked</span>=<span class="hljs-string">&#123;status&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">					<span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;atChange&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				/&gt;</span></span><br><span class="language-xml">				&#123;editTarget.id === id ? (</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;form__input&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">value</span>=<span class="hljs-string">&#123;editTarget.content&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;(e)</span> =&gt;</span> &#123;</span><br><span class="language-xml">							setEditTarget(&#123; ...editTarget, content: e.target.value &#125;);</span><br><span class="language-xml">						&#125;&#125;</span><br><span class="language-xml">					/&gt;</span><br><span class="language-xml">				) : (</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__text&quot;</span>&gt;</span>&#123;content&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">				)&#125;</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__icon&quot;</span>&gt;</span></span><br><span class="language-xml">				&#123;editTarget.id === id ? (</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">i</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;fa-solid fa-check&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> atClickEdit(editTarget.id, editTarget.content)&#125;</span><br><span class="language-xml">					&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span></span><br><span class="language-xml">				) : (</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">i</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;fa-regular fa-pen-to-square&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> &#123;</span><br><span class="language-xml">							setEditTarget(&#123; id, content &#125;);</span><br><span class="language-xml">						&#125;&#125;</span><br><span class="language-xml">					&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span></span><br><span class="language-xml">				)&#125;</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__icon&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;atClickDelete&#125;</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;fa fa-times&quot;</span> /&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br>	);<br>&#125;;<br><br><span class="hljs-title class_">TodoItem</span>.<span class="hljs-property">propTypes</span> = &#123;<br>	<span class="hljs-attr">id</span>: propTypes.<span class="hljs-property">string</span>.<span class="hljs-property">isRequired</span>,<br>	<span class="hljs-attr">content</span>: propTypes.<span class="hljs-property">string</span>.<span class="hljs-property">isRequired</span>,<br>	<span class="hljs-attr">status</span>: propTypes.<span class="hljs-property">bool</span>.<span class="hljs-property">isRequired</span>,<br>	<span class="hljs-attr">toggleTodo</span>: propTypes.<span class="hljs-property">func</span>.<span class="hljs-property">isRequired</span>,<br>	<span class="hljs-attr">deleteTodo</span>: propTypes.<span class="hljs-property">func</span>.<span class="hljs-property">isRequired</span>,<br>	<span class="hljs-attr">editTarget</span>: propTypes.<span class="hljs-property">object</span>.<span class="hljs-property">isRequired</span>,<br>	<span class="hljs-attr">setEditTarget</span>: propTypes.<span class="hljs-property">func</span>.<span class="hljs-property">isRequired</span>,<br>	<span class="hljs-attr">updateTodo</span>: propTypes.<span class="hljs-property">func</span>.<span class="hljs-property">isRequired</span>,<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">TodoItem</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="“待完成”待辦的數量顯示、清除”已完成”項目功能"><a href="#“待完成”待辦的數量顯示、清除”已完成”項目功能" class="headerlink" title="“待完成”待辦的數量顯示、清除”已完成”項目功能"></a>“待完成”待辦的數量顯示、清除”已完成”項目功能</h3><p>“待完成”待辦的數量顯示比較單純，宣告 todoUnCompleted 這個變數去儲存 todo 篩選待完成的項目，然後再用 <code>&#123;todoUnCompleted.length&#125;</code> 渲染到畫面上。</p>
+<p>而清除”已完成”項目的功能，則是使用 todo 去篩選已完成項目，然後帶入這些已完成項目的 id 到 apiDeleteTodos 做刪除處理。因為要刪除的項目不只一個，所以會使用到 Promise.all 來等待全部已完成的項目都被刪除後，再用 Toast 通知使用者。<br>（記得 getTodos() 重新獲取資料。）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// todo.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Swal</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;sweetalert2&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useNavigate &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useState, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123;<br>	apiUsersCheckout,<br>	apiGetTodos,<br>	apiPostTodos,<br>	apiDeleteTodos,<br>	apiPatchTodos,<br>	apiPutTodos,<br>	todoBase,<br>	apiUsersSignOut,<br>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><span class="hljs-comment">// ... 略</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [todo, setTodo] = <span class="hljs-title function_">useState</span>([]);<br>	<span class="hljs-keyword">const</span> [todoType, setTodoType] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;all&quot;</span>);<br>	<span class="hljs-keyword">const</span> [input, setInput] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br>	<span class="hljs-keyword">const</span> [nickname, setNickname] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br>	<span class="hljs-keyword">const</span> [editTarget, setEditTarget] = <span class="hljs-title function_">useState</span>(&#123;&#125;);<br><br>	<span class="hljs-comment">// ... 略</span><br><br>	<span class="hljs-comment">// 從原先 list 資料去 filter</span><br>	<span class="hljs-keyword">const</span> todoUnCompleted = todo.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;<br>		<span class="hljs-keyword">return</span> !item.<span class="hljs-property">status</span>;<br>	&#125;);<br><br>	<span class="hljs-comment">// 清除已完成項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">clearTodoCompleted</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-keyword">const</span> result = todo.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;<br>			<span class="hljs-keyword">if</span> (item.<span class="hljs-property">status</span>) &#123;<br>				<span class="hljs-title function_">apiDeleteTodos</span>(item.<span class="hljs-property">id</span>);<br>			&#125;<br>		&#125;);<br>		<span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(result).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>			<span class="hljs-title class_">Toast</span>.<span class="hljs-title function_">fire</span>(&#123;<br>				<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>				<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;清除已完成項目成功&quot;</span>,<br>			&#125;);<br>			<span class="hljs-title function_">getTodos</span>();<br>		&#125;);<br>	&#125;;<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="hljs-comment">// ... 略</span><br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__bottom&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__bottom__text&quot;</span>&gt;</span></span><br><span class="language-xml">				&#123;todoUnCompleted.length&#125; 個已完成項目</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;todo__bottom__btn&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;clearTodoCompleted&#125;</span>&gt;</span></span><br><span class="language-xml">				清除已完成項目</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="登出"><a href="#登出" class="headerlink" title="登出"></a>登出</h3><p>登出在執行 apiUsersSignOut() 時，記得清理 document.cookie (<code>document.cookie = &quot;token=; expires=;&quot;</code>)</p>
+<p>在登出成功時，會透過 navigate 導回登入頁面</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// todo.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Swal</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;sweetalert2&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useNavigate &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-router-dom&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; useState, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123;<br>	apiUsersCheckout,<br>	apiGetTodos,<br>	apiPostTodos,<br>	apiDeleteTodos,<br>	apiPatchTodos,<br>	apiPutTodos,<br>	todoBase,<br>	apiUsersSignOut,<br>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><span class="hljs-comment">// ... 略</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-comment">// ... 略</span><br><br>	<span class="hljs-keyword">const</span> navigate = <span class="hljs-title function_">useNavigate</span>();<br><br>	<span class="hljs-comment">// ... 略</span><br><br>	<span class="hljs-comment">// 登出</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">signOut</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-title function_">apiUsersSignOut</span>()<br>			.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-variable language_">document</span>.<span class="hljs-property">cookie</span> = <span class="hljs-string">&quot;token=; expires=;&quot;</span>;<br>				<span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;您已登出&quot;</span>,<br>					<span class="hljs-attr">text</span>: <span class="hljs-string">&quot;為您導回登入頁面...&quot;</span>,<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>					<span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>					<span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>				&#125;);<br>				<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>					<span class="hljs-title function_">navigate</span>(<span class="hljs-string">&quot;/&quot;</span>);<br>				&#125;, <span class="hljs-number">1500</span>);<br>			&#125;)<br>			.<span class="hljs-title function_">catch</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>				<span class="hljs-title class_">Swal</span>.<span class="hljs-title function_">fire</span>(&#123;<br>					<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;登出失敗，請再檢查看看&quot;</span>,<br>					<span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;error&quot;</span>,<br>					<span class="hljs-attr">showConfirmButton</span>: <span class="hljs-literal">false</span>,<br>					<span class="hljs-attr">timer</span>: <span class="hljs-number">1500</span>,<br>				&#125;);<br>			&#125;);<br>	&#125;;<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="hljs-comment">// ... 略</span><br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;greet&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;greet__text&quot;</span>&gt;</span>Hi~ &#123;nickname&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;greet__btn&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;signOut&#125;</span>&gt;</span></span><br><span class="language-xml">				登出</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>		<span class="hljs-comment">// ... 略</span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h2><p>透過這幾週跟著作業產出拆解文章，比較有感的部分是<strong>狀況的掌握</strong>，不論正在製作哪個功能，或者正卡關在什麼地方，都比較不會混亂跟一片空白。</p>
+<p>講到一片空白，也來分享自己先前看書所學習到的。基本上來說，即使現在的科技相當發達，我們大腦主要還是以<strong>求生</strong>作為導向，所以當我們面臨太多資訊、思考太多時，大腦會容易處於當機狀態（避免過度耗能）。回想一下學生時期在準備考試時，是不是會突然開始整理房間呢？因為大腦判斷準備考試實在太麻煩（太耗能）了。而依循大腦這樣的特性，再來延伸說到<strong>寫文章</strong>跟<strong>拆解任務</strong>。</p>
+<p>關於<strong>寫文章</strong>這件事，過去我自己也都無法維持住，所以往往寫個一陣子就會放掉；後來在一些探索下，我知道了無法維持的原因，因為會很貪心的在寫文章這件事添加很多資訊（完美主義作祟），像是要寫到什麼程度、別人怎麼看、是否容易理解…等等，可是這樣太多的<strong>想法</strong>、<strong>期待</strong>、<strong>資訊</strong>只會讓大腦很快的當機，初步就無法維持習慣，畢竟阻力實在太大了。</p>
+<p>所以我們可以先<strong>降低門檻</strong>，以自己為出發點：對於什麼議題有興趣、什麼部分之後會用到、想要練習什麼，或者單純分享自己踩到的雷。放掉只是想像的期待，寫的好與壞其實都沒關係，畢竟還在起頭建立習慣。像是我 8 月中做的這個 <a target="_blank" rel="noopener" href="https://www.billyji.com/2023/08/14/learn-pinia/">Pinia 筆記</a>，雖然簡簡單單，但沒多久我在寫 Nuxt 專案時就派上用場了。如果嘗試後真的寫不下去也沒關係，也許你是透過大量練習、實戰在組織自己知識的人；也可能是在多些經驗後，發現寫筆記、Blog 對自己的重要性，<strong>It’s all ok</strong>。</p>
+<p>再來討論到<strong>拆解任務</strong>，這也是我操作後相當推薦的方法。剛開始成為前端時，每當新專案一來（或者舊專案要修改），二話不說就是直接打開編輯器開工；不過當工作累積一些經驗後，變成專案一來會先規劃跟拆解，基本上我電腦桌的附近一定會擺上筆記本或紙。而這樣的拆解在專案的進行上會比較順，也是順著大腦的特性走，讓它不會一次進太多資訊而當機。不過在實際專案上，因為有時間上的壓力，無法像上課這樣拆解的比較細，所以可以好好利用上課來嘗試拆解。</p>
+<p>感謝你看到這邊，一不注意就在結尾處提了比較多。若有什麼部分寫錯，也再麻煩跟我說，感恩！</p>
+<p>（感謝 Evan 同學發現待辦 CRUD 沒寫好的部分！）<br>（感謝助教提供優化部分！）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%85%AD%E8%A7%92%E5%AD%B8%E9%99%A2/" class="print-no-link">#六角學院</a>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>六角學院 React 入門工作坊第四週（最終）</div>
+      <div>https://yaj55billy.github.io/post/react-workshop-week4.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2023年8月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/js-value-or-reference.html" title="JavaScript 傳值與傳參考">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaScript 傳值與傳參考</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/react-workshop-week3.html" title="六角學院 React 入門工作坊第三週">
+                        <span class="hidden-mobile">六角學院 React 入門工作坊第三週</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>

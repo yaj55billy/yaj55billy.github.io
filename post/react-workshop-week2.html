@@ -1,1 +1,791 @@
-<!doctype html><html lang="en"><head><!-- hexo injector head_begin start --><meta name="author" content="Billy Ji"></meta><!-- hexo injector head_begin end --><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><script type="module" crossorigin src="/static/js/120aa8f8.js"></script><link rel="stylesheet" href="/static/css/a14e1a22.css"><!-- hexo injector head_end start --><script rel="prefetch" async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script rel="preload" src="https://unpkg.com/blueimp-md5@^2.19.0/js/md5.min.js"></script><script rel="preload" src="https://unpkg.com/lodash@^4.17.21/lodash.min.js"></script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Rubik" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body id="body-container"><noscript><strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div></body></html>
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第二週作業的過程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="六角學院 React 入門工作坊第二週">
+<meta property="og:url" content="https://yaj55billy.github.io/post/react-workshop-week2.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="第二週作業的過程">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+<meta property="article:published_time" content="2023-08-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-26T06:16:38.434Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="六角學院">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>六角學院 React 入門工作坊第二週 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://i.imgur.com/Zwb2dxR.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="六角學院 React 入門工作坊第二週"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-19 00:00" pubdate>
+          2023年8月19日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">六角學院 React 入門工作坊第二週</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Photo by <a target="_blank" rel="noopener" href="https://unsplash.com/@lautaroandreani?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lautaro Andreani</a> on <a target="_blank" rel="noopener" href="https://unsplash.com/photos/xkBaqlcqeb4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本週心得小提：<br>課程除了可以學習到 React 操作，還可以從老師怎麼拆解問題，以及同學的程式碼中（有些同學感覺是有經驗的開發者），去看到不同的思路，擴展出解決問題的眼界。</p>
+<p>記得這週課程快結尾時，老師有提到工程師的差異，厲害的工程師是會把複雜轉為簡單，以清楚的方式撰寫程式碼（<del>取代很潮、炫技</del>），聽到這個段落，覺得特別有感。</p>
+<p><a target="_blank" rel="noopener" href="https://www.billyji.com/react-workshop-week2/">第二週作品</a></p>
+<p>大致的流程為：</p>
+<ol>
+<li>思考資料與切版（練習 Tailwind）</li>
+<li>程式邏輯撰寫</li>
+<li>拆元件</li>
+</ol>
+<hr>
+<h2 id="思考資料與切版（練習-Tailwind）"><a href="#思考資料與切版（練習-Tailwind）" class="headerlink" title="思考資料與切版（練習 Tailwind）"></a>思考資料與切版（練習 Tailwind）</h2><p>在開始動工之前，先來初步釐清會有什麼資料（功能）：</p>
+<ul>
+<li><p>菜單資料</p>
+<ul>
+<li><code>const [menu] = useState(data)</code>，放進 data 初始資料</li>
+<li>根據菜單的點擊，會帶 id、品項、描述、單價等等資料到購物車</li>
+<li>同一品項重覆點選時（該品項已經存在購物車），則在購物車資料中，將該品項數量 + 1</li>
+</ul>
+</li>
+<li><p>購物車資料</p>
+<ul>
+<li><code>const [cart, setCart] = useState([])</code>，初始購物車為空 Array</li>
+<li>除了菜單帶過來的資料外，也要多定義數量 <code>qty</code> 跟小計（數量*價錢）</li>
+<li>刪除品項跟更新品項數量的功能</li>
+<li>定義購物價錢總計 <code>const [sum, setSum] = useState(0)</code></li>
+<li>備註 <code>const [note, setNote] = useState(&quot;&quot;)</code>;</li>
+<li>點擊送出訂單時，會帶購物車資料到訂單</li>
+</ul>
+</li>
+<li><p>訂單資料：</p>
+<ul>
+<li><code>const [order, setOrder] = useState([])</code>，初始為空 Array</li>
+<li>除了從購物車帶過來的資料，也多定義一個 id</li>
+</ul>
+</li>
+</ul>
+<p>切版：<br>因為先前的工作內容，所以較常在手刻畫面；不過近期回來接觸前端後，有時候反而會思考，有沒有什麼方式可以減少切版的時間（<del>可能是開始想懶惰了?</del>）。記得幾個月前還有看到一個付費的功能，是把 figma 的設計圖，轉換成 react 的程式碼。<br>藉由這樣的實作機會跟想法，決定嘗試使用 Tailwind，記得 JIT 模式剛出時有稍微接觸過。本來預期習慣 Tailwind 不會花太多時間，不過實際上還是花了不少時間。<del>（也有去找人家寫好的 UI 來改）</del></p>
+<h2 id="程式邏輯撰寫"><a href="#程式邏輯撰寫" class="headerlink" title="程式邏輯撰寫"></a>程式邏輯撰寫</h2><p>因為切版後的程式行數沒有很多(2xx)，所以就沒有先拆元件。</p>
+<h3 id="將-menu-定義到畫面上"><a href="#將-menu-定義到畫面上" class="headerlink" title="將 menu 定義到畫面上"></a>將 menu 定義到畫面上</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [menu] = <span class="hljs-title function_">useState</span>(data); <span class="hljs-comment">// 原始 menu</span><br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="hljs-comment">// ...略</span><br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;flex flex-wrap -mx-3&quot;</span>&gt;</span></span><br><span class="language-xml">			&#123;menu.map((item) =&gt; &#123;</span><br><span class="language-xml">				return (</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;md:w-1/2 w-full px-3 pb-6&quot;</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;rounded-lg border-2 p-3 cursor-pointer border-brown-light hover:bg-brown-100&quot;</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-xl text-brown font-medium&quot;</span>&gt;</span></span><br><span class="language-xml">								&#123;item.name&#125; <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>$&#123;item.price&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-1 text-md text-brown&quot;</span>&gt;</span>&#123;item.description&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">				);</span><br><span class="language-xml">			&#125;)&#125;</span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>		<span class="hljs-comment">// ...略</span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="選擇飲品點擊時，將資料帶入購物車"><a href="#選擇飲品點擊時，將資料帶入購物車" class="headerlink" title="選擇飲品點擊時，將資料帶入購物車"></a>選擇飲品點擊時，將資料帶入購物車</h3><ul>
+<li>購物車資料預設為 []</li>
+<li>在選擇飲品的 List，新增 onClick 事件觸發 addCart，並在參數中帶上資料 (menu item)</li>
+<li>在 addCart function 做一個 tempCart 的新陣列，並多帶上預設數量 qty</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [menu] = <span class="hljs-title function_">useState</span>(data); <span class="hljs-comment">// 原始 menu</span><br>	<span class="hljs-keyword">const</span> [cart, setCart] = <span class="hljs-title function_">useState</span>([]); <span class="hljs-comment">// 購物車資料</span><br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">addCart</span> = (<span class="hljs-params">item</span>) =&gt; &#123;<br>		<span class="hljs-keyword">const</span> tempCart = [<br>			...cart, <span class="hljs-comment">// [] 淺拷貝</span><br>			&#123;<br>				...item,<br>				<span class="hljs-attr">qty</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">// 數量預設為 1</span><br>			&#125;,<br>		];<br>		<span class="hljs-title function_">setCart</span>(tempCart);<br>	&#125;;<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="hljs-comment">// ...略</span><br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;flex flex-wrap -mx-3&quot;</span>&gt;</span></span><br><span class="language-xml">			&#123;menu.map((item) =&gt; &#123;</span><br><span class="language-xml">				return (</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">li</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;md:w-1/2 w-full px-3 pb-6&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> addCart(item)&#125;</span><br><span class="language-xml">					&gt;</span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;rounded-lg border-2 p-3 cursor-pointer border-brown-light hover:bg-brown-100&quot;</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-xl text-brown font-medium&quot;</span>&gt;</span></span><br><span class="language-xml">								&#123;item.name&#125; <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>$&#123;item.price&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-1 text-md text-brown&quot;</span>&gt;</span>&#123;item.description&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">				);</span><br><span class="language-xml">			&#125;)&#125;</span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>		<span class="hljs-comment">// ... 略</span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="購物車資料定義到畫面"><a href="#購物車資料定義到畫面" class="headerlink" title="購物車資料定義到畫面"></a>購物車資料定義到畫面</h3><p>當我們可以透過點擊飲品，把飲品項目加到購物車，接著把購物車資料定義到畫面中。<br>（可以透過 <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=zh-TW">React Developer Tools</a> 工具來看資料）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [menu] = <span class="hljs-title function_">useState</span>(data); <span class="hljs-comment">// 原始 menu</span><br>	<span class="hljs-keyword">const</span> [cart, setCart] = <span class="hljs-title function_">useState</span>([]); <span class="hljs-comment">// 購物車資料</span><br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">addCart</span> = (<span class="hljs-params">item</span>) =&gt; &#123;<br>		<span class="hljs-keyword">const</span> tempCart = [<br>			...cart, <span class="hljs-comment">// [] 淺拷貝</span><br>			&#123;<br>				...item,<br>				<span class="hljs-attr">qty</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">// 數量預設為 1</span><br>			&#125;,<br>		];<br>		<span class="hljs-title function_">setCart</span>(tempCart);<br>	&#125;;<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="hljs-comment">// ...略</span><br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span></span><br><span class="language-xml">			&#123;cart.map((item) =&gt; &#123;</span><br><span class="language-xml">				return (</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 border-b border-dashed border-brown-light&quot;</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-xl text-brown font-medium&quot;</span>&gt;</span>&#123;item.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-1 text-md text-brown&quot;</span>&gt;</span>&#123;item.description&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-2 text-red-400 text-sm&quot;</span>&gt;</span></span><br><span class="language-xml">								刪除品項</span><br><span class="language-xml">							<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 border-b border-dashed border-brown-light text-center text-md text-brown w-32&quot;</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">select</span></span></span><br><span class="hljs-tag"><span class="language-xml">								<span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">								<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">								<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;w-1/2 h-[32px] rounded-md text-center bg-brown-100 focus:outline-none focus:border-brown-dark&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">								<span class="hljs-attr">value</span>=<span class="hljs-string">&#123;item.qty&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">							&gt;</span></span><br><span class="language-xml">								&#123;[...Array(10).keys()].map((item) =&gt; &#123;</span><br><span class="language-xml">									return (</span><br><span class="language-xml">										<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;item</span> + <span class="hljs-attr">1</span>&#125; <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item&#125;</span>&gt;</span></span><br><span class="language-xml">											&#123;item + 1&#125;</span><br><span class="language-xml">										<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">									);</span><br><span class="language-xml">								&#125;)&#125;</span><br><span class="language-xml">							<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 border-b border-dashed border-brown-light text-center text-md text-brown&quot;</span>&gt;</span></span><br><span class="language-xml">							&#123;item.price&#125;</span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 border-b border-dashed border-brown-light text-center text-md text-brown&quot;</span>&gt;</span></span><br><span class="language-xml">							&#123;item.price * item.qty&#125;</span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br><span class="language-xml">				);</span><br><span class="language-xml">			&#125;)&#125;</span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span></span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="判斷購物車是否為空"><a href="#判斷購物車是否為空" class="headerlink" title="判斷購物車是否為空"></a>判斷購物車是否為空</h3><p>以 <code>cart.length === 0</code> 來判斷要顯示的畫面</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&#123; cart.<span class="hljs-property">length</span> === <span class="hljs-number">0</span><br>  ? (<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;rounded-lg border-2 border-brown-light mt-4 p-4 text-center text-brown font-bold&quot;</span>&gt;</span></span><br><span class="language-xml">    尚未選擇飲品～</span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  ) : (<br>    <span class="hljs-comment">// ... 略</span><br>    &#123;cart.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span>&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 border-b border-dashed border-brown-light&quot;</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-xl text-brown font-medium&quot;</span>&gt;</span></span><br><span class="language-xml">              &#123;item.name&#125;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-1 text-md text-brown&quot;</span>&gt;</span></span><br><span class="language-xml">              &#123;item.description&#125;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-2 text-red-400 text-sm&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            &gt;</span></span><br><span class="language-xml">              刪除品項</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">          // ... 略</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br>      );<br>    &#125;)&#125;<br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="重覆點選飲品的判斷"><a href="#重覆點選飲品的判斷" class="headerlink" title="重覆點選飲品的判斷"></a>重覆點選飲品的判斷</h3><p>當我們點擊飲品，觸發飲品項目加到購物車時，還需判斷購物車中是否已經有此飲品品項，所以會以 id 作為判斷依據。</p>
+<p>程式上先以 <code>const conformIndex = cart.findIndex((cartItem) =&gt; item.id === cartItem.id);</code> 來做判斷，對比飲品品項的 id 跟購物車 id。 (-1 表示購物車還沒有這個品項)</p>
+<p>購物車沒有此品項時，就跑原本的新增程式；如果已經有此品項，就跑編輯的程式，編輯的寫法跟上週是一樣的，這邊就不再贅述。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">addCart</span> = (<span class="hljs-params">item</span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> conformIndex = cart.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function">(<span class="hljs-params">cartItem</span>) =&gt;</span> item.<span class="hljs-property">id</span> === cartItem.<span class="hljs-property">id</span>);<br><br>	<span class="hljs-keyword">if</span> (conformIndex === -<span class="hljs-number">1</span>) &#123;<br>		<span class="hljs-comment">// -1 表示購物車還沒有這個品項</span><br>		<span class="hljs-keyword">const</span> tempCart = [<br>			...cart, <span class="hljs-comment">// [] 淺拷貝</span><br>			&#123;<br>				...item,<br>				<span class="hljs-attr">qty</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">// 數量預設為 1</span><br>			&#125;,<br>		];<br>		<span class="hljs-title function_">setCart</span>(tempCart);<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-comment">// 購物車原先就有此品項</span><br>		<span class="hljs-keyword">const</span> tempCart = cart.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">cartItem</span>) =&gt;</span> &#123;<br>			<span class="hljs-keyword">return</span> item.<span class="hljs-property">id</span> === cartItem.<span class="hljs-property">id</span><br>				? &#123;<br>						...cartItem,<br>						<span class="hljs-attr">qty</span>: cartItem.<span class="hljs-property">qty</span> &lt; <span class="hljs-number">10</span> ? cartItem.<span class="hljs-property">qty</span> + <span class="hljs-number">1</span> : cartItem.<span class="hljs-property">qty</span>,<br>				  &#125;<br>				: &#123; ...cartItem &#125;;<br>		&#125;);<br>		<span class="hljs-title function_">setCart</span>(tempCart);<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="購物車總計"><a href="#購物車總計" class="headerlink" title="購物車總計"></a>購物車總計</h3><p>先定義 <code>const [total, setTotal] = useState(0);</code> 總計資料，然後透過 useEffect 來觀察購物車是否有更動，只要更動就透過 reduce 重新計算總價。<br>（這邊就省略把 total 放到畫面上）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [menu] = <span class="hljs-title function_">useState</span>(data); <span class="hljs-comment">// 原始 menu</span><br>	<span class="hljs-keyword">const</span> [cart, setCart] = <span class="hljs-title function_">useState</span>([]); <span class="hljs-comment">// 購物車資料</span><br>	<span class="hljs-keyword">const</span> [total, setTotal] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// 總計</span><br><br>  <span class="hljs-comment">// ... 略</span><br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>		<span class="hljs-keyword">const</span> totalPrice = cart.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">prev, curr</span>) =&gt;</span> &#123;<br>			<span class="hljs-keyword">return</span> prev + curr.<span class="hljs-property">price</span> * curr.<span class="hljs-property">qty</span>;<br>		&#125;, <span class="hljs-number">0</span>);<br>		<span class="hljs-title function_">setTotal</span>(totalPrice);<br>	&#125;, [cart]);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="hljs-comment">//...略</span><br>  )<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="購物車品項更改數量-select"><a href="#購物車品項更改數量-select" class="headerlink" title="購物車品項更改數量 (select)"></a>購物車品項更改數量 (select)</h3><p>如果我們在 select 綁上 value ，但並沒有綁上 onChange 的功能時，雖然程式並不會整個爆掉，但會噴紅字加上不能操作 select。</p>
+<p>所以在這邊加上 updateCart 的功能，記得帶上 <code>e.target.value</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [menu] = <span class="hljs-title function_">useState</span>(data); <span class="hljs-comment">// 原始 menu</span><br>	<span class="hljs-keyword">const</span> [cart, setCart] = <span class="hljs-title function_">useState</span>([]); <span class="hljs-comment">// 購物車資料</span><br>	<span class="hljs-keyword">const</span> [total, setTotal] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// 總計</span><br><br>	<span class="hljs-comment">// ... 略</span><br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">updateCart</span> = (<span class="hljs-params">item, value</span>) =&gt; &#123;<br>		<span class="hljs-keyword">const</span> tempCart = cart.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">cartItem</span>) =&gt;</span> &#123;<br>			<span class="hljs-keyword">return</span> item.<span class="hljs-property">id</span> === cartItem.<span class="hljs-property">id</span><br>				? &#123;<br>						...cartItem,<br>						<span class="hljs-attr">qty</span>: <span class="hljs-title class_">Number</span>(value),<br>				  &#125;<br>				: &#123; ...cartItem &#125;;<br>		&#125;);<br>		<span class="hljs-title function_">setCart</span>(tempCart);<br>	&#125;;<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="hljs-comment">// ... 略</span><br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 border-b border-dashed border-brown-light text-center text-md text-brown w-32&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">select</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;w-1/2 h-[32px] rounded-md text-center bg-brown-100 focus:outline-none focus:border-brown-dark&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">value</span>=<span class="hljs-string">&#123;item.qty&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;(e)</span> =&gt;</span> updateCart(item, e.target.value)&#125;</span><br><span class="language-xml">			&gt;</span><br><span class="language-xml">				&#123;[...Array(10).keys()].map((item) =&gt; &#123;</span><br><span class="language-xml">					return (</span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;item</span> + <span class="hljs-attr">1</span>&#125; <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item&#125;</span>&gt;</span></span><br><span class="language-xml">							&#123;item + 1&#125;</span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">					);</span><br><span class="language-xml">				&#125;)&#125;</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br>		<span class="hljs-comment">// ...略</span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="刪除購物車品項"><a href="#刪除購物車品項" class="headerlink" title="刪除購物車品項"></a>刪除購物車品項</h3><p>那時上課時，看到用 filter 來處理刪除功能，還是會有點反應不上來，雖然並不是第一次看到這樣操作。</p>
+<p>筆記：<code>item.id === cartItem.id</code> 表示符合條件的只有一筆；所以反過來寫的話，就是除了這一筆之外的資料都要留著。<br>（畫面略)</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">deleteCartItem</span> = (<span class="hljs-params">item</span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> tempCart = cart.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">cartItem</span>) =&gt;</span> &#123;<br>		<span class="hljs-keyword">return</span> item.<span class="hljs-property">id</span> !== cartItem.<span class="hljs-property">id</span>;<br>	&#125;);<br>	<span class="hljs-title function_">setCart</span>(tempCart);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="創建訂單"><a href="#創建訂單" class="headerlink" title="創建訂單"></a>創建訂單</h3><p>當我們點擊購物列表的送出按鈕後，會去觸發 createOder function。</p>
+<ul>
+<li>定義資料 <code>const [order, setOrder] = useState([]);</code></li>
+<li>在 tempOrder 這個 array 中，除了帶上購物車、備註、總計的資料外，也多定義一個 id</li>
+<li>最後記得清空購物車跟備註資料</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [menu] = <span class="hljs-title function_">useState</span>(data); <span class="hljs-comment">// 原始 menu</span><br>	<span class="hljs-keyword">const</span> [cart, setCart] = <span class="hljs-title function_">useState</span>([]); <span class="hljs-comment">// 購物車資料</span><br>	<span class="hljs-keyword">const</span> [total, setTotal] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// 總計</span><br>	<span class="hljs-keyword">const</span> [note, setNote] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>); <span class="hljs-comment">// 備註</span><br>	<span class="hljs-keyword">const</span> [order, setOrder] = <span class="hljs-title function_">useState</span>([]); <span class="hljs-comment">// 訂單</span><br><br>	<span class="hljs-comment">// ... 略</span><br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">createOder</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-keyword">const</span> tempOrder = [<br>			...order,<br>			&#123;<br>				<span class="hljs-attr">id</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>(),<br>				cart,<br>				note,<br>				total,<br>			&#125;,<br>		];<br><br>		<span class="hljs-title function_">setOrder</span>(tempOrder);<br>		<span class="hljs-title function_">setCart</span>([]);<br>		<span class="hljs-title function_">setNote</span>(<span class="hljs-string">&quot;&quot;</span>);<br>	&#125;;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="定義訂單到畫面"><a href="#定義訂單到畫面" class="headerlink" title="定義訂單到畫面"></a>定義訂單到畫面</h3><p>先用 <code>order.length === 0</code> 判斷要顯示什麼畫面。接著把資料帶到畫面中。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;div className=<span class="hljs-string">&quot;mx-auto lg:w-3/5 w-full&quot;</span>&gt;<br>	&#123;<span class="hljs-comment">/* 訂單  */</span>&#125;<br>	&#123;order.<span class="hljs-property">length</span> === <span class="hljs-number">0</span> ? (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;rounded-lg border-2 border-brown-light mt-4 p-4 text-center text-brown font-bold&quot;</span>&gt;</span></span><br><span class="language-xml">			尚未建立訂單～</span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	) : (<br>		order.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;<br>			<span class="hljs-keyword">return</span> (<br>				<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span></span></span><br><span class="hljs-tag"><span class="language-xml">					<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;rounded-lg border-2 border-brown-light mt-4 p-4 text-brown text-center&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">					<span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-2xl font-bold text-primary text-left&quot;</span>&gt;</span>訂單<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-1 text-md text-brown text-left&quot;</span>&gt;</span>編號：&#123;item.id&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-1 text-md text-brown text-left&quot;</span>&gt;</span>備註：&#123;item.note&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-2 mb-4&quot;</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;w-full&quot;</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">thead</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;border-b-2 border-brown-light&quot;</span>&gt;</span></span><br><span class="language-xml">								<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span></span><br><span class="language-xml">									<span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 font-medium text-brown&quot;</span>&gt;</span>品項<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span></span><br><span class="language-xml">									<span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 font-medium text-brown&quot;</span>&gt;</span>數量<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span></span><br><span class="language-xml">									<span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 font-medium text-brown&quot;</span>&gt;</span>小計<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span></span><br><span class="language-xml">								<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">tbody</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span></span><br><span class="language-xml">								&#123;item.cart.map((innerItem) =&gt; &#123;</span><br><span class="language-xml">									return (</span><br><span class="language-xml">										<span class="hljs-tag">&lt;<span class="hljs-name">tr</span></span></span><br><span class="hljs-tag"><span class="language-xml">											<span class="hljs-attr">key</span>=<span class="hljs-string">&#123;innerItem.id&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">											<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;border-b border-brown-light&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">										&gt;</span></span><br><span class="language-xml">											<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 text-brown&quot;</span>&gt;</span>&#123;innerItem.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">											<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 text-brown&quot;</span>&gt;</span>&#123;innerItem.qty&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">											<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3 text-brown&quot;</span>&gt;</span></span><br><span class="language-xml">												&#123;innerItem.qty * innerItem.price&#125;</span><br><span class="language-xml">											<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">										<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br><span class="language-xml">									);</span><br><span class="language-xml">								&#125;)&#125;</span><br><span class="language-xml">							<span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;<span class="hljs-name">tfoot</span>&gt;</span></span><br><span class="language-xml">								<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span></span><br><span class="language-xml">									<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">colSpan</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">									<span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">colSpan</span>=<span class="hljs-string">&quot;1&quot;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;p-3&quot;</span>&gt;</span></span><br><span class="language-xml">										<span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-center text-xl text-brown font-medium&quot;</span>&gt;</span></span><br><span class="language-xml">											總計: $&#123;item.total&#125;</span><br><span class="language-xml">										<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="language-xml">									<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span></span><br><span class="language-xml">								<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br><span class="language-xml">							<span class="hljs-tag">&lt;/<span class="hljs-name">tfoot</span>&gt;</span></span><br><span class="language-xml">						<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>			);<br>		&#125;)<br>	)&#125;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="拆元件"><a href="#拆元件" class="headerlink" title="拆元件"></a>拆元件</h2><p>處理好程式邏輯後，再來就是拆元件的部分，這邊就先拆出最基準的三個（Menu、Cart、Order）。</p>
+<p>在拆元件之前，因為 ESLint 會提醒 props 的型別宣告，所以要先安裝 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/prop-types">prop-types</a>。</p>
+<h3 id="以-Cart-為範例"><a href="#以-Cart-為範例" class="headerlink" title="以 Cart 為範例"></a>以 Cart 為範例</h3><p>這邊就以購物車的元件作為主要範例，其他元件拆法都是一致的。首先我們先在 src 新增 components 資料夾，並新增元件(Cart.jsx)。</p>
+<p>接著在 Cart.jsx 先建好預設，並 import propTypes 以及預設 propTypes 物件：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// Cart.jsx</span><br><span class="hljs-keyword">import</span> propTypes <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;prop-types&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Cart</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> ()<br>&#125;<br><br><span class="hljs-title class_">Cart</span>.<span class="hljs-property">propTypes</span> = &#123;<br><br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Cart</span>;<br></code></pre></td></tr></table></figure>
+
+<p>將 App.jsx 中的購物車內容，移動到 Cart.jsx 的樣板中。<br>然後在 App.jsx 引入 Cart.jsx</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// Cart.jsx</span><br><span class="hljs-keyword">import</span> propTypes <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;prop-types&quot;</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Cart</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br><span class="hljs-keyword">return</span> (<br>  &lt;div className=&quot;&quot;&gt;<br>    &#123;/* 購物車 */&#125;<br>    &lt;h2 className=&quot;text-2xl font-bold text-primary&quot;&gt;購物列表&lt;/h2&gt;<br>    &lt;hr className=&quot;mt-2 mb-4&quot; /&gt;<br>    &#123;cart.length === 0 ? (<br>      &lt;div className=&quot;rounded-lg border-2 border-brown-light mt-4 p-4 text-center text-brown font-bold&quot;&gt;<br>        尚未選擇飲品～<br>      &lt;/div&gt;<br>    ) : (<br>      &lt;div className=&quot;rounded-lg border-2 border-brown-light mt-4 p-4&quot;&gt;<br>        &lt;table className=&quot;min-w-full leading-normal&quot;&gt;<br>          &lt;thead&gt;<br>            &lt;tr&gt;<br>              &lt;th className=&quot;p-3 text-left text-xs font-semibold text-brown-light&quot;&gt;<br>                飲品資訊<br>              &lt;/th&gt;<br>              &lt;th className=&quot;p-3 text-center text-xs font-semibold text-brown-light&quot;&gt;<br>                數量<br>              &lt;/th&gt;<br>              &lt;th className=&quot;p-3 text-center text-xs font-semibold text-brown-light&quot;&gt;<br>                單價<br>              &lt;/th&gt;<br>    // ... 以下略<br>);<br>&#125;;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// App.jsx</span><br><span class="hljs-keyword">import</span> &#123; useState, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Cart</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@/components/Cart&quot;</span>;<br><span class="hljs-comment">// ... 略</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-comment">// ... 略</span><br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;bg-[#F8F6F2] min-h-screen&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;container mx-auto px-3 py-8&quot;</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8&quot;</span>&gt;</span></span><br><span class="language-xml">					// 略 ...</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">Cart</span> /&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">hr</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-4 mb-6&quot;</span> /&gt;</span></span><br><span class="language-xml">				// ...略</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在 Cart.jsx 定義好預計要傳過來的資料跟功能，如下圖所示，我們可以根據紅字（沒有定義）來知道預計要傳過來的資料跟功能。接著透過 Cart.propTypes 定義好要傳進來的資料型別、功能</p>
+<p><img src="https://i.imgur.com/WCPjccp.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// Cart.jsx</span><br><span class="hljs-keyword">import</span> propTypes <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;prop-types&quot;</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Cart</span> = (<span class="hljs-params">&#123; cart, deleteCartItem, updateCart, total, note, setNote,</span><br><span class="hljs-params">createOder &#125;</span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span></span><br><span class="language-xml">      &#123;/* 購物車 */&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;text-2xl font-bold text-primary&quot;</span>&gt;</span>購物列表<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-2 mb-4&quot;</span> /&gt;</span></span><br><span class="language-xml">    // ... 略</span><br><span class="language-xml">  )</span><br><span class="language-xml">&#125;</span><br><span class="language-xml"></span><br><span class="language-xml">Cart.propTypes = &#123;</span><br><span class="language-xml">  cart: propTypes.array.isRequired,</span><br><span class="language-xml">  deleteCartItem: propTypes.func.isRequired,</span><br><span class="language-xml">  updateCart: propTypes.func.isRequired,</span><br><span class="language-xml">  total: propTypes.number.isRequired,</span><br><span class="language-xml">  note: propTypes.string.isRequired,</span><br><span class="language-xml">  setNote: propTypes.func.isRequired,</span><br><span class="language-xml">  createOder: propTypes.func.isRequired,</span><br><span class="language-xml">&#125;;</span><br></code></pre></td></tr></table></figure>
+
+<p>根據在 Cart.jsx 所需要的資料或功能，我們就可以從父層傳入相對應的資料跟功能。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// app.jsx</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Cart</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@/components/Cart&quot;</span>;<br><span class="hljs-comment">// ...略</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-comment">// ... 略</span><br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;bg-[#F8F6F2] min-h-screen&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;container mx-auto px-3 py-8&quot;</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8&quot;</span>&gt;</span></span><br><span class="language-xml">					// ... 略</span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">Cart</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">cart</span>=<span class="hljs-string">&#123;cart&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">deleteCartItem</span>=<span class="hljs-string">&#123;deleteCartItem&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">updateCart</span>=<span class="hljs-string">&#123;updateCart&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">total</span>=<span class="hljs-string">&#123;total&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">note</span>=<span class="hljs-string">&#123;note&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">setNote</span>=<span class="hljs-string">&#123;setNote&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">createOder</span>=<span class="hljs-string">&#123;createOder&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">					/&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">hr</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;mt-4 mb-6&quot;</span> /&gt;</span></span><br><span class="language-xml">				// ... 略</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h2><p>現在在寫 React 時，都特別能感受自己原生 JS 的不足，雖然能寫出程式，不過有時都會覺得卡卡的。先前寫 Vue 並不會這樣覺得，可能是因為 Vue 幫我們做了很多事（黑魔法）。</p>
+<p>在寫這週紀錄的結尾時，就在想第三週跟第四週可能會換種方式紀錄，雖然這樣的步驟拆解，可以讓我刻意練習思路；主要是考量到自己的其他規劃，不過目前倒還不曉得要改用什麼方式，也許下週就會有靈感了（？）。</p>
+<p>（若有什麼部分寫錯，也再麻煩跟我說，感恩！）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%85%AD%E8%A7%92%E5%AD%B8%E9%99%A2/" class="print-no-link">#六角學院</a>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>六角學院 React 入門工作坊第二週</div>
+      <div>https://yaj55billy.github.io/post/react-workshop-week2.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2023年8月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/nuxt3-install-bootstrap5.html" title="在 Nuxt3 使用 Bootstrap5">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在 Nuxt3 使用 Bootstrap5</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/learn-pinia.html" title="Pinia 筆記">
+                        <span class="hidden-mobile">Pinia 筆記</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>

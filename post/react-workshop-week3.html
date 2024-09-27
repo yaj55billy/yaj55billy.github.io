@@ -1,1 +1,753 @@
-<!doctype html><html lang="en"><head><!-- hexo injector head_begin start --><meta name="author" content="Billy Ji"></meta><!-- hexo injector head_begin end --><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><script type="module" crossorigin src="/static/js/120aa8f8.js"></script><link rel="stylesheet" href="/static/css/a14e1a22.css"><!-- hexo injector head_end start --><script rel="prefetch" async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script rel="preload" src="https://unpkg.com/blueimp-md5@^2.19.0/js/md5.min.js"></script><script rel="preload" src="https://unpkg.com/lodash@^4.17.21/lodash.min.js"></script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Rubik" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body id="body-container"><noscript><strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div></body></html>
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="關於第三週的一些分享、心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="六角學院 React 入門工作坊第三週">
+<meta property="og:url" content="https://yaj55billy.github.io/post/react-workshop-week3.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="關於第三週的一些分享、心得">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+<meta property="article:published_time" content="2023-08-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-26T06:17:22.243Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="六角學院">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>六角學院 React 入門工作坊第三週 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://i.imgur.com/Zwb2dxR.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="六角學院 React 入門工作坊第三週"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-28 00:00" pubdate>
+          2023年8月28日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">六角學院 React 入門工作坊第三週</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Photo by <a target="_blank" rel="noopener" href="https://unsplash.com/@lautaroandreani?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lautaro Andreani</a> on <a target="_blank" rel="noopener" href="https://unsplash.com/photos/xkBaqlcqeb4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>第三週因為事情比較多，所以整體的進度慢了一些。上課也只能跟到前半段 30 分鐘，覺得曠掉直播課是滿可惜的(QQ)，而且也可能會錯過<del>尿點</del>知識；後來在隔天老師上傳錄影檔時，就趕快補上進度，這週的主軸核心為 API 串接，可以好好做個練習，上課時老師也會補上一些知識點（ex: JWT），並講解的比較好理解。</p>
+<p>這週因為一些規劃跟時間關係，所以會跟前兩週完整拆解的方式不同，這邊抽出三個部分來分享：</p>
+<ul>
+<li>React Hook Form</li>
+<li>Axios 的 API 管理</li>
+<li>關於 API 串接練習</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.billyji.com/react-workshop-week3/">第三週作品</a></p>
+<hr>
+<h2 id="React-Hook-Form"><a href="#React-Hook-Form" class="headerlink" title="React Hook Form"></a>React Hook Form</h2><p>一開始在寫註冊這個元件時，忽然興起了找表單套件的想法，後來就找到了<a target="_blank" rel="noopener" href="https://react-hook-form.com/">React Hook Form</a>，也決定在這次作業中來嘗試一下。</p>
+<h3 id="起手安裝"><a href="#起手安裝" class="headerlink" title="起手安裝"></a>起手安裝</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> react-hook-form<br></code></pre></td></tr></table></figure>
+
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><ol>
+<li>在元件中透過 <code>import &#123; useForm &#125; from &quot;react-hook-form&quot;</code>，從表單套件引用 useForm 這個功能</li>
+<li>接著從 useForm 的執行中，解構出 register 跟 handleSubmit。（前者處理資料，後者處理表單提交相關）</li>
+<li>再來定義好表單送出的 onSubmit 函式，這是屬於自定義的函式，所以命名也是自定義的。稍後就會提到這個自定義函式的 data 參數。</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useForm &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-hook-form&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">SignUp</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> &#123;<br>		register, <span class="hljs-comment">// state</span><br>		handleSubmit, <span class="hljs-comment">// submit</span><br>	&#125; = <span class="hljs-title function_">useForm</span>();<br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">onSubmit</span> = (<span class="hljs-params">data</span>) =&gt; &#123;<br>		<span class="hljs-comment">// 自定義的 submit</span><br>		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);<br>	&#125;;<br><br>	<span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>...略<span class="hljs-tag">&lt;/&gt;</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="在-jsx-中使用"><a href="#在-jsx-中使用" class="headerlink" title="在 jsx 中使用"></a>在 jsx 中使用</h3><p>接著我們來看 jsx 樣板部分：</p>
+<ol>
+<li>如稍早所述 register 是處理資料相關，它用來建立表單元素跟資料的關聯。在下方程式碼的三個 input 中，我們都能看到 <code>&#123;...register(&quot;欄位命名&quot;)&#125;</code> 這樣的方式，將 state 登記（綁定）到某個表單元素。</li>
+<li>而在 form tag 的部分，<code>handleSubmit</code> 是處理表單提交的函式，透過這樣 <code>&#123;handleSubmit(onSubmit)&#125;</code> 把我們自定義的函式丟進去，就能在表單送出後，在自定義函式的參數中，得到 <code>register</code> 的資料。</li>
+</ol>
+<p>（爲了方便理解，所以有稍微省略一些程式碼結構）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">return</span> (<br>	<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;signUpPage&quot;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;bg-yellow&quot;</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;formControls&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">&#123;handleSubmit(onSubmit)&#125;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;formControls_txt&quot;</span>&gt;</span>註冊帳號<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;formControls_input&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;請輸入 email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				&#123;<span class="hljs-attr">...register</span>(&quot;<span class="hljs-attr">email</span>&quot;)&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">			/&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;formControls_input&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;nickname&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;請輸入您的暱稱&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				&#123;<span class="hljs-attr">...register</span>(&quot;<span class="hljs-attr">nickname</span>&quot;)&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">			/&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">className</span>=<span class="hljs-string">&quot;formControls_input&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">id</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;請輸入密碼&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				&#123;<span class="hljs-attr">...register</span>(&quot;<span class="hljs-attr">password</span>&quot;)&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">			/&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;formControls_btnSubmit&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span></span><br><span class="language-xml">				註冊帳號</span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<p>補充：<br>從以上範例中，當我們填寫好 input 並送出表單後，就能從自定義函式的 <code>data</code> 參數中取得資料。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 自定義的 submit</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">onSubmit</span> = (<span class="hljs-params">data</span>) =&gt; &#123;<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);<br>	<span class="hljs-comment">// &#123;email: &#x27;我們所填入的 mail&#x27;, nickname: &#x27;填入的 nickname&#x27;, password: &#x27;填入的密碼&#x27;&#125;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用心得"><a href="#使用心得" class="headerlink" title="使用心得"></a>使用心得</h3><p>這週上課時，中途有提到表單處理，雖然 React 在資料處理上有一些固定的模式，但不得不說是比較複雜的（很吃 JS 底子）。</p>
+<p>這次作業的表單是較為單純的（欄位少），所以即使不用這個套件，對於速度跟方便性上也不會差異太多；不過透過這樣的嘗試，可以知道如果是複雜表單（欄位多），就相當適合導入使用，而這個套件也包含了一些方便的功能，像是狀態監聽、錯誤樣式、驗證等等。</p>
+<h2 id="Axios-的-API-管理"><a href="#Axios-的-API-管理" class="headerlink" title="Axios 的 API 管理"></a>Axios 的 API 管理</h2><p>當我們使用 axios 來串接 api 時，可以試著把 api crud 的相關操作都集中在一支 js 檔案管理，需要某個 api 操作時再引用出來，這樣的概念跟優點可以參考 <a target="_blank" rel="noopener" href="https://medium.com/i-am-mike/%E4%BD%BF%E7%94%A8axios%E6%99%82%E4%BD%A0%E7%9A%84api%E9%83%BD%E6%80%8E%E9%BA%BC%E7%AE%A1%E7%90%86-557d88365619">Mike 老師的文章</a>。</p>
+<p>自己最早接觸到這樣的概念是幾年前的某次面試，那時跟負責面試的技術主管討論了工作上的專案，以及聊到了在 Vue 直播班做的作品（2020 的直播班），而這位主管在面試快結束時，也給予我一些建議，像是可以鑽研 vue 的底層知識、vue2 到 vue3 的不同，以及 api 抽出來管理（真的很感謝那位技術主管）。雖然這次課程用到的 api 數量不多，所以即使沒有管理也是 OK 的，不過還是借著這樣的機會來做練習。</p>
+<h3 id="抽出-api-程式"><a href="#抽出-api-程式" class="headerlink" title="抽出 api 程式"></a>抽出 api 程式</h3><ol>
+<li>看了 api 操作有哪些之後，從專案根目錄開一個 api folder，並在裡頭新增 index.js</li>
+<li>首先 import axios 到這支檔案中，並透過 axios.create 創建 axios 的實體<ul>
+<li>雖然這次只用到 baseURL，不過還是可以看一下文件的 <a target="_blank" rel="noopener" href="https://github.com/axios/axios#request-config">config</a></li>
+</ul>
+</li>
+<li>把 api 的 crud 操作包裝在函式內，並 export 出去。這邊也先根據 api 文件去配置需要的參數，像是 data、id、headers<ul>
+<li>在函式命名上我以 api 做開頭，表示這是處理 api 相關</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// api/index.js</span><br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;axios&quot;</span>;<br><br><span class="hljs-keyword">const</span> todoBase = axios.<span class="hljs-title function_">create</span>(&#123;<br>	<span class="hljs-attr">baseURL</span>: <span class="hljs-string">&quot;https://...&quot;</span>,<br>&#125;);<br><br><span class="hljs-comment">// 註冊</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersSignUp</span> = (<span class="hljs-params">data</span>) =&gt; todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/users/sign_up&quot;</span>, data);<br><br><span class="hljs-comment">// 登入</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersSignIn</span> = (<span class="hljs-params">data</span>) =&gt; todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/users/sign_in&quot;</span>, data);<br><br><span class="hljs-comment">// 驗證</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersCheckout</span> = (<span class="hljs-params">headers</span>) =&gt;<br>	todoBase.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/users/checkout&quot;</span>, headers);<br><br><span class="hljs-comment">// 登出</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiUsersSignOut</span> = (<span class="hljs-params">headers</span>) =&gt;<br>	todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/users/sign_out&quot;</span>, &#123;&#125;, headers);<br><br><span class="hljs-comment">// 取得所有待辦</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiGetTodos</span> = (<span class="hljs-params">headers</span>) =&gt; todoBase.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/todos/&quot;</span>, headers);<br><br><span class="hljs-comment">// 新增待辦</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiPostTodos</span> = (<span class="hljs-params">data, headers</span>) =&gt;<br>	todoBase.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/todos/&quot;</span>, data, headers);<br><br><span class="hljs-comment">// 刪除待辦</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiDeleteTodos</span> = (<span class="hljs-params">id, headers</span>) =&gt;<br>	todoBase.<span class="hljs-title function_">delete</span>(<span class="hljs-string">`/todos/<span class="hljs-subst">$&#123;id&#125;</span>`</span>, headers);<br><br><span class="hljs-comment">// 切換待辦狀態</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiPatchTodos</span> = (<span class="hljs-params">id, headers</span>) =&gt;<br>	todoBase.<span class="hljs-title function_">patch</span>(<span class="hljs-string">`/todos/<span class="hljs-subst">$&#123;id&#125;</span>/toggle`</span>, &#123;&#125;, headers);<br><br><span class="hljs-comment">// 編輯待辦文字</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">apiPutTodos</span> = (<span class="hljs-params">id, data, headers</span>) =&gt;<br>	todoBase.<span class="hljs-title function_">put</span>(<span class="hljs-string">`/todos/<span class="hljs-subst">$&#123;id&#125;</span>`</span>, data, headers);<br></code></pre></td></tr></table></figure>
+
+<h3 id="引用-1"><a href="#引用-1" class="headerlink" title="引用"></a>引用</h3><p>再來以新增項目跟刪除項目來做個範例：</p>
+<ol>
+<li>首先從 api&#x2F;index.js 引用我們需要的 api 函式，這個範例是新增跟刪除項目的函式</li>
+<li>新增項目：在 addTodo 中去使用 apiPostTodos 這個操作，並帶上需要的 data(input value) 跟 headers(token)。後面一樣可接上 .then().catch()</li>
+<li>刪除項目：在 deleteTodo 中去使用 apiDeleteTodos 這個操作，並帶上需要的 id(要刪除哪一筆) 跟 headers</li>
+</ol>
+<p>（範例中為了說明主要內容，所以會省略較多程式碼）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// Todo.jsx</span><br><span class="hljs-comment">// ...略</span><br><span class="hljs-keyword">import</span> &#123; apiPostTodos, apiDeleteTodos &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../api&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Todo</span> = (<span class="hljs-params">&#123; todoToken &#125;</span>) =&gt; &#123;<br>	<span class="hljs-comment">// ...略</span><br>	<span class="hljs-keyword">const</span> [input, setInput] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br><br>	<span class="hljs-keyword">const</span> headers = &#123;<br>		<span class="hljs-title class_">Authorization</span>: todoToken,<br>	&#125;;<br><br>	<span class="hljs-comment">// ...略</span><br><br>	<span class="hljs-comment">// 新增項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">addTodo</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>		<span class="hljs-keyword">if</span> (input === <span class="hljs-string">&quot;&quot;</span>) <span class="hljs-keyword">return</span>;<br>		<span class="hljs-title function_">apiPostTodos</span>(&#123; <span class="hljs-attr">content</span>: input &#125;, &#123; headers &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>			<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>		&#125;);<br><br>		<span class="hljs-title function_">setInput</span>(<span class="hljs-string">&quot;&quot;</span>); <span class="hljs-comment">// 清空</span><br>		<span class="hljs-title function_">getTodos</span>();<br>	&#125;;<br><br>	<span class="hljs-comment">// 刪除項目</span><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">deleteTodo</span> = (<span class="hljs-params">id</span>) =&gt; &#123;<br>		<span class="hljs-title function_">apiDeleteTodos</span>(id, &#123; headers &#125;);<br>		<span class="hljs-title function_">getTodos</span>();<br>	&#125;;<br>	<span class="hljs-comment">// ... 略</span><br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Todo</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="題外話跟補充"><a href="#題外話跟補充" class="headerlink" title="題外話跟補充"></a>題外話跟補充</h3><p>雖然知道 Async&#x2F;Await 這個寫法在視覺上比較好讀，但不曉得為何自己一直都很習慣用 .then().catch() 的形式。<br>補充：如果不是用 axios 來串接 api，也是可以做到管理的，不過要自己多寫些程式封裝。</p>
+<h2 id="關於-API-串接練習"><a href="#關於-API-串接練習" class="headerlink" title="關於 API 串接練習"></a>關於 API 串接練習</h2><p>在寫這篇文的過程中，也看到老師在公告中，建議同學盡量練習課程所提供的 API。我覺得這樣的練習相當重要，除了 AJAX 是前端的必須技能外，我也想分享這幾年在前端工作的心得。</p>
+<p>前端工程師的職務內容，在不同公司跟產業中是差異很大的，再加上團隊氛圍等多種因素的影響。有的公司很重視切版、畫面，有的則很注重程式，有些時候也會被指派一些跟前端無關的任務。以我自己上一份工作經驗來說，大約有 10% 到 20% 的時間會做非程式任務，20% 的時間會處理一些後端部分（例如將表單資料送入資料庫），而剩下的部分才回到前端領域。（補充：這個段落不是抱怨，而是接受每個公司對前端需求是不同的，主要是當事者能否接受）</p>
+<p>由於公司的類型多樣，比如團隊是否有前後端分離，或者專案的時辰充裕與否，再加總一些其他因素等等，我們不一定能在工作上串接到後端提供的 API，再來是不一定會有這麼詳盡的文件（<del>甚至沒有文件</del>）。所以如第一個段落所述，會覺得這樣的練習是很重要。<br>（當然也有一些第三方服務是可以串接練習的）</p>
+<hr>
+<h2 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h2><p>第三週作業如果寫的較為完整，就可以好好來銜接最終作業了。不曉得為何，這週寫作業時，腦袋會比較頻繁的當機，所以都要提醒自己起來動一動，做點不同的事情。</p>
+<p>最近回來寫程式的過程（<del>復健</del>），一直能感覺到過去累積不少技術債，這陣子先專心在規劃好的任務上，之後再來還債了（例如：JS 核心）。</p>
+<p>（若有什麼部分寫錯，也再麻煩跟我說，感恩！）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%85%AD%E8%A7%92%E5%AD%B8%E9%99%A2/" class="print-no-link">#六角學院</a>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>六角學院 React 入門工作坊第三週</div>
+      <div>https://yaj55billy.github.io/post/react-workshop-week3.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2023年8月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/react-workshop-week4.html" title="六角學院 React 入門工作坊第四週（最終）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">六角學院 React 入門工作坊第四週（最終）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/nuxt3-install-bootstrap5.html" title="在 Nuxt3 使用 Bootstrap5">
+                        <span class="hidden-mobile">在 Nuxt3 使用 Bootstrap5</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
