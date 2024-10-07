@@ -35,7 +35,7 @@ console.log(addFn(a, b));
 
 從上方範例中，我們可以看到程式碼偏離了預期（數字相加、回傳數字），而這樣就會導致開發的錯誤。
 
-使用 TypeScript 來撰寫，就可以明確指定 a、b 參數都必須是 number 型別，而回傳結果也是 number 型別，來達到數字相加的預期結果；如果我們將參數傳入不同型別（例如：字串），在編譯過程或者 VSCode 的功能上，就會提醒我們出現錯誤。而這樣的型別設置，就能有效避免程式出現錯誤。
+使用 TypeScript 來撰寫，就可以明確指定函式的 a、b 參數都必須是 number 型別，而回傳結果也是 number 型別，來達到數字相加的預期結果；如果我們將參數傳入不同型別（例如：字串），在編譯過程或者 VSCode 的功能上，就會提醒我們出現錯誤。而這樣的型別設置，就能在「開發階段」時就提醒我們型別出現錯誤了。
 
 ```ts
 function addFn(a: number, b: number): number {
@@ -54,7 +54,7 @@ console.log(addFn(a, b)); // 預期結果 10+5=15
 a = "10"; // Error: Type 'string' is not assignable to type 'number'.
 ```
 
-## 原始型別（Primitive）
+## 原始型別（Primitive Types）
 
 在 JavaScript 中有七種原始型別，分別是：
 
@@ -99,73 +99,140 @@ console.log(dataKey1 === dataKey2); // false
 let bigNumber: bigint = BigInt(Number.MAX_SAFE_INTEGER);
 ```
 
-## 陣列型別
+## 陣列型別（Array Types）
 
-陣列型別的宣告方式：
-最後一個宣告方式 list3，是不同意思（會限定陣列長度），這個需確認是不是元祖的意思
+陣列型別可以用來定義一組相同型別的元素。TypeScript 提供兩種常見的語法來做定義：
 
-在陣列這個段落，我會說明一般陣列宣告方式，以及和元祖的不同
+- `let 變數名稱: 型別[] = 陣列資料`
+- `let 變數名稱: Array<型別> = 陣列資料`：這種方式是使用泛型來定義，這邊可約略先知道有這樣的方式，而關於泛型這個概念的詳細，會在後面章節補充。
 
-```tsx
-let list: string[] = ["a", "b", "c"]; // 要一個裡面資料型別為 string 的陣列
-let list2: Array<string> = ["a", "b", "c"]; // 這個 Array 裡面是 string 的資料型別
-
-let list3: [string, string, string] = ["a", "b", "c"]; // 跟前兩者不同
-
-list = ["a"];
-// ...
-```
+第一種語法範例：
 
 ```ts
-x = true; // compile time error
-let y: string[] = [3, "a", "b"]; // compile time error
-
-let grades: number[] = [60, 70, 80];
-console.log(grades);
-// ...
-grades.push("hello"); // 編譯會產生錯誤 Argument of type 'string' is not assignable to parameter of type 'number'.
-
-let a: Array<boolean>;
-a = [true, false];
-console.log(a); // 這樣就不會錯誤
+let numbers: number[] = [1, 2, 3]; // 定義一個 number 型別的陣列
+numbers.push(4); // OK
+numbers.push("5"); // 陣列內的項目型別，需符合我們定義好的型別。所以這邊 push 的字串型別會出現錯誤。
 ```
 
-## 物件型別
+第二種語法範例：
 
-（可以再看看物件型別的範例）
+```ts
+let fruits: Array<string> = ["Apple", "Banana"]; // 定義一個 string 型別的陣列
+fruits.push("Orange"); // OK
+fruits.push(123); // 這樣會報錯，因為 123 不是字串
+```
 
-```jsx
-let leo: {
+TypeScript 支援多維陣列的方式，如下方範例的二維陣列（內容補充）：
+
+```ts
+let weeklyMenu: string[][] = [["Chicken"], ["Beef"], ["Fish"]];
+
+// 嘗試推入一個數字會報錯
+weeklyMenu.push([33]); // Type 'number' is not assignable to type 'string'
+```
+
+### 元組型別（Tuple Type）
+
+元組是 TypeScript 中的一種特殊陣列，它與一般陣列不同的是，元組這個概念允許我們在陣列中包含「不同型別」的元素，但每個元素的型別和順序都是被嚴格定義的（陣列長度也是）。
+
+範例：
+
+```ts
+let person: [string, number, boolean];
+person = ["Billy", 35, true]; // OK
+
+// 錯誤
+person = [123, 35, true]; // 第一個 123 數字型別不符合我們所定義的（字串）
+person = ["Alice", 30, true, 111]; // 陣列長度超出原先定義的，所以這樣也會報錯
+person = ["Alice", 30]; // 這樣也是錯誤的
+```
+
+如果有遇到特殊狀況，需要明確定義資料結構的順序和型別時，也許就會使用到元組這個概念。
+（不過目前思考了過去專案，這樣狀況應該是不常見低～）
+
+## 物件型別（Object Types）
+
+物件型別可以用來定義物件的結構，確保每個屬性都有正確的型別。
+
+```ts
+let user: {
 	name: string;
 	age: number;
 	gender: string;
-	height: number;
-	weight: number;
+	isActive: boolean;
 } = {
-	name: 'xxx';
-	age: 18;
-	gender: '男';
-	height: 180;
-	weight: 70;
-}
+	name: "Billy",
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
 
-// 造成重覆的程式碼
-let xxx: {
-	name: string;
-	age: number;
-	gender: string;
-	height: number;
-	weight: number;
-} = {
-	name: 'xxx';
-	age: 18;
-	gender: '男';
-	height: 180;
-	weight: 70;
-}
+console.log(user.name); // Billy
+user.age = 35; // 這樣不會出錯，因為 35 這個值是數字型別
+
+// 會出錯
+user.age = "我的年齡是35";
+user.phone = "0900-999-999"; // 這樣會出錯，因為並沒有定義 phone 屬性
 ```
 
-## 函式型別
+### 選擇性屬性（Optional Properties）
+
+有時我們並不需要每個屬性都是「必須」提供的，像是有些資訊可以依照使用者需求（喜好）來提供，這時我們可以使用 `?` 來讓某些屬性變為選擇性屬性。
+
+user 相關範例如下，因為我們將 `phoneNumber?` 多設置了選擇性屬性，所以不論在 user1 沒有提供 `phoneNumber` 的資訊，或者 user2 有提供 `phoneNumber` 的資訊，都不會出現 TypeScript 的相關警告。
+
+```ts
+let user1: {
+	name: string;
+	email: string;
+	age: number;
+	phoneNumber?: string; // 這邊將 phoneNumber 設置為選擇性屬性
+} = {
+	name: "John Doe",
+	email: "john@example.com",
+	age: 30,
+};
+
+let user2: {
+	name: string;
+	email: string;
+	age: number;
+	phoneNumber?: string;
+} = {
+	name: "Jane Smith",
+	email: "jane@example.com",
+	age: 28,
+	phoneNumber: "0987-654321",
+};
+
+console.log(user1.phoneNumber); // undefined，因為 user1 沒有提供電話號碼
+console.log(user2.phoneNumber); // "0987-654321"
+```
+
+### 唯讀屬性（Readonly Properties）
+
+除了在物件使用選擇性屬性，TypeScript 也提供了 `readonly` 關鍵字，讓某些屬性只能讀取，不能再修改。
+
+範例：
+
+```ts
+let point: {
+	readonly x: number;
+	readonly y: number;
+} = {
+	x: 10,
+	y: 20,
+};
+
+console.log(point.x); // 10
+
+point.x = 15; // 這樣會出錯，因為 x 是唯讀屬性
+```
+
+## 函式型別（Function Types）
+
+目前進度
+（除了課程一般的用法，也需注意 `let sum: (a: number, b: number) => number;` 這個用法，先小提一下）
 
 ```tsx
 function sum(a, b) {
@@ -190,6 +257,77 @@ sum = function (a, b) {
 sum = function (c, d) {
 	return c + d;
 };
+```
+
+## 聯合型別
+
+同一個變數，可能為 A、也可能為 B 型別
+
+```tsx
+type StyleValue = number | string; // 以直線去分隔型別
+
+const width: StyleValue = "100px";
+
+const zIndex: StyleValue = 9999;
+
+let aaa: number | string;
+aaa = 111;
+aaa = []; // 這樣就會出錯
+```
+
+取得 DOM 元素，本身也是種聯合型別，可能會有 HTMLElement 或者 null
+
+```tsx
+const element = document.getElementById("xxx"); // 可能會有 HTMLElement | null
+
+// element.innerText = ... 沒有判斷直接使用會出錯
+
+if (element) {
+	// 不為 null 時，才做賦予
+	element.innerText = "OOO";
+}
+
+// 驚嘆號表示一種保證，開發者保證有這個 HTMLElement，但不建議這樣使用
+element!.innerText = "OOO";
+
+// 可選串連，如果為 null 就不會執行 after()，如果不是 null 就會執行 after()
+element?.after();
+```
+
+---
+
+## 任意資料型態陣列 any
+
+有些時候我們無法確定資料型別是什麼，這時就可以用 any。
+不過既然我們已經在撰寫 TypeScript，就盡量謹慎使用 any。
+
+```ts
+const jsonString = '{"x":10,"y":20}';
+const parsedData = JSON.parse(jsonString);
+
+// 範例二
+// 使用 fetch 取得資料，返回的資料類型為 any
+async function fetchUserData(url: string) {
+	try {
+		const response = await fetch(url);
+		const data = await response.json(); // data 是 any 類型
+		return data;
+	} catch (error) {
+		console.error("取得資料時出錯:", error);
+		return null;
+	}
+}
+
+// 呼叫函式並處理返回的資料
+async function handleUserData() {
+	const url = "https://api.example.com/user";
+	const userData = await fetchUserData(url); // userData 是 any 類型
+	if (userData) {
+		console.log(userData); // 直接輸出取得的資料
+	}
+}
+
+handleUserData();
 ```
 
 ## 型別別名
@@ -236,51 +374,3 @@ const mutiple: CalculatorFn = (a, b) => {
 	return a * b;
 };
 ```
-
-## 聯合型別
-
-同一個變數，可能為 A、也可能為 B 型別
-
-```tsx
-type StyleValue = number | string; // 以直線去分隔型別
-
-const width: StyleValue = "100px";
-
-const zIndex: StyleValue = 9999;
-
-let aaa: number | string;
-aaa = 111;
-aaa = []; // 這樣就會出錯
-```
-
-取得 DOM 元素，本身也是種聯合型別，可能會有 HTMLElement 或者 null
-
-```tsx
-const element = document.getElementById("xxx"); // 可能會有 HTMLElement | null
-
-// element.innerText = ... 沒有判斷直接使用會出錯
-
-if (element) {
-	// 不為 null 時，才做賦予
-	element.innerText = "OOO";
-}
-
-// 驚嘆號表示一種保證，開發者保證有這個 HTMLElement，但不建議這樣使用
-element!.innerText = "OOO";
-
-// 可選串連，如果為 null 就不會執行 after()，如果不是 null 就會執行 after()
-element?.after();
-```
-
-```jsx
-type Status = document.get;
-```
-
-## 任意資料型態陣列 any
-
-盡量不要使用，畢竟我們已經在用 TypeScript
-
-## ...
-
-從動態語言跟靜態語言的概念，
-來看 TypeScript 的型別註記跟型別推論
