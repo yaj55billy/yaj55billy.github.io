@@ -1,7 +1,7 @@
 ---
 title: TypeScript 學習的開始
 date: 2024-10-03 16:26:40
-tags: [JavaScript, TypeScript]
+tags: [JavaScript, TypeScript 系列]
 categories: [前端]
 excerpt: 以前端的大環境來說，不論在主流的三大框架、開發工具、企業需求等，都能看到 TypeScript 越來越普遍的趨勢。
 index_img: "/img/typescript.jpg"

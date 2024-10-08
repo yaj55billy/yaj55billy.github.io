@@ -1,7 +1,7 @@
 ---
 title: TypeScript 基本型別
-date: 2024-10-03 19:15:59
-tags: [JavaScript, TypeScript]
+date: 2024-10-08 20:55:55
+tags: [JavaScript, TypeScript 系列]
 categories: [前端]
 excerpt: 關於 TypeScript 基本型別與用法
 index_img: "/img/typescript.jpg"
@@ -99,7 +99,7 @@ console.log(dataKey1 === dataKey2); // false
 let bigNumber: bigint = BigInt(Number.MAX_SAFE_INTEGER);
 ```
 
-## 陣列型別（Array Types）
+## 陣列型別（Array Type）
 
 陣列型別可以用來定義一組相同型別的元素。TypeScript 提供兩種常見的語法來做定義：
 
@@ -150,7 +150,7 @@ person = ["Alice", 30]; // 這樣也是錯誤的
 如果有遇到特殊狀況，需要明確定義資料結構的順序和型別時，也許就會使用到元組這個概念。
 （不過目前思考了過去專案，這樣狀況應該是不常見低～）
 
-## 物件型別（Object Types）
+## 物件型別（Object Type）
 
 物件型別可以用來定義物件的結構，確保每個屬性都有正確的型別。
 
@@ -229,148 +229,105 @@ console.log(point.x); // 10
 point.x = 15; // 這樣會出錯，因為 x 是唯讀屬性
 ```
 
-## 函式型別（Function Types）
+## 函式型別（Function Type）
 
-目前進度
-（除了課程一般的用法，也需注意 `let sum: (a: number, b: number) => number;` 這個用法，先小提一下）
+在函式型別中，我們可以定義函式的輸入（參數）以及輸出型別，避免一些意外的型別錯誤。當我們定義函式型別時，會使用 `:` 來指定型別。
 
-```tsx
-function sum(a, b) {
-	return a + b;
-}
+### 函式陳述式（Function Declaration）
 
-console.log(sum("acdsdcds", null)); // 使用者的傳入，可能會超出我們的預期
+下方範例是陳述式函式的定義，由這樣的定義可確保：
 
-function sum(a: number, b: number) {
-	// 較少這樣使用
-	return a + b;
-}
-
-let sum: (a: number, b: number) => number; // 最後一個 number 是回傳值的型別
-
-sum = function (a, b) {
-	return a + b;
-};
-
-// ...
-// 重覆使用時，就會依循上方的宣告
-sum = function (c, d) {
-	return c + d;
-};
-```
-
-## 聯合型別
-
-同一個變數，可能為 A、也可能為 B 型別
-
-```tsx
-type StyleValue = number | string; // 以直線去分隔型別
-
-const width: StyleValue = "100px";
-
-const zIndex: StyleValue = 9999;
-
-let aaa: number | string;
-aaa = 111;
-aaa = []; // 這樣就會出錯
-```
-
-取得 DOM 元素，本身也是種聯合型別，可能會有 HTMLElement 或者 null
-
-```tsx
-const element = document.getElementById("xxx"); // 可能會有 HTMLElement | null
-
-// element.innerText = ... 沒有判斷直接使用會出錯
-
-if (element) {
-	// 不為 null 時，才做賦予
-	element.innerText = "OOO";
-}
-
-// 驚嘆號表示一種保證，開發者保證有這個 HTMLElement，但不建議這樣使用
-element!.innerText = "OOO";
-
-// 可選串連，如果為 null 就不會執行 after()，如果不是 null 就會執行 after()
-element?.after();
-```
-
----
-
-## 任意資料型態陣列 any
-
-有些時候我們無法確定資料型別是什麼，這時就可以用 any。
-不過既然我們已經在撰寫 TypeScript，就盡量謹慎使用 any。
+- a 和 b 參數必須是 `number` 型別
+- 函式回傳值必須是 `number` 型別
 
 ```ts
-const jsonString = '{"x":10,"y":20}';
-const parsedData = JSON.parse(jsonString);
-
-// 範例二
-// 使用 fetch 取得資料，返回的資料類型為 any
-async function fetchUserData(url: string) {
-	try {
-		const response = await fetch(url);
-		const data = await response.json(); // data 是 any 類型
-		return data;
-	} catch (error) {
-		console.error("取得資料時出錯:", error);
-		return null;
-	}
-}
-
-// 呼叫函式並處理返回的資料
-async function handleUserData() {
-	const url = "https://api.example.com/user";
-	const userData = await fetchUserData(url); // userData 是 any 類型
-	if (userData) {
-		console.log(userData); // 直接輸出取得的資料
-	}
-}
-
-handleUserData();
-```
-
-## 型別別名
-
-給物件型別一個名字，讓開發者容易理解，也不用重覆宣告
-
-```jsx
-type Human = { // 這邊要用 =
-	name: string; // 這邊也可以用逗號結尾，跟物件一樣。但為了區別，也可以用分號
-	age: number;
-	gender: string;
-	height: number;
-	weight: number;
-}
-
-let leo: Human = {
-	name: 'xxx';
-	age: 18;
-	gender: '男';
-	height: 180;
-	weight: 70;
-}
-
-let billy: Human = {
-	// ...
-}
-
-// 用在陣列也是一樣的
-type Position = [number, number];
-let a: Position = [0, 0];
-
-```
-
-函式型別的型別別名：
-
-```tsx
-type CalculatorFn = (a: number, b: number) => number;
-
-const sum: CalculatorFn = (a, b) => {
+function sum(a: number, b: number): number {
 	return a + b;
-};
+}
 
-const mutiple: CalculatorFn = (a, b) => {
+sum(10, 20); // 正確，輸出 30
+sum("10", 20); // 錯誤，因為 "10" 是字串型別
+```
+
+### 函式表達式（Function Expression）
+
+函式表達式也是常見的定義方式，將函式作為值指派到變數中。範例如下：
+
+```ts
+const sum2 = function (a: number, b: number): number {
 	return a * b;
 };
 ```
+
+不過以上的寫法，其 sum2 這個變數是透過「推論」出來的，關於「推論」這個概念，將會在 TypeScript 系列的下一篇提到。簡單來說，當我們沒有對變數明確定義型別時，TypeScript 會幫我們根據內容去推論出型別。
+
+如果要更明確定義 sum2 的型別，可以如下範例：
+
+```ts
+const sum2: (a: number, b: number) => number = function (a, b) {
+	return a * b;
+};
+```
+
+`(a: number, b: number) => number` 在這邊的寫法上，我們會看到「箭頭」的方式來表示回傳的型別，因為前面 sum2 變數已經有使用到 `:`，所以為了不混淆，這邊是使用箭頭的方式。**需注意這個箭頭的方式，跟 ES6 的箭頭函式是完全沒有關係的。**
+~~（剛開始看到這樣的寫法時，我覺得滿混亂的。）~~
+
+## 聯合型別（Union Types）
+
+聯合型別使用 | 運算符表示變數或參數可以接受多種可能的型別。
+範例如下：
+
+```ts
+let id: string | number; // id 變數可以是字串或數字型別
+id = "a12345"; // OK
+id = 12345; // OK
+
+id = true; // 錯誤：Type 'boolean' is not assignable to type 'string | number'.
+```
+
+假設某個情境，我們需要對不同型別的輸入，分別做不同的處理時，就能在函式的參數中使用聯合型別，然後再配合 `typeof` 判斷。如下範例：
+
+```ts
+function processInput(input: string | number | boolean) {
+	if (typeof input === "string") {
+		console.log(`輸入的字串長度：${input.length}`);
+	} else if (typeof input === "number") {
+		console.log(`輸入的數字平方：${input * input}`);
+	} else {
+		console.log(`輸入的布林值：${input ? "真" : "假"}`);
+	}
+}
+
+processInput("Hello"); // 輸出：輸入的字串長度：5
+processInput(4); // 輸出：輸入的數字平方：16
+processInput(true); // 輸出：輸入的布林值：真
+
+processInput([1, 2, 3]); // 錯誤：Argument of type 'number[]' is not assignable to parameter of type 'string | number | boolean'.
+```
+
+## 任意型別（Any）
+
+如果變數被定義 any 這個型別，則表示它可以是任何型別；不過既然我們撰寫 TypeScript 就是為了對型別的處理更為嚴謹，所以使用 any 需特別謹慎，也比較不建議使用哩。
+
+有幾個情境，可以謹慎使用 any 型別（過渡）：
+
+- 當從外部 API 獲取的資料結構不明確，或者有可能變化時
+- 資料狀況比較複雜，無法在初期準確定義型別時
+- 從 JavaScript 專案遷移到 TypeScript 的過渡期
+
+```ts
+let a: any = 1;
+
+// any 可以是任何型別，所以以下的設置都不會有錯
+a = true;
+a = "Hello~";
+```
+
+## 結語
+
+以上是 TypeScript 系列的第二篇，筆記跟整理了基本型別。在這個系列的第三篇內容，預計是要來說 TypeScript 的核心概念：註記與推論。
+
+參考資料：
+
+- 六角學院 TypeScript 30 天課程
+- 書籍：[<讓 TypeScript 成為你全端開發的 ACE！>](https://www.tenlong.com.tw/products/9789864344895?list_name=srh)
