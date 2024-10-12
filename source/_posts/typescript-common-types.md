@@ -1,8 +1,8 @@
 ---
 title: TypeScript 基本型別
 date: 2024-10-08 20:55:55
-tags: [JavaScript, TypeScript 系列]
-categories: [前端]
+tags: [JavaScript, TypeScript]
+categories: [前端 TypeScript 系列]
 excerpt: 關於 TypeScript 基本型別與用法
 index_img: "/img/typescript.jpg"
 # banner_img: "/img/typescript.jpg"
