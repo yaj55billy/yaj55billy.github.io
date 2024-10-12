@@ -5,7 +5,7 @@ tags: [JavaScript, TypeScript]
 categories: [前端 TypeScript 系列]
 excerpt: 關於 TypeScript 基本型別與用法
 index_img: "/img/typescript.jpg"
-# banner_img: "/img/typescript.jpg"
+banner_img: "/img/article-banner.jpg"
 ---
 
 ## 前言
@@ -331,3 +331,7 @@ a = "Hello~";
 
 - 六角學院 TypeScript 30 天課程
 - 書籍：[<讓 TypeScript 成為你全端開發的 ACE！>](https://www.tenlong.com.tw/products/9789864344895?list_name=srh)
+
+---
+
+Photo by <a href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>

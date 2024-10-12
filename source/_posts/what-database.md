@@ -5,7 +5,7 @@ tags: [資料庫, 關聯式資料庫, 非關聯式資料庫]
 categories: [前端到後端系列]
 excerpt: 不論是在瀏覽社交平台的訊息，或者在使用電商網站購物時，這些過程看到的許多資料，像是會員操作、好友動態、購物訂單等，這些操作的背後都有資料庫在默默地工作...
 index_img: "/img/database.jpg"
-# banner_img: "/img/database.jpg"
+banner_img: "/img/article-banner.jpg"
 ---
 
 ## 資料庫的概念與應用
@@ -102,3 +102,7 @@ index_img: "/img/database.jpg"
 - [mysql.tw 資料庫 vs 資料庫管理系統](https://arc.net/l/quote/zxcgbzcm)
 - [圖解程式教學 Sam Tsai - NoSQL vs RDS 資料庫哪個適合你？](https://www.youtube.com/watch?v=S8AiU1GZByE&ab_channel=%E5%9C%96%E8%A7%A3%E7%A8%8B%E5%BC%8F%E6%95%99%E5%AD%B8SamTsai)
 - [宇先程式 - 簡單認識 SQL & NoSQL 資料庫](https://www.youtube.com/watch?v=AbDh-ky8pbk&ab_channel=%E5%AE%87%E5%85%88%E7%A8%8B%E5%BC%8F)
+
+---
+
+Photo by <a href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>

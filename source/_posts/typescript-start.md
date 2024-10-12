@@ -5,7 +5,7 @@ tags: [JavaScript, TypeScript]
 categories: [前端 TypeScript 系列]
 excerpt: 以前端的大環境來說，不論在主流的三大框架、開發工具、企業需求等，都能看到 TypeScript 越來越普遍的趨勢。
 index_img: "/img/typescript.jpg"
-# banner_img: "/img/typescript.jpg"
+banner_img: "/img/article-banner.jpg"
 ---
 
 ## 前言
@@ -127,3 +127,7 @@ npx tsc --init
 	"include": ["src"]
 }
 ```
+
+---
+
+Photo by <a href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
