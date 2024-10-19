@@ -8,6 +8,8 @@ index_img: "/img/typescript.jpg"
 banner_img: "/img/article-banner.jpg"
 ---
 
+（TypeScript 的系列文，其說明跟範例都是跟著預設將嚴謹模式打開 `strict: true;`，如果將嚴謹模式關閉，則可能會跟以下說明與範例產生不同結果。畢竟我們已經在使用 TypeScript，就不建議把預設的嚴謹關掉哩！）
+
 ## 在型別註記與推論之前
 
 在進入 TypeScript 的核心概念——型別註記與型別推論之前，我們先簡單探討靜態型別語言（Statically Typed）與動態型別語言（Dynamically Typed）的差異。
@@ -47,7 +49,7 @@ class Program
 }
 ```
 
-那麼 TypeScript 是屬於動態語言還是靜態語言呢？在這個系列的上一篇 [TypeScript 基本型別](https://yaj55billy.github.io/post/typescript-common-types.html)中，我們已經知道怎麼在變數加上型別宣告（如下範例），而這樣先以**文字來宣告其型別，並且會監控其型別狀態**的特性，可以知道 TypeScript 是有靜態語言的特性。
+那麼 TypeScript 是屬於動態語言還是靜態語言呢？在這個系列的上一篇[TypeScript 基本型別](https://yaj55billy.github.io/post/typescript-common-types.html)中，我們已經知道怎麼在變數加上型別宣告（如下範例），而這樣先以**文字來宣告其型別，並且會監控其型別狀態**的特性，可以知道 TypeScript 是有靜態語言的特性。
 
 ```ts
 let text: string = "我是字串";
@@ -77,22 +79,22 @@ age = "這是..."; // 依然會根據推斷，提到這樣不同的型別指派�
 
 這邊也引用<讓 TypeScript 成為你全端開發的 ACE！>這本書 P.1-13 對這兩者的定義：
 
-> 型別註記：為對變數或表達式進行文字敘述上的型別宣告動作
+> 型別註記：為對變數或表達式進行文字敘述上的型別宣告動作。
 > 型別推論：則是變數根據被賦予的值之型別來代表該變數之型別；而表達式則是經運算結果的值之型別來代表整個表達式最後的型別結果。
 
 接下來，我們將探討這兩者在不同情境下的使用，以及可能需要注意的部分。
 
 ### 原始型別的註記跟推論
 
-這個段落主要會來探討原始型別的推論，而原始型別註記的相關內容，因為比較單純些，所以這邊就不再多提及。相關內容可參考 [TypeScript 基本型別 - 原始型別](https://yaj55billy.github.io/post/typescript-common-types.html#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%EF%BC%88Primitive-Types%EF%BC%89)。
+這個段落主要會來探討原始型別的推論，而原始型別註記的相關內容，因為比較單純些，所以這邊就不再多提及。相關內容可參考[TypeScript 基本型別 - 原始型別](https://yaj55billy.github.io/post/typescript-common-types.html#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%EF%BC%88Primitive-Types%EF%BC%89)。
 
 如下範例所示，即使我們沒有註記上型別，TypeScript 也會根據被賦予的值來推斷出型別：
 
-- 變數 text 會被推論為字串型別
-- 變數 age 會被推論為數字型別
-- 變數 isTrue 會被推論為布林型別
-- 變數 money 會被推論為 null 型別
-- 變數 notAssigned 會被推論為 undefined 型別
+- 變數 `text` 會被推論為字串型別
+- 變數 `age` 會被推論為數字型別
+- 變數 `isTrue` 會被推論為布林型別
+- 變數 `money` 會被推論為 null 型別
+- 變數 `notAssigned` 會被推論為 undefined 型別
 
 ```ts
 let text = "我是字串";
@@ -110,10 +112,10 @@ text = "這是一句話"; // 這樣是 OK 的
 text = 33; // Type 'number' is not assignable to type 'string'.
 ```
 
-然而，如果變數在宣告時沒有被賦予任何值，TypeScript 的編譯器無法推論其型別，因此會用 `any` 型別來代替。`any` 型別意味著這個變數可以被賦予任何型別，而不會產生型別相關錯誤。這種情況稱為「遲滯性指派」。如下範例跟圖片所示：
+然而，如果變數在宣告時沒有被賦予任何值，TypeScript 的編譯器就無法推論其型別，因此會用 `any` 型別來代替。`any` 型別意味著這個變數可以被賦予任何型別，而不會產生型別相關錯誤。這種情況稱為「遲滯性指派」。如下範例跟圖片所示：
 
 ```ts
-let num;
+let num; // 會被推斷是 any 型別
 
 // 以下指派都不會有錯誤，因為 any 型別
 num = 123;
@@ -124,37 +126,278 @@ num = [1, 2, 3];
 
 ![遲滯性指派的 any 型別](/img/typescript-gradual-typing-2.png)
 
-在某些情況下，TypeScript 會根據程式的判斷來推論變數的型別為聯合型別。聯合型別允許變數可以是多種型別中的一種。以下範例展示了這種情況：
+在這個段落的結尾之前，我們來看看被推論成聯合型別的狀況。當變數的型別推論，遇到一些判斷（條件敘述、三元運算）而有所不同時，TypeScript 編譯器會幫我們根據判斷的不同狀況，分別推論匯集成聯合型別。如下範例所示，`unionValue` 變數會被推論為 `string | number`。
 
 ```ts
-let value;
-
-if (Math.random() > 0.5) {
-	value = "Hello";
-} else {
-	value = 42;
-}
-
-// TypeScript 會推論 value 的型別為 string | number
-console.log(value);
+let unionValue = Math.random() > 0.5 ? "我是字串" : 200;
+// TypeScript 會推論 unionValue 的型別為 string | number
 ```
-
-在這個範例中，變數 value 的型別會根據程式的判斷來決定。因為 value 可能被賦予字串 "Hello" 或數字 42，所以 TypeScript 會推論 value 的型別為 string | number。
 
 ### 物件型別的註記跟推論
 
-範例以及要注意什麼
-看要不要提到 type 的用法？
-分號與逗號的部分？
-物件的完整性不允許被動搖
+#### 物件的型別推論
+
+首先我們先來討論物件的型別推論，如下範例跟圖片，當我們把滑鼠移動到 `user` 時，會看到 TypeScript 幫我們推論出物件的結構跟各個屬性型別。
+
+```ts
+let user = {
+	name: "Billy",
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
+```
+
+![物件的型別推論](/img/typescript-gradual-typing-3.png)
+
+對於這樣的推論，我們接續著探討如果對於物件內屬性的值做調整，或者去調整（覆寫）整個物件時，會發生什麼狀況？
+
+對於物件內屬性值的調整，需符合原先定義的型別，所以 `user.name = 333` 會出現錯誤：`Type 'number' is not assignable to type 'string'.`。
+
+```ts
+let user = {
+	name: "Billy",
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
+
+user.name = "John";
+user.name = 333; // Type 'number' is not assignable to type 'string'.
+```
+
+而整個物件的覆寫，如果符合原先物件結構跟屬性型別，則不會有錯誤；但如果在原先的結構定義，有少或多了屬性，TypeScript 會提醒我們有錯誤，例如少了 `age` 屬性時，將會得到這一串錯誤訊息：`Property 'age' is missing in type '{ name: string; gender: string; isActive: false; }' but required in type '{ name: string; age: number; gender: string; isActive: boolean; }'.`。
+
+```ts
+let user = {
+	name: "Billy",
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
+
+user = {
+	// 這樣是 OK 的
+	name: "Eve",
+	age: 40,
+	gender: "male",
+	isActive: false,
+};
+
+user = {
+	// 多或少了屬性，則會有錯誤提醒
+	name: "Eve",
+	// age: 40,
+	gender: "male",
+	isActive: false,
+	// mail: "xxx@gmail.com"
+};
+```
+
+在物件的型別推論中，最後我們來看刪除屬性的狀況。當我們想刪除 `user.name` 時會出現這樣的錯誤訊息：`The operand of a 'delete' operator must be optional.`，告訴我們這屬性必須要是可選的，這個部分將在稍後補充。
+
+（目前這篇文章的 TypeScript 版本為 5.6，在版本 4 之前，這樣刪除物件中某個屬性的動作，並不會出現錯誤提醒，而刪除後再次查看這個屬性時，也不會如預期是 `undefined` 型別，**這是滿奇怪的地方**；而版本 4.x 之後，TypeScript 有對這個部分做調整，關於這個部分可參考[Announcing TypeScript 4.0](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0/)）
+
+```ts
+let user = {
+	name: "Billy",
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
+
+delete user.name; // The operand of a 'delete' operator must be optional.
+```
+
+#### 物件的型別註記
+
+再來要討論物件型別的註記部分，如下方範例所示，這樣的型別註記方式我們應該不陌生。
+這邊也補充一個小細節，在寫 JavaScript 的物件時，每一行屬性跟值我們是以「逗號」作為分隔；而在 TypeScript 先定義物件結構跟屬性時，使用分號或逗號都是被允許的。（我自己目前在學習是比較偏好分號，可以跟原先物件做個區隔）
+
+```ts
+let user: {
+	name: string; // 這邊用分號或逗號都可以
+	age: number;
+	gender: string;
+	isActive: boolean;
+} = {
+	name: "Billy", // 這邊一定要逗號
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
+```
+
+而對於物件內屬性的值做調整，或者要覆寫整個物件時，這個部分與物件型別的推論是一樣的。
+
+- 對於物件內屬性值的調整，需符合原先屬性所定義的型別。
+- 對於整個物件的覆寫，如果符合原先物件結構跟屬性所定義的型別，則不會產生錯誤。
+
+如下範例所示，這邊就不再贅述：
+
+```ts
+let user: {
+	name: string;
+	age: number;
+	gender: string;
+	isActive: boolean;
+} = {
+	name: "Billy",
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
+
+user.age = 40; // 這樣是 OK 的！
+user.age = true; // Type 'boolean' is not assignable to type 'number'.
+
+user = {
+	// 結構跟型別與原先ㄧ致，所以是 OK 的！
+	name: "John",
+	age: 30,
+	gender: "male",
+	isActive: false,
+};
+
+user = {
+	// Property 'age' is missing in type '{ name: string; gender: string; isActive: false; }' but required in type '{ name: string; age: number; gender: string; isActive: boolean; }'
+	name: "John",
+	// 少了 age 屬性（多了屬性或少了屬性都會出現錯誤）
+	gender: "male",
+	isActive: false,
+};
+```
+
+在物件型別的註記中，最後要來討論刪除屬性的部分。稍早在物件型別的推論，如果我們想刪除物件某個屬性（例如：`user.name`），則會出現要把這個**屬性設置為可選**的錯誤訊息，這個部分在物件型別的註記也是一樣的。
+
+而當我們將某個物件屬性加上可選後，對這個屬性做 `delete` 就不會出現錯誤。以下方範例的 `user.name` 來說，加上可選屬性後，TypeScript 會幫我們做聯集型別，允許是原先的字串型別，或者是未定義的 `undefined`（如下方截圖）。
+
+```ts
+let user: {
+	name?: string;
+	age: number;
+	gender: string;
+	isActive: boolean;
+} = {
+	name: "Billy",
+	age: 33,
+	gender: "male",
+	isActive: true,
+};
+
+delete user.name; // 這邊就不會出現錯誤
+
+// 沒問題的狀況
+user.name = "John";
+user.name = undefined;
+
+// 錯誤設置
+user.name = 33; // Type 'number' is not assignable to type 'string'.
+user.name = true; // Type 'boolean' is not assignable to type 'string'.
+```
+
+![物件屬性加上可選](/img/typescript-gradual-typing-4.png)
 
 ### 函式型別的註記跟推論
 
-範例以及要注意的部分
-函式型別絕大部分情形是 TypeScript 無法推論的...
-參數建議一定要註記，畢竟沒有註記，會被 TypeScript 推論為 Any
+關於函式型別的註記跟推論，主要會分為參數（輸入）以及回傳值（輸出）兩個部分。如果我們都沒有進行型別註記，在大多數狀況下，TypeScript 會無條件將函式的參數**推論為 any 型別**，而函式的回傳值則會看 **return 敘述式回傳結果值的型別**。
+
+#### 函式型別的推論
+
+如果函式沒有任何參數參與，則 TypeScript 會單純根據 return 敘述回傳值的型別來做推斷。
+特別提及下方範例的第三個跟第四個函式，如果函式內沒有 return 字樣，或者單純只有 return 而沒有帶上回傳值時，我們會看到 `void` 來表示函式回傳結果為空（無意義），如：`function logMessage() :void`。
+
+```ts
+function getRandomNumber() {
+	// function getRandomNumber(): number
+	return Math.random();
+}
+
+function getFilterValue() {
+	// function getFilterValue(): string | number
+	const value = Math.random();
+
+	if (value > 0.5) {
+		return value; // 回傳數字結果
+	} else {
+		return value.toString(); // 回傳字串結果
+	}
+}
+
+function logMessage() {
+	// function logMessage() :void
+	console.log("沒有輸出，僅僅只是 log 一些訊息");
+}
+
+function returnEmpty() {
+	// function returnEmpty() :void
+	return;
+}
+```
+
+如下方範例，當函式有參數但沒有被註記型別時，TypeScript 會出現這樣的錯誤訊息來提醒我們：`Parameter 'input' implicitly has an 'any' type.`，也就是 input 參數被隱含成 any 型別。函式參數（輸入）在本質上是無法被推論的，因為參數的型別是由開發者所定義。
+
+```ts
+function echo(input) {
+	return input;
+}
+
+// function echo(input: any): any
+echo(123);
+echo("Hello");
+echo([1, 2, 3]);
+```
+
+![函式參數沒有註記型別](/img/typescript-gradual-typing-5.png)
+
+#### 函式型別的註記
+
+如上個段落所提，如果函式的參數（輸入）沒有被註記時，在大多數狀況會無條件被推論成 any 型別，而如果這個部分不加以限縮，則容易造成一些錯誤發生，所以建議函式參數要註記型別；而函式的回傳值（輸出）是看 return 所回傳的結果值，這個部分可以看狀況來決定要主動註記或者讓 TypeScript 推論。
+
+這邊也再複習一下，關於函式型別的註記，以下這幾種方式都能讓函式被註記成：`(a: number, b: number) => number`。
+
+```ts
+let addFn: (a: number, b: number) => number = function (a, b) {
+	return a + b;
+};
+
+let addFn2 = function (a: number, b: number): number {
+	return a + b;
+};
+
+function addFn3(a: number, b: number): number {
+	return a + b;
+}
+```
 
 ### 陣列型別的註記跟推論
+
+陣列的推論：
+
+```ts
+// 被推論為 const fi: number[];
+const fi = [1, 1, 2, 3, 5, 8, 11];
+```
+
+如果將陣列塞入亂七八糟的值，則 TypeScript 會將出現的各種型別都聯集再一起
+
+```ts
+const arr = [123, "Hello", false, [222, 333]];
+```
+
+只存放單個型別稱為：同質性陣列
+多個不同的型別：異質性陣列
+大多開發上，以同質性陣列為較多，畢竟異質性陣列還需根據不同型別，做不同處理（多了判斷）
+
+另外空陣列的狀況，需特別注意被宣告為 any[]
+
+```ts
+const emptyArr = [];
+```
+
+---
+
+陣列的註記
 
 ### 何時使用註記？何時使用推論？
 
@@ -171,13 +414,52 @@ console.log(value);
 
 以上這個部分是目前整理，加上一些個人的開發經驗，但我覺得這個部分，是寫 TypeScript 實際運行專案時，就會越來越清楚的部分。會判斷狀況，然後決定使用註記或推斷。
 
+然而在開發過程中，建議可以註記函式輸出結果的目的，
+主要是確保實作過程是符合註記時預期的型別結果
+而宣告出的函式，若命名規則叫直覺（或看狀況），則可以考慮拔除型別註記。
+
+輸入（參數）會被無條件推論為 any 型別，所以建議函式的輸入要加上註記；
+而函式的輸出型別可以藉由 return 來推論，理論上來說輸出可以不用註記，除非輸出是 any 型別或有什麼狀況，需要特別限制輸出型別。
+
+特別狀況
+
+```ts
+function isPosti(input: number): boolean {}
+```
+
+書上作者的習慣：開發時盡量會註記函式之輸出型別，而函式在實踐完成後，沒有太多功能擴充或改寫的需求，而且函式在命名上的辨識度夠高，作者就會主動將該函式的輸出型別拔除，剩下讓 TypeScript 來處理推論。（書頁 3-39）
+isXXX hasXXX >> 表示布林
+而 return 就比較籠統...
+
 ### 型別斷言
 
-第二段最後說明斷言是什麼，與註記不同之處...
+- 註記裡頭包含著斷言，註記與斷言的差異（定義）
+  - 帶到斷言的寫法（有兩種）
+- 斷言何時會使用到
+  - 什麼情境、表達式、HTML DOM
+- 斷言需要注意的部分（舉例危險的範例）
+
+```ts
+// 範例一：聯合型別
+function getSentence(words: string | number): number {
+	return words.length; // 會出錯
+	// return (<string>words).length; // 型別斷言寫法一
+	// return (words as string).length //型別斷言寫法二
+}
+
+//範例二：DOM 取得
+const txt = document.querySelector(".taskName") as HTMLInputElement;
+console.log(txt.value);
+```
 
 ## 結語（感想）
 
+有些範例，可以丟到 TypeScript 的環境，去看看會產生什麼錯誤（型別）
+~~抱歉比較懶惰截圖~~
+
 自己在好久之前，就買了<讓 TypeScript 成為你全端開發的 ACE！>這本書，但一直都沒有真正翻閱，又或者翻閱卻腦袋一片空白，
+
+滿推薦想學 TypeScript 可以好好翻閱這本書。
 
 但這次在認真研究 TypeScript 下，開始能看懂這些字詞...
 
