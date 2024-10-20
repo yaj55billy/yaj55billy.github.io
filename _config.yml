@@ -99,6 +99,15 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: fluid
 
+# Sitemap
+# path：sitemap 路徑
+# tags：是否要包含標籤（不包含標籤頁）
+# categories：是否要包含分類（不包含分類頁）
+sitemap:
+  path: sitemap.xml
+  tags: false
+  categories: false
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
