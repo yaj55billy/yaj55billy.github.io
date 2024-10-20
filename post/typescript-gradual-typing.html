@@ -1,0 +1,830 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="這篇主要探討 TypeScript 的核心，關於型別的註記跟推論">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript 型別註記與型別推論">
+<meta property="og:url" content="https://yaj55billy.github.io/post/typescript-gradual-typing.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="這篇主要探討 TypeScript 的核心，關於型別的註記跟推論">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://yaj55billy.github.io/img/typescript.jpg">
+<meta property="article:published_time" content="2024-10-20T04:28:41.000Z">
+<meta property="article:modified_time" content="2024-10-20T04:28:19.456Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yaj55billy.github.io/img/typescript.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>TypeScript 型別註記與型別推論 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/article-banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TypeScript 型別註記與型別推論"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-20 12:28" pubdate>
+          2024年10月20日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TypeScript 型別註記與型別推論</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>（TypeScript 的系列文，其說明跟範例都是跟著預設將嚴謹模式打開 <code>strict: true;</code>，如果將嚴謹模式關閉，則可能會跟以下說明與範例產生不同結果。畢竟我們已經在使用 TypeScript，就不建議把預設的嚴謹關掉哩！）</p>
+<h2 id="在型別註記與推論之前"><a href="#在型別註記與推論之前" class="headerlink" title="在型別註記與推論之前"></a>在型別註記與推論之前</h2><p>在進入 TypeScript 的核心概念——型別註記與型別推論之前，我們先簡單探討靜態型別語言（Statically Typed）與動態型別語言（Dynamically Typed）的差異。</p>
+<p>我們在學習 JavaScript 時，應該對這句話不陌生：「JavaScript 是動態型別語言，變數的型別會在程式執行期間才確定」。而動態型別語言的特色在於<strong>變數的型別會在程式執行時期（Run-time）根據賦予的值來決定</strong>，而不是在變數宣告時就確定其型別。這種類型的語言具有靈活性，但也可能帶來潛在的型別錯誤。</p>
+<p>以下是一個簡單的 JavaScript 範例，說明動態型別的特性。在範例中我們可以將變數 <code>variable</code> 指派為不同的值，但要在程式執行時期才會知道其型別。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> variable = <span class="hljs-number">10</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> variable); <span class="hljs-comment">// 輸出: &quot;number&quot;</span><br><br>variable = <span class="hljs-string">&quot;Hello!&quot;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> variable); <span class="hljs-comment">// 輸出: &quot;string&quot;</span><br><br>variable = <span class="hljs-literal">true</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> variable); <span class="hljs-comment">// 輸出: &quot;boolean&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>靜態型別語言的特性則相對不同。靜態型別語言會在<strong>編譯時（Compilation）根據程式內宣告的型別來監控其狀態</strong>，這樣的特性可在編譯過程中，捕捉到潛在的型別錯誤。</p>
+<p>以下是 C# 的一個簡單範例，說明靜態型別語言的特性。從範例中我們在 <code>number</code>、<code>text</code> 這兩個變數之前使用了 <code>int</code>、<code>string</code> 等文字來定義型別，所以像 <code>text = 555;</code> 這行就會在編譯時產生錯誤，因為 <code>text</code> 這個變數已經被定義是字串型別，不能賦予整數（數字）給它。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span><br>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>  &#123;<br>    <span class="hljs-built_in">int</span> number = <span class="hljs-number">10</span>; <span class="hljs-comment">// 宣告一個整數型別的變數 number</span><br>    Console.WriteLine(<span class="hljs-string">&quot;Number: &quot;</span> + number);<br><br>    <span class="hljs-built_in">string</span> text = <span class="hljs-string">&quot;Hello, World!&quot;</span>;<br>    Console.WriteLine(<span class="hljs-string">&quot;Text: &quot;</span> + text);<br><br>    text = <span class="hljs-number">555</span>; <span class="hljs-comment">// 這行會在編譯時產生錯誤</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>那麼 TypeScript 是屬於動態語言還是靜態語言呢？在這個系列的上一篇<a href="https://yaj55billy.github.io/post/typescript-common-types.html">TypeScript 基本型別</a>中，我們已經知道怎麼在變數加上型別宣告（如下範例），而這樣先以<strong>文字來宣告其型別，並且會監控其型別狀態</strong>的特性，可以知道 TypeScript 是有靜態語言的特性。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">text</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;我是字串&quot;</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">30</span>;<br><br>text = <span class="hljs-number">30</span>; <span class="hljs-comment">// 會出錯</span><br>age = <span class="hljs-string">&quot;這是...&quot;</span>; <span class="hljs-comment">// 會出錯</span><br></code></pre></td></tr></table></figure>
+
+<p>不過當我們嘗試把型別宣告（註記）給拔除，而把鼠標移動到變數上時，又能看出變數 <code>text</code> 的型別，而這樣<strong>根據賦予之值 <code>&quot;我是字串&quot;</code> 來推斷出型別</strong>，TypeScript 似乎也有動態型別的特性。（如下方範例跟圖片所示）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> text = <span class="hljs-string">&quot;我是字串&quot;</span>;<br><span class="hljs-keyword">let</span> age = <span class="hljs-number">30</span>;<br><br>text = <span class="hljs-number">30</span>; <span class="hljs-comment">// 依然會根據推斷，提到這樣不同的型別指派會出錯</span><br>age = <span class="hljs-string">&quot;這是...&quot;</span>; <span class="hljs-comment">// 依然會根據推斷，提到這樣不同的型別指派會出錯</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/typescript-gradual-typing-1.png" srcset="/img/loading.gif" lazyload alt="關於 TypeScript 型別推論"></p>
+<p>基於以上內容，我們可以總結 TypeScript 同時有靜態語言跟動態語言的特性，而結合這兩種特性會被稱為<strong>漸進式型別系統（Gradual Typing）</strong>。當我們明確註記型別時，TypeScript 會像靜態型別語言，在編譯階段幫我們檢查型別並防止一些型別錯誤；而如果我們沒有註記型別時，TypeScript 則會根據賦予的值幫我們做型別推論，這類似動態型別語言的靈活性。</p>
+<h2 id="型別註記（Type-Annotation）與型別推論（Type-Inference）"><a href="#型別註記（Type-Annotation）與型別推論（Type-Inference）" class="headerlink" title="型別註記（Type Annotation）與型別推論（Type Inference）"></a>型別註記（Type Annotation）與型別推論（Type Inference）</h2><p>在上個段落的討論中，我們探討了靜態語言跟動態語言的特性，並總結出 TypeScript 擁有這兩種特性（漸進式型別系統）。所以我們能在 TypeScript 的撰寫中，根據不同狀況去適當選擇<strong>嚴謹的型別註記</strong>，又或者我們能選擇<strong>靈活簡潔的型別推論</strong>。</p>
+<p>這邊也引用&lt;讓 TypeScript 成為你全端開發的 ACE！&gt;這本書 P.1-13 對這兩者的定義：</p>
+<blockquote>
+<p>型別註記：為對變數或表達式進行文字敘述上的型別宣告動作。<br>型別推論：則是變數根據被賦予的值之型別來代表該變數之型別；而表達式則是經運算結果的值之型別來代表整個表達式最後的型別結果。</p>
+</blockquote>
+<p>接下來，我們將探討這兩者在不同情境下的使用，以及可能需要注意的部分。</p>
+<h3 id="原始型別的註記跟推論"><a href="#原始型別的註記跟推論" class="headerlink" title="原始型別的註記跟推論"></a>原始型別的註記跟推論</h3><p>這個段落主要會來探討原始型別的推論，而原始型別註記的相關內容，因為比較單純些，所以這邊就不再多提及。相關內容可參考<a href="https://yaj55billy.github.io/post/typescript-common-types.html#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%EF%BC%88Primitive-Types%EF%BC%89">TypeScript 基本型別 - 原始型別</a>。</p>
+<p>如下範例所示，即使我們沒有註記上型別，TypeScript 也會根據被賦予的值來推斷出型別：</p>
+<ul>
+<li>變數 <code>text</code> 會被推論為字串型別</li>
+<li>變數 <code>age</code> 會被推論為數字型別</li>
+<li>變數 <code>isTrue</code> 會被推論為布林型別</li>
+<li>變數 <code>money</code> 會被推論為 null 型別</li>
+<li>變數 <code>notAssigned</code> 會被推論為 undefined 型別</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> text = <span class="hljs-string">&quot;我是字串&quot;</span>;<br><span class="hljs-keyword">let</span> age = <span class="hljs-number">30</span>;<br><span class="hljs-keyword">let</span> isTrue = <span class="hljs-literal">true</span>;<br><span class="hljs-keyword">let</span> money = <span class="hljs-literal">null</span>;<br><span class="hljs-keyword">let</span> notAssigned = <span class="hljs-literal">undefined</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在 TypeScript 的環境上，即使型別是被「推論」出來，後續任何指派到該變數的值，也需符合該變數首次被推論出來的型別。如下方範例，<code>text</code> 被推論是字串型別，所以在 <code>text = 33</code> 這樣的指派時會出現錯誤訊息：<code>Type &#39;number&#39; is not assignable to type &#39;string&#39;.</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> text = <span class="hljs-string">&quot;我是字串&quot;</span>; <span class="hljs-comment">// 被推論是字串型別</span><br>text = <span class="hljs-string">&quot;這是一句話&quot;</span>; <span class="hljs-comment">// 這樣是 OK 的</span><br>text = <span class="hljs-number">33</span>; <span class="hljs-comment">// Type &#x27;number&#x27; is not assignable to type &#x27;string&#x27;.</span><br></code></pre></td></tr></table></figure>
+
+<p>然而，如果變數在宣告時沒有被賦予任何值，TypeScript 的編譯器就無法推論其型別，因此會用 <code>any</code> 型別來代替。<code>any</code> 型別意味著這個變數可以被賦予任何型別，而不會產生型別相關錯誤。這種情況稱為「遲滯性指派」。如下範例跟圖片所示：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> num; <span class="hljs-comment">// 會被推斷是 any 型別</span><br><br><span class="hljs-comment">// 以下指派都不會有錯誤，因為 any 型別</span><br>num = <span class="hljs-number">123</span>;<br>num = <span class="hljs-string">&quot;字串&quot;</span>;<br>num = <span class="hljs-literal">true</span>;<br>num = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/typescript-gradual-typing-2.png" srcset="/img/loading.gif" lazyload alt="遲滯性指派的 any 型別"></p>
+<p>在這個段落的結尾之前，我們來看看被推論成聯合型別的狀況。當變數的型別推論，遇到一些判斷（條件敘述、三元運算）而有所不同時，TypeScript 編譯器會幫我們根據判斷的不同狀況，分別推論匯集成聯合型別。如下範例所示，<code>unionValue</code> 變數會被推論為 <code>string | number</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> unionValue = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() &gt; <span class="hljs-number">0.5</span> ? <span class="hljs-string">&quot;我是字串&quot;</span> : <span class="hljs-number">200</span>;<br><span class="hljs-comment">// TypeScript 會推論 unionValue 的型別為 string | number</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="物件型別的註記跟推論"><a href="#物件型別的註記跟推論" class="headerlink" title="物件型別的註記跟推論"></a>物件型別的註記跟推論</h3><h4 id="物件的型別推論"><a href="#物件的型別推論" class="headerlink" title="物件的型別推論"></a>物件的型別推論</h4><p>首先我們先來討論物件的型別推論，如下範例跟圖片，當我們把滑鼠移動到 <code>user</code> 時，會看到 TypeScript 幫我們推論出物件的結構跟各個屬性型別。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> user = &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Billy&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">33</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/typescript-gradual-typing-3.png" srcset="/img/loading.gif" lazyload alt="物件的型別推論"></p>
+<p>對於這樣的推論，我們接續著探討如果對於物件內屬性的值做調整，或者去調整（覆寫）整個物件時，會發生什麼狀況？</p>
+<p>對於物件內屬性值的調整，需符合原先定義的型別，所以 <code>user.name = 333</code> 會出現錯誤：<code>Type &#39;number&#39; is not assignable to type &#39;string&#39;.</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> user = &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Billy&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">33</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br><br>user.<span class="hljs-property">name</span> = <span class="hljs-string">&quot;John&quot;</span>;<br>user.<span class="hljs-property">name</span> = <span class="hljs-number">333</span>; <span class="hljs-comment">// Type &#x27;number&#x27; is not assignable to type &#x27;string&#x27;.</span><br></code></pre></td></tr></table></figure>
+
+<p>而整個物件的覆寫，如果符合原先物件結構跟屬性型別，則不會有錯誤；但如果在原先的結構定義，有少或多了屬性，TypeScript 會提醒我們有錯誤，例如少了 <code>age</code> 屬性時，將會得到這一串錯誤訊息：<code>Property &#39;age&#39; is missing in type &#39;&#123; name: string; gender: string; isActive: false; &#125;&#39; but required in type &#39;&#123; name: string; age: number; gender: string; isActive: boolean; &#125;&#39;.</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> user = &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Billy&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">33</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br><br>user = &#123;<br>	<span class="hljs-comment">// 這樣是 OK 的</span><br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Eve&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">40</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">false</span>,<br>&#125;;<br><br>user = &#123;<br>	<span class="hljs-comment">// 多或少了屬性，則會有錯誤提醒</span><br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Eve&quot;</span>,<br>	<span class="hljs-comment">// age: 40,</span><br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">false</span>,<br>	<span class="hljs-comment">// mail: &quot;xxx@gmail.com&quot;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在物件的型別推論中，最後我們來看刪除屬性的狀況。當我們想刪除 <code>user.name</code> 時會出現這樣的錯誤訊息：<code>The operand of a &#39;delete&#39; operator must be optional.</code>，告訴我們這屬性必須要是可選的，這個部分將在稍後補充。</p>
+<p>（目前這篇文章的 TypeScript 版本為 5.6，在版本 4 之前，這樣刪除物件中某個屬性的動作，並不會出現錯誤提醒，而刪除後再次查看這個屬性時，也不會如預期是 <code>undefined</code> 型別，<strong>這是滿奇怪的地方</strong>；而版本 4.x 之後，TypeScript 有對這個部分做調整，關於這個部分可參考<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-0/">Announcing TypeScript 4.0</a>）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> user = &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Billy&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">33</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br><br><span class="hljs-keyword">delete</span> user.<span class="hljs-property">name</span>; <span class="hljs-comment">// The operand of a &#x27;delete&#x27; operator must be optional.</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="物件的型別註記"><a href="#物件的型別註記" class="headerlink" title="物件的型別註記"></a>物件的型別註記</h4><p>再來要討論物件型別的註記部分，如下方範例所示，這樣的型別註記方式我們應該不陌生。<br>這邊也補充一個小細節，在寫 JavaScript 的物件時，每一行屬性跟值我們是以「逗號」作為分隔；而在 TypeScript 先定義物件結構跟屬性時，使用分號或逗號都是被允許的。（我自己目前在學習是比較偏好分號，可以跟原先物件做個區隔）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">user</span>: &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// 這邊用分號或逗號都可以</span><br>	<span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;<br>	<span class="hljs-attr">gender</span>: <span class="hljs-built_in">string</span>;<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-built_in">boolean</span>;<br>&#125; = &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Billy&quot;</span>, <span class="hljs-comment">// 這邊一定要逗號</span><br>	<span class="hljs-attr">age</span>: <span class="hljs-number">33</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>而對於物件內屬性的值做調整，或者要覆寫整個物件時，這個部分與物件型別的推論是一樣的。</p>
+<ul>
+<li>對於物件內屬性值的調整，需符合原先屬性所定義的型別。</li>
+<li>對於整個物件的覆寫，如果符合原先物件結構跟屬性所定義的型別，則不會產生錯誤。</li>
+</ul>
+<p>如下範例所示，這邊就不再贅述：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">user</span>: &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;<br>	<span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;<br>	<span class="hljs-attr">gender</span>: <span class="hljs-built_in">string</span>;<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-built_in">boolean</span>;<br>&#125; = &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Billy&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">33</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br><br>user.<span class="hljs-property">age</span> = <span class="hljs-number">40</span>; <span class="hljs-comment">// 這樣是 OK 的！</span><br>user.<span class="hljs-property">age</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// Type &#x27;boolean&#x27; is not assignable to type &#x27;number&#x27;.</span><br><br>user = &#123;<br>	<span class="hljs-comment">// 結構跟型別與原先ㄧ致，所以是 OK 的！</span><br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;John&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">30</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">false</span>,<br>&#125;;<br><br>user = &#123;<br>	<span class="hljs-comment">// Property &#x27;age&#x27; is missing in type &#x27;&#123; name: string; gender: string; isActive: false; &#125;&#x27; but required in type &#x27;&#123; name: string; age: number; gender: string; isActive: boolean; &#125;&#x27;</span><br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;John&quot;</span>,<br>	<span class="hljs-comment">// 少了 age 屬性（多了屬性或少了屬性都會出現錯誤）</span><br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">false</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在物件型別的註記中，最後要來討論刪除屬性的部分。稍早在物件型別的推論，如果我們想刪除物件某個屬性（例如：<code>user.name</code>），則會出現要把這個<strong>屬性設置為可選</strong>的錯誤訊息，這個部分在物件型別的註記也是一樣的。</p>
+<p>而當我們將某個物件屬性加上可選後，對這個屬性做 <code>delete</code> 就不會出現錯誤。以下方範例的 <code>user.name</code> 來說，加上可選屬性後，TypeScript 會幫我們做聯集型別，允許是原先的字串型別，或者是未定義的 <code>undefined</code>（如下方截圖）。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">user</span>: &#123;<br>	name?: <span class="hljs-built_in">string</span>;<br>	<span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;<br>	<span class="hljs-attr">gender</span>: <span class="hljs-built_in">string</span>;<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-built_in">boolean</span>;<br>&#125; = &#123;<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Billy&quot;</span>,<br>	<span class="hljs-attr">age</span>: <span class="hljs-number">33</span>,<br>	<span class="hljs-attr">gender</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>	<span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br><br><span class="hljs-keyword">delete</span> user.<span class="hljs-property">name</span>; <span class="hljs-comment">// 這邊就不會出現錯誤</span><br><br><span class="hljs-comment">// 沒問題的狀況</span><br>user.<span class="hljs-property">name</span> = <span class="hljs-string">&quot;John&quot;</span>;<br>user.<span class="hljs-property">name</span> = <span class="hljs-literal">undefined</span>;<br><br><span class="hljs-comment">// 錯誤設置</span><br>user.<span class="hljs-property">name</span> = <span class="hljs-number">33</span>; <span class="hljs-comment">// Type &#x27;number&#x27; is not assignable to type &#x27;string&#x27;.</span><br>user.<span class="hljs-property">name</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// Type &#x27;boolean&#x27; is not assignable to type &#x27;string&#x27;.</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/typescript-gradual-typing-4.png" srcset="/img/loading.gif" lazyload alt="物件屬性加上可選"></p>
+<h3 id="函式型別的註記跟推論"><a href="#函式型別的註記跟推論" class="headerlink" title="函式型別的註記跟推論"></a>函式型別的註記跟推論</h3><p>關於函式型別的註記跟推論，主要會分為參數（輸入）以及回傳值（輸出）兩個部分。如果我們都沒有進行型別註記，在大多數狀況下，TypeScript 會無條件將函式的參數<strong>推論為 any 型別</strong>，而函式的回傳值則會看 <strong>return 敘述式回傳結果值的型別</strong>。</p>
+<h4 id="函式型別的推論"><a href="#函式型別的推論" class="headerlink" title="函式型別的推論"></a>函式型別的推論</h4><p>如果函式沒有任何參數參與，則 TypeScript 會單純根據 return 敘述回傳值的型別來做推斷。<br>特別提及下方範例的第三個跟第四個函式，如果函式內沒有 return 字樣，或者單純只有 return 而沒有帶上回傳值時，我們會看到 <code>void</code> 來表示函式回傳結果為空（無意義），如：<code>function logMessage() :void</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">getRandomNumber</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-comment">// function getRandomNumber(): number</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>();<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getFilterValue</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-comment">// function getFilterValue(): string | number</span><br>	<span class="hljs-keyword">const</span> value = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>();<br><br>	<span class="hljs-keyword">if</span> (value &gt; <span class="hljs-number">0.5</span>) &#123;<br>		<span class="hljs-keyword">return</span> value; <span class="hljs-comment">// 回傳數字結果</span><br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-keyword">return</span> value.<span class="hljs-title function_">toString</span>(); <span class="hljs-comment">// 回傳字串結果</span><br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">logMessage</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-comment">// function logMessage() :void</span><br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;沒有輸出，僅僅只是 log 一些訊息&quot;</span>);<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">returnEmpty</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-comment">// function returnEmpty() :void</span><br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如下方範例，當函式有參數但沒有被註記型別時，TypeScript 會出現這樣的錯誤訊息來提醒我們：<code>Parameter &#39;input&#39; implicitly has an &#39;any&#39; type.</code>，也就是 input 參數被隱含成 any 型別。函式參數（輸入）在本質上是無法被推論的，因為參數的型別是由開發者所定義。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">echo</span>(<span class="hljs-params">input</span>) &#123;<br>	<span class="hljs-keyword">return</span> input;<br>&#125;<br><br><span class="hljs-comment">// function echo(input: any): any</span><br><span class="hljs-title function_">echo</span>(<span class="hljs-number">123</span>);<br><span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;Hello&quot;</span>);<br><span class="hljs-title function_">echo</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/typescript-gradual-typing-5.png" srcset="/img/loading.gif" lazyload alt="函式參數沒有註記型別"></p>
+<h4 id="函式型別的註記"><a href="#函式型別的註記" class="headerlink" title="函式型別的註記"></a>函式型別的註記</h4><p>如上個段落所提，如果函式的參數（輸入）沒有被註記時，在大多數狀況會無條件被推論成 any 型別，而如果這個部分不加以限縮，則容易造成一些錯誤發生，所以建議函式參數要註記型別；而函式的回傳值（輸出）是看 return 所回傳的結果值，這個部分可以看狀況來決定要主動註記或者讓 TypeScript 推論。</p>
+<p>這邊也再複習一下，關於函式型別的註記，以下這幾種方式都能讓函式被註記成：<code>(a: number, b: number) =&gt; number</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">let</span> <span class="hljs-attr">addFn</span>: <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">number</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) &#123;<br>	<span class="hljs-keyword">return</span> a + b;<br>&#125;;<br><br><span class="hljs-keyword">let</span> addFn2 = <span class="hljs-keyword">function</span> (<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>): <span class="hljs-built_in">number</span> &#123;<br>	<span class="hljs-keyword">return</span> a + b;<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">addFn3</span>(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>): <span class="hljs-built_in">number</span> &#123;<br>	<span class="hljs-keyword">return</span> a + b;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>關於函式的回傳值是否要註記，這個部分是看狀況而定，像是函式是否複雜、回傳值是否為 any 型別、團隊習慣考量等等。<br>引用上方範例的 <code>addFn3</code> 函式來說，因為回傳的是數字相加的結果，而參數也有註記為數字，所以像這樣單純的函式，其回傳值就可以讓 TypeScript 幫我們推論。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">addFn3</span>(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>) &#123;<br>	<span class="hljs-keyword">return</span> a + b;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>這邊也模擬一下，如果是函式內容稍複雜的狀況，就可以考慮註記上型別。<br>（這邊主要是提及概念，因為這個範例其實還是能讓 TypeScript 幫我們去推論出來，<del>抱歉暫時沒想到更好的範例</del>）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">transformData</span>(<span class="hljs-params">input: <span class="hljs-built_in">number</span>[]</span>): <span class="hljs-built_in">string</span>[] | <span class="hljs-literal">null</span> &#123;<br>	<span class="hljs-keyword">if</span> (input.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> input.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">num</span>) =&gt;</span> &#123;<br>		<span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">0</span>) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-string">`負數: <span class="hljs-subst">$&#123;<span class="hljs-built_in">Math</span>.abs(num)&#125;</span>`</span>;<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">`正數: <span class="hljs-subst">$&#123;num&#125;</span>`</span>;<br>	&#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最後也引用&lt;讓 TypeScript 成為你全端開發的 ACE！&gt;一書的作者 Maxwell 大大提到他自己的開發習慣：「開發時會盡量註記函式的輸出型別，而函式在實踐完成後，如果沒有太多功能要擴充或改寫的需求，而且函式在命名上的辨識度夠高時，就會主動將該函式的輸出型別拔除，讓 TypeScript 來處理推論」（書頁 3-39）</p>
+<h3 id="陣列型別的註記跟推論"><a href="#陣列型別的註記跟推論" class="headerlink" title="陣列型別的註記跟推論"></a>陣列型別的註記跟推論</h3><p>因為這個段落所要提及的內容較少，所以會將陣列型別的註記跟推論一起討論。</p>
+<p>如下範例所示，在第一個範例的推論是容易理解的；而第二個範例當我們在陣列塞入各種型別時，TypeScript 會將出現的各種型別都聯集在一起。<br>像第一個範例這樣只存放單個型別，稱為同質性陣列；而第二個範例這樣放不同型別，稱為異質性陣列。大多在開發上，都是以同質性陣列為主，畢竟異質性陣列還需根據不同型別做判斷跟處理。（我目前在開發上，也還沒遇過異質性陣列的狀況）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 推論 &gt;&gt; const fruits: string[];</span><br><span class="hljs-keyword">const</span> fruits = [<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;cherry&quot;</span>, <span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;elderberry&quot;</span>];<br><br><span class="hljs-comment">// 推論 &gt;&gt; const arr: (string | number | boolean | number[])[]</span><br><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">123</span>, <span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-literal">false</span>, [<span class="hljs-number">222</span>, <span class="hljs-number">333</span>]];<br></code></pre></td></tr></table></figure>
+
+<p>另外在空陣列的狀況，如果我們沒有註記則會被 TypeScript 推論成 <code>any[]</code>，因此為了避免這個狀況，會建議先進行註記哩。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// const emptyArr: any[]</span><br><span class="hljs-keyword">const</span> emptyArr = [];<br><br><span class="hljs-comment">// 有註記</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">emptyArr</span>: <span class="hljs-built_in">number</span>[] = [];<br></code></pre></td></tr></table></figure>
+
+<h3 id="何時使用註記？何時使用推論？"><a href="#何時使用註記？何時使用推論？" class="headerlink" title="何時使用註記？何時使用推論？"></a>何時使用註記？何時使用推論？</h3><table>
+<thead>
+<tr>
+<th>項目</th>
+<th><strong>型別註記</strong></th>
+<th><strong>型別推論</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定義</td>
+<td>明確指定變數、參數或回傳值的型別</td>
+<td>TypeScript 根據賦予的值自動推斷型別</td>
+</tr>
+<tr>
+<td>優點</td>
+<td>型別明確、安全</td>
+<td>簡潔</td>
+</tr>
+<tr>
+<td>缺點</td>
+<td>過度使用會造成程式碼冗長</td>
+<td>需依賴推斷，可能會有意外的型別錯誤</td>
+</tr>
+<tr>
+<td>使用情境</td>
+<td>明確的 API 或複雜的邏輯，需確保型別正確無誤時使用</td>
+<td>簡單且容易推斷的區域變數或型別明顯時使用</td>
+</tr>
+<tr>
+<td>補充</td>
+<td>函式的參數必須要註記，不然會讓輸入參數是 any 型別</td>
+<td>從變數名稱，上下文等可以很快看出型別，則可使用推論</td>
+</tr>
+</tbody></table>
+<p>TypeScript 是來補足 JavaScript 不夠嚴謹的部分，那麼如果站在嚴謹的角度，我們是不是乾脆 100% 使用註記呢？</p>
+<p>雖然我們可以這麼做，但這樣會讓程式碼少了彈性，以及導致程式的可讀性變很差；關於註記跟推論的選擇，我們可以根據不同狀況，<strong>考量程式可讀、維護性、TypeScript 型別的特性、團隊習慣等</strong>，來判斷何時適當使用註記，而何時讓程式自己推論即可。而這個部分我覺得實際在團隊用 TypeScript 開發時就會越來越清楚了。</p>
+<h2 id="結語（感想）"><a href="#結語（感想）" class="headerlink" title="結語（感想）"></a>結語（感想）</h2><p>寫這篇文章時，比預期花的時間還久了幾天，看到內容所累積的字數時也嚇了一跳。本來還想提到型別斷言的內容，但考量到篇幅以及手頭待整理的筆記，決定先將這個整理斷言內容的進度往後推。</p>
+<p>如果沒記錯的話，好幾年前就買了&lt;讓 TypeScript 成為你全端開發的 ACE！&gt;這本書，但後來就都一直放在書架上；直到最近在學習 TypeScript 以及整理成文章時才開始認真翻閱，滿推薦想學 TypeScript 的開發者，可以來翻閱這本書，內容整理的很有條理跟易於了解。</p>
+<p>最後想特別說，近期維持前端內容的輸出後，才深刻體會到這樣的知識輸出對於提升很有幫助。一方面是前端硬技能，另一方面則是將知識重新構建跟整理的軟技能，而後者這樣的軟技能，應該也適用在多個領域中。</p>
+<p>參考資料：</p>
+<ul>
+<li>六角學院 TypeScript 30 天課程</li>
+<li>書籍：<a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9789864344895?list_name=srh">&lt;讓 TypeScript 成為你全端開發的 ACE！&gt;</a></li>
+</ul>
+<hr>
+<p>Photo by <a target="_blank" rel="noopener" href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a target="_blank" rel="noopener" href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF-TypeScript-%E7%B3%BB%E5%88%97/" class="category-chain-item">前端 TypeScript 系列</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/" class="print-no-link">#JavaScript</a>
+      
+        <a href="/tags/TypeScript/" class="print-no-link">#TypeScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TypeScript 型別註記與型別推論</div>
+      <div>https://yaj55billy.github.io/post/typescript-gradual-typing.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2024年10月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/what-database.html" title="什麼是資料庫？">
+                        <span class="hidden-mobile">什麼是資料庫？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
