@@ -22,7 +22,7 @@ banner_img: "/img/article-banner.jpg"
 
 SQL 的入門語法並不會太困難，因為它的語法使用了簡單的英文字詞。例如使用 `SELECT` 用來選取資料、`FROM` 指定資料來源、`CREATE` 用來創建資料表等。這些語法是很貼近其字面意思，因此在操作資料時相對容易理解每個語法的功能。
 
-在接下來的範例中，我們將以社交媒體平台為主題，透過 SQL 語法來創建用戶（users）資料表和貼文（posts）資料表，並建立一個簡單的關聯。這兩個資料表之間的關聯，能讓我們追蹤每篇貼文的發文者（哪個用戶）。資料表範例如下：
+在接下來的範例中，我們將以社交媒體平台為主題，透過 SQL 語法來創建用戶（users）資料表和貼文（posts）資料表，並建立一個簡單的關聯。這兩個資料表之間的關聯，能讓我們追蹤每篇貼文的發文者。資料表範例如下：
 
 **users 用戶資料表**：
 | id | username | email |
@@ -58,11 +58,11 @@ SQL 的入門語法並不會太困難，因為它的語法使用了簡單的英�
 
 **CREATE 創建 users 資料表**
 
-我們首先要創建一個 users 資料表。在 SQL 的語法，我們可以使用 `CREATE TABLE 資料表名稱` 來建立新的資料表，並且在 `()` 去定義每個欄位的名稱以及對應的資料型別。關於欄位對應的資料型別，可以參考 [SQL Datatypes](https://www.w3schools.com/sql/sql_datatypes.asp)。
+然後要來創建一個 users 的資料表。在 SQL 的語法，我們可以使用 `CREATE TABLE 資料表名稱` 來建立新的資料表，並且在 `()` 去定義每個欄位的名稱以及對應的資料型別。關於欄位對應的資料型別，可以參考 [SQL Datatypes](https://www.w3schools.com/sql/sql_datatypes.asp)。
 
 ```sql
 CREATE TABLE users (
-	// 欄位名稱 這個欄位的資料型別
+// 欄位名稱 這個欄位的資料型別
   id INT NOT NULL, // 每個欄位用逗號區隔
   username VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE users (
 - `id INT NOT NULL`：這個欄位表示每個 user 的唯一識別，而 `INT` 型別表示它是整數，`NOT NULL` 表示這個欄位必須有值，不能為空。
 - `username VARCHAR(50) NOT NULL`：為用戶名稱的欄位，使用 `VARCHAR(50)` 來定義這個欄位可以存放最多 50 個字元的字串，同樣 `NOT NULL` 表示此欄位不能是空值。
 - `email VARCHAR(100) NOT NULL`：用戶的電子郵件，使用 `VARCHAR(100)` 來允許最多 100 個字元的字串，也同樣不能為空。
-- `PRIMARY KEY (id)`：指定 `id` 是這個資料表的主鍵，它就像是每一筆資料的「身分證」，這也表示它是唯一的（資料表不能有重覆的 `id`）。
+- `PRIMARY KEY (id)`：指定 `id` 是這個資料表的主鍵，它就像是每一筆資料的「身分證」，具有唯一性。（指定某個欄位為主鍵，即是唯一的概念，表示這個欄位的值不能重覆。）
 
 相關操作如下圖，輸入程式碼後點擊 Run 按鈕，我們就能在左方看到 users 資料表了。
 
@@ -91,16 +91,16 @@ INSERT INTO users (id, username, email)
 VALUES (1, 'Alice', 'alice@example.com');
 ```
 
-- `INSERT INTO users (id, username, email)`：這表示我們要將資料新增到 `users` 資料表中，並且指定要填入的欄位名稱。
+- `INSERT INTO users (id, username, email)`：這表示我們要將資料新增到 `users` 資料表中，並且指定要帶入資料的欄位名稱。
 - `VALUES (1, 'Alice', 'alice@example.com')`：這是我們提供給指定欄位的值。`id` 為 1，`username` 是 `'Alice'`，`email` 為 `'alice@example.com'`。（這邊需注意字串的值要使用單引號，如果使用雙引號則會出錯）
 
-如果資料表欄位跟值的順序一致，則也可以省略欄位名稱，直接使用 `INSERT INTO users VALUES (...)` 的簡化寫法。
+如果資料表欄位跟值的順序一致，則也可以省略欄位名稱，直接使用 `INSERT INTO users VALUES (...)` 的簡化寫法：
 
 ```sql
 INSERT INTO users VALUES (1, 'Alice', 'alice@example.com');
 ```
 
-我們也可以一次新增多筆資料：
+也可以一次新增多筆資料：
 
 ```sql
 INSERT INTO users (id, username, email) VALUES
@@ -115,12 +115,44 @@ INSERT INTO users (id, username, email) VALUES
 
 ---
 
-** Read **
-Where...
+（10/25 整理）
 
-**Update 更新**
+**READ 讀取資料**
 
-** 刪除 **
+在上一個段落新增資料成功時，當我們在選單點擊 SELECT（Show table）這個按鈕時，除了能看到被新增的資料表格，也能在程式碼區塊看到以下語法。
+
+```sql
+SELECT * FROM users;
+```
+
+在 SQL 的使用上，我們可以用 `SELECT` 語法來查詢資料表中的內容：
+
+- `SELECT *`：這表示我們要選擇資料表中的所有欄位。
+- `FROM users`：這部分指定了我們要從 `users` 資料表中選擇資料。
+
+這段語法會讀取 `users` 資料表中的所有資料，包括 `id`、`username` 和 `email` 欄位中的所有值。
+
+如果你只想選擇特定的欄位，例如只要查詢用戶的 `username` 和 `email`，那麼可以這樣寫：
+
+```sql
+
+SELECT username, email FROM users;
+
+```
+
+這段語法只會返回 `username` 和 `email` 欄位的內容，不會顯示 `id`。
+
+此外，我們還可以利用 `WHERE` 條件來過濾結果，例如只顯示 `id` 為 1 的使用者資料：
+
+```sql
+SELECT * FROM users WHERE id = 1;
+
+```
+
+- `WHERE id = 1`：這表示我們只想要查詢 `id` 值為 1 的那筆資料。
+
+**UPDATE 更新資料**
+**DELETE 刪除資料**
 
 ### posts 資料表與關聯
 
