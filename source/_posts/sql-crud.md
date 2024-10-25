@@ -56,7 +56,7 @@ SQL 的入門語法並不會太困難，因為它的語法使用了簡單的英�
 
 ![SQLite 操作區塊](/img/sql-crud/2.png)
 
-**CREATE 創建 users 資料表**
+#### CREATE 創建 users 資料表
 
 然後要來創建一個 users 的資料表。在 SQL 的語法，我們可以使用 `CREATE TABLE 資料表名稱` 來建立新的資料表，並且在 `()` 去定義每個欄位的名稱以及對應的資料型別。關於欄位對應的資料型別，可以參考 [SQL Datatypes](https://www.w3schools.com/sql/sql_datatypes.asp)。
 
@@ -113,46 +113,57 @@ INSERT INTO users (id, username, email) VALUES
 
 ![在 users 資料表新增資料](/img/sql-crud/4.png)
 
----
+#### READ 讀取資料
 
-（10/25 整理）
-
-**READ 讀取資料**
-
-在上一個段落新增資料成功時，當我們在選單點擊 SELECT（Show table）這個按鈕時，除了能看到被新增的資料表格，也能在程式碼區塊看到以下語法。
+在上一個段落新增資料成功後，當我們在左邊選單點擊 SELECT（Show table）這個按鈕時，除了能看到帶有資料的表格，也會在程式碼區塊看到以下語法。
 
 ```sql
+// 整段意思：從 users 資料表選取所有欄位跟相應資料
 SELECT * FROM users;
 ```
 
-在 SQL 的使用上，我們可以用 `SELECT` 語法來查詢資料表中的內容：
+- `SELECT *`：選擇資料表中的所有欄位跟相應資料。
+- `FROM users`：指定從 `users` 資料表中（選取資料）。
 
-- `SELECT *`：這表示我們要選擇資料表中的所有欄位。
-- `FROM users`：這部分指定了我們要從 `users` 資料表中選擇資料。
-
-這段語法會讀取 `users` 資料表中的所有資料，包括 `id`、`username` 和 `email` 欄位中的所有值。
-
-如果你只想選擇特定的欄位，例如只要查詢用戶的 `username` 和 `email`，那麼可以這樣寫：
+我們也可以從資料表中，只選取特定的欄位來做呈現，或者根據某個條件來篩選呈現的結果。
 
 ```sql
-
+// 只呈現 username、email 欄位跟資料，不會顯示 id 欄位
 SELECT username, email FROM users;
-
 ```
-
-這段語法只會返回 `username` 和 `email` 欄位的內容，不會顯示 `id`。
-
-此外，我們還可以利用 `WHERE` 條件來過濾結果，例如只顯示 `id` 為 1 的使用者資料：
 
 ```sql
+// 利用 WHERE 條件來篩選呈現結果
 SELECT * FROM users WHERE id = 1;
-
 ```
 
-- `WHERE id = 1`：這表示我們只想要查詢 `id` 值為 1 的那筆資料。
+- `SELECT * FROM users` ：從 users 資料表中，選取全部欄位跟相應資料。
+- `WHERE id = 1`：在選取 `users` 資料表所有欄位資料的基礎上，篩選出 `id` 值為 1 的那筆資料。
 
-**UPDATE 更新資料**
-**DELETE 刪除資料**
+讀取資料篩選 `id = 1` 的示例：
+
+![讀取資料篩選 id = 1](/img/sql-crud/5.png)
+
+#### UPDATE 更新資料
+
+在資料表中，有時我們需要去調整某些資料，例如修改使用者的電子郵件。這時我們就可以使用`UPDATE` 語法來更新特定欄位的值，如下方範例：
+
+```sql
+UPDATE users
+SET email = 'alice.new@example.com'
+WHERE id = 1;
+```
+
+- `UPDATE users`：我們要更新的資料表為 `users`。
+- `SET email = 'alice.new@example.com'`：將 `email` 欄位的值更新為 `'alice.new@example.com'`。
+- `WHERE id = 1`：指定篩選條件，更新 `id` 為 1 的那筆資料，只有這筆資料的 `email` 值會被更新。_（注意：若省略 `WHERE` 條件，則所有資料列的 `email` 欄位都會被更動。）_
+
+更新示意：
+![更新某筆資料](/img/sql-crud/6.png)
+
+#### DELETE 刪除資料
+
+...
 
 ### posts 資料表與關聯
 
