@@ -163,21 +163,44 @@ WHERE id = 1;
 
 #### DELETE 刪除資料
 
-...
+以上討論了怎麼創建資料表（CREATE）跟新增資料，以及怎麼去讀取（READ）跟更新（UPDATE）資料表中的資料。最後我們要來看刪除資料的部分，在 SQL 是使用`DELETE` 語法來刪除。
 
-### posts 資料表與關聯
+```sql
+DELETE FROM users
+WHERE id = 2;
+```
 
-`posts` 表：
+- `DELETE FROM users`：我們要刪除資料的來源是 `users` 資料表。
+- `WHERE id = 2`：指定篩選條件，僅刪除 `id` 為 2 的那筆資料。（_注意：省略 `WHERE` 條件會刪除 `users` 表中的所有資料。）_
 
-| 欄位名稱   | 資料型態     | 說明                                |
-| ---------- | ------------ | ----------------------------------- |
-| id         | SERIAL       | 主鍵，唯一貼文識別碼                |
-| user_id    | INT          | 外鍵，對應到 `users` 表的 `id` 欄位 |
-| title      | VARCHAR(100) | 貼文標題                            |
-| content    | TEXT         | 貼文內容                            |
-| created_at | TIMESTAMP    | 貼文建立時間                        |
+### 資料表關聯
 
-join 的用法
+在前面的內容中，我們以 users 資料表來操作跟了解 SQL 的 CURD。
+接下來我們要創建另一個 posts 資料表，並把這兩張資料表做個關聯。
+
+#### 創建 posts 資料表
+
+```sql
+CREATE TABLE posts (
+	id INT NOT NULL,
+	user_id INT NOT NULL,
+	title VARCHAR(50) NOT NULL,
+	content TEXT NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	PRIMARY KEY (id),
+	FOREIGN KEY (user_id) REFERENCES users(id)
+);
+```
+
+- `id INT NOT NULL`：此欄位作為每篇貼文的唯一識別，而 `INT` 型別表示它是整數。
+- `user_id INT NOT NULL`：此欄位用於儲存發表貼文的用戶 ID，是設計來關聯 `user` 資料表中的 `id` 欄位。`INT` 型別表示它是整數。
+- `title VARCHAR(50) NOT NULL`：貼文的標題欄位，`VARCHAR(50)`定義這個欄位可以存放最多 50 個字元的字串。
+- `content TEXT NOT NULL`：貼文的內容欄位，`TEXT` 型別適合儲存大量的文字內容。
+- `created_at TIMESTAMP NOT NULL DEFAULT NOW()`：用來記錄貼文的建立時間，`TIMESTAMP` 型別提供日期和時間的紀錄，`DEFAULT NOW()` 設定預設值為當前時間。
+- `PRIMARY KEY (id)`：指定 `id` 欄位為這個 `posts` 資料表的主鍵，用於唯一識別且不會重覆。
+- `FOREIGN KEY (user_id) REFERENCES users(id)`：設定 `user_id` 為外鍵，連結至 `users` 資料表的 `id` 欄位，表示每篇貼文跟 `users` 的某一用戶有其關聯。_（外鍵 Foreign Key 是用來建立不同資料之間的關係，而外鍵一定是其他資料表的主鍵）_
+
+（`NOT NULL` 表示此欄位不可為空值，將不一一贅述在每個欄位說明）
 
 ## 結尾
 
