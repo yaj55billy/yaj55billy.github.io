@@ -1,0 +1,877 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SQL 語法跟 CRUD 的基礎操作，以及資料表之間的關聯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 SQL 語法來操作資料">
+<meta property="og:url" content="https://yaj55billy.github.io/post/sql-crud.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="SQL 語法跟 CRUD 的基礎操作，以及資料表之間的關聯">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://yaj55billy.github.io/img/database.jpg">
+<meta property="article:published_time" content="2024-10-28T03:01:11.000Z">
+<meta property="article:modified_time" content="2024-10-28T03:02:49.198Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="資料庫">
+<meta property="article:tag" content="關聯式資料庫">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yaj55billy.github.io/img/database.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>使用 SQL 語法來操作資料 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/article-banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="使用 SQL 語法來操作資料"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-28 11:01" pubdate>
+          2024年10月28日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">使用 SQL 語法來操作資料</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言（SQL-用途）"><a href="#前言（SQL-用途）" class="headerlink" title="前言（SQL 用途）"></a>前言（SQL 用途）</h2><p>在這個系列的<a href="https://yaj55billy.github.io/post/what-database.html">什麼是資料庫？</a>這篇文章中，有介紹到資料庫管理系統與資料庫的關係，並且知道資料庫類型分為關聯式跟非關聯式資料庫。</p>
+<p>接下來這個系列將會先專注在關聯式資料庫，而關聯式資料庫主要是使用 SQL（Structured Query Language）這樣的語言來操作和管理資料。如下方圖片所示，我們可以了解 SQL 就如同溝通橋樑，它讓我們能夠向資料庫管理系統發送指令，然後對資料進行新增（CREATE）、讀取（READ）、編輯（UPDATE）和刪除（DELETE）等操作。（取每個英文的首字，就是網頁開發常看到的用詞 CRUD）</p>
+<p><img src="/img/sql-crud/1.png" srcset="/img/loading.gif" lazyload alt="SQL 與資料庫管理系統(DBMS)的關係"></p>
+<p>在這篇文章中，<strong>將會使用 SQL 基礎語法來練習創建資料表（表格），並對資料做 CRUD 的操作。這邊也會先使用 <a target="_blank" rel="noopener" href="https://sqliteonline.com/">SQLite Online</a> 這樣的線上模擬工具來做練習。</strong></p>
+<h2 id="SQL-語法與操作範例"><a href="#SQL-語法與操作範例" class="headerlink" title="SQL 語法與操作範例"></a>SQL 語法與操作範例</h2><p>SQL 的入門語法並不會太困難，因為它的語法使用了簡單的英文字詞。例如使用 <code>SELECT</code> 用來選取資料、<code>FROM</code> 指定資料來源、<code>CREATE</code> 用來創建資料表等。這些語法是很貼近其字面意思，因此在操作資料時相對容易理解每個語法的功能。</p>
+<p>在接下來的範例中，我們將以社交媒體平台為主題，透過 SQL 語法來創建用戶（users）資料表和貼文（posts）資料表，並建立一個簡單的關聯。這兩個資料表之間的關聯，能讓我們追蹤每篇貼文的發文者。資料表範例如下：</p>
+<p><strong>users 用戶資料表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>email</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td><a href="mailto:&#97;&#x6c;&#x69;&#99;&#x65;&#x40;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#101;&#x2e;&#x63;&#111;&#x6d;">&#97;&#x6c;&#x69;&#99;&#x65;&#x40;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#101;&#x2e;&#x63;&#111;&#x6d;</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td><a href="mailto:&#x62;&#x6f;&#98;&#64;&#x65;&#120;&#x61;&#109;&#x70;&#108;&#101;&#46;&#99;&#x6f;&#109;">&#x62;&#x6f;&#98;&#64;&#x65;&#120;&#x61;&#109;&#x70;&#108;&#101;&#46;&#99;&#x6f;&#109;</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Charlie</td>
+<td><a href="mailto:&#99;&#x68;&#x61;&#x72;&#108;&#105;&#101;&#x40;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;">&#99;&#x68;&#x61;&#x72;&#108;&#105;&#101;&#x40;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;</a></td>
+</tr>
+</tbody></table>
+<p><strong>posts 貼文資料表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>user_id</th>
+<th>title</th>
+<th>content</th>
+<th>created_at</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+<td>歡迎來到我的部落格</td>
+<td>這是我的第一篇文章</td>
+<td>2024-10-22 10:30:00</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>我的第二篇文章</td>
+<td>這裡有一些新的更新</td>
+<td>2024-10-22 12:00:00</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>Bob 的自我介紹</td>
+<td>哈囉，我是 Bob！</td>
+<td>2024-10-22 13:45:00</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3</td>
+<td>對於程式設計的想法</td>
+<td>程式設計既有趣又困難</td>
+<td>2024-10-22 14:00:00</td>
+</tr>
+</tbody></table>
+<h3 id="資料庫常見用詞"><a href="#資料庫常見用詞" class="headerlink" title="資料庫常見用詞"></a>資料庫常見用詞</h3><p>在進到 SQL 的語法學習跟操作之前，我們需了解一些在資料庫中常看到的用詞：資料庫（Database）、資料表（Table）、欄位（Column）、列（Row）。</p>
+<ul>
+<li>資料庫：資料庫是用來儲存和管理所有資料的地方，它可以包含多個不同的資料表。可以將其<strong>想像成 Google 試算表本身</strong>，試算表內部可能有多張工作表，各自管理不同類型的資料。</li>
+<li>資料表：資料表是由欄位（Column）和列（Row）所組成的結構，用來儲存特定的資料。可以<strong>想像成 Google 試算表中的工作表</strong>，每一個工作表都負責管理某類特定的資料，例如用戶資料或貼文資料。</li>
+<li>欄位：資料表中的每個「欄位」代表一種類型的資料，例如在上方的 users 資料表中，欄位包含 <code>id</code>（用戶識別）、<code>username</code>（用戶名稱）、<code>email</code>（電子郵件地址）等。每個欄位定義了這張資料表中要儲存的資料類型。</li>
+<li>列：資料表中的每一「列」代表一筆完整的資料記錄。每一筆資料記錄都會對應到資料表中的每一個欄位，並且儲存具體的值。以 users 資料表為例，第一筆資料的 <code>id</code> 是 <code>1</code>、<code>username</code> 是 <code>Alice</code>、<code>email</code> 則是 <code>alice@example.com</code>。</li>
+</ul>
+<h3 id="users-資料表的-CRUD"><a href="#users-資料表的-CRUD" class="headerlink" title="users 資料表的 CRUD"></a>users 資料表的 CRUD</h3><p>接下來要進到重頭戲了，這邊會以 SQL 語法來操作 users 資料表的 CRUD。</p>
+<p>首先打開前面提到的 <a target="_blank" rel="noopener" href="https://sqliteonline.com/">SQLite Online</a>，在面板的左方我們可以選擇要用哪個資料庫系統，這邊是選用 PostgreSQL。而程式碼輸入區塊跟 Run 按鈕是很常會使用到的。</p>
+<p><img src="/img/sql-crud/2.png" srcset="/img/loading.gif" lazyload alt="SQLite 操作區塊"></p>
+<h4 id="CREATE-創建-users-資料表"><a href="#CREATE-創建-users-資料表" class="headerlink" title="CREATE 創建 users 資料表"></a>CREATE 創建 users 資料表</h4><p>然後要來創建一個 users 的資料表。在 SQL 的語法，我們可以使用 <code>CREATE TABLE 資料表名稱</code> 來建立新的資料表，並且在 <code>()</code> 去定義每個欄位的名稱以及對應的資料型別。關於欄位對應的資料型別，可以參考 <a target="_blank" rel="noopener" href="https://www.w3schools.com/sql/sql_datatypes.asp">SQL Datatypes</a>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> users (<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span> 欄位名稱 這個欄位的資料型別<br>  id <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>, <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 每個欄位用逗號區隔<br>  username <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  email <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  <span class="hljs-keyword">PRIMARY</span> KEY (id) <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 最後一個不用有逗號，不然會出錯<br>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>id INT NOT NULL</code>：這個欄位表示每個 user 的唯一識別，而 <code>INT</code> 型別表示它是整數，<code>NOT NULL</code> 表示這個欄位必須有值，不能為空。</li>
+<li><code>username VARCHAR(50) NOT NULL</code>：為用戶名稱的欄位，使用 <code>VARCHAR(50)</code> 來定義這個欄位可以存放最多 50 個字元的字串，同樣 <code>NOT NULL</code> 表示此欄位不能是空值。</li>
+<li><code>email VARCHAR(100) NOT NULL</code>：用戶的電子郵件，使用 <code>VARCHAR(100)</code> 來允許最多 100 個字元的字串，也同樣不能為空。</li>
+<li><code>PRIMARY KEY (id)</code>：指定 <code>id</code> 是這個資料表的主鍵，它就像是每一筆資料的「身分證」，具有唯一性。（指定某個欄位為主鍵，即是唯一的概念，表示這個欄位的值不能重覆。）</li>
+</ul>
+<p>相關操作如下圖，輸入程式碼後點擊 Run 按鈕，我們就能在左方看到 users 資料表了。</p>
+<p><img src="/img/sql-crud/3.png" srcset="/img/loading.gif" lazyload alt="新增 users 資料表"></p>
+<p><strong>INSERT 在資料表新增資料</strong></p>
+<p>在上方的內容中，我們成功建立了 users 資料表，不過目前還沒有相關資料。而我們可以使用 <code>INSERT INTO</code> 語法，將資料新增到資料表中。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> users (id, username, email) <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Alice&#x27;</span>, <span class="hljs-string">&#x27;alice@example.com&#x27;</span>);<br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span> 如果希望提高可讀性，也可以換行來呈現，但要記得保留空格<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> users (id, username, email)<br><span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Alice&#x27;</span>, <span class="hljs-string">&#x27;alice@example.com&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>INSERT INTO users (id, username, email)</code>：這表示我們要將資料新增到 <code>users</code> 資料表中，並且指定要帶入資料的欄位名稱。</li>
+<li><code>VALUES (1, &#39;Alice&#39;, &#39;alice@example.com&#39;)</code>：這是我們提供給指定欄位的值。<code>id</code> 為 1，<code>username</code> 是 <code>&#39;Alice&#39;</code>，<code>email</code> 為 <code>&#39;alice@example.com&#39;</code>。（這邊需注意字串的值要使用單引號，如果使用雙引號則會出錯）</li>
+</ul>
+<p>如果資料表欄位跟值的順序一致，則也可以省略欄位名稱，直接使用 <code>INSERT INTO users VALUES (...)</code> 的簡化寫法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> users <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Alice&#x27;</span>, <span class="hljs-string">&#x27;alice@example.com&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>也可以一次新增多筆資料：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> users (id, username, email) <span class="hljs-keyword">VALUES</span><br>(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Alice&#x27;</span>, <span class="hljs-string">&#x27;alice@example.com&#x27;</span>),<br>(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>, <span class="hljs-string">&#x27;bob@example.com&#x27;</span>),<br>(<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;Charlie&#x27;</span>, <span class="hljs-string">&#x27;charlie@example.com&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>在新增資料的操作上（程式碼跟 Run 按鈕），如果沒有出現錯誤，則我們依照下圖的步驟就可看到新增成功的資料哩！</p>
+<p><img src="/img/sql-crud/4.png" srcset="/img/loading.gif" lazyload alt="在 users 資料表新增資料"></p>
+<h4 id="READ-讀取資料"><a href="#READ-讀取資料" class="headerlink" title="READ 讀取資料"></a>READ 讀取資料</h4><p>在上一個段落新增資料成功後，當我們在左邊選單點擊 SELECT（Show table）這個按鈕時，除了能看到帶有資料的表格，也會在程式碼區塊看到以下語法。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">/</span><span class="hljs-operator">/</span> 整段意思：從 users 資料表選取所有欄位跟相應資料<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>SELECT *</code>：選擇資料表中的所有欄位跟相應資料。</li>
+<li><code>FROM users</code>：指定從 <code>users</code> 資料表中（選取資料）。</li>
+</ul>
+<p>我們也可以從資料表中，只選取特定的欄位來做呈現，或者根據某個條件來篩選呈現的結果。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">/</span><span class="hljs-operator">/</span> 只呈現 username、email 欄位跟資料，不會顯示 id 欄位<br><span class="hljs-keyword">SELECT</span> username, email <span class="hljs-keyword">FROM</span> users;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">/</span><span class="hljs-operator">/</span> 利用 <span class="hljs-keyword">WHERE</span> 條件來篩選呈現結果<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>SELECT * FROM users</code> ：從 users 資料表中，選取全部欄位跟相應資料。</li>
+<li><code>WHERE id = 1</code>：在選取 <code>users</code> 資料表所有欄位資料的基礎上，篩選出 <code>id</code> 值為 1 的那筆資料。</li>
+</ul>
+<p>讀取資料篩選 <code>id = 1</code> 的示例：</p>
+<p><img src="/img/sql-crud/5.png" srcset="/img/loading.gif" lazyload alt="讀取資料篩選 id = 1"></p>
+<h4 id="UPDATE-更新資料"><a href="#UPDATE-更新資料" class="headerlink" title="UPDATE 更新資料"></a>UPDATE 更新資料</h4><p>在資料表中，有時我們需要去調整某些資料，例如修改使用者的電子郵件。這時我們就可以使用<code>UPDATE</code> 語法來更新特定欄位的值，如下方範例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> users<br><span class="hljs-keyword">SET</span> email <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;alice.new@example.com&#x27;</span><br><span class="hljs-keyword">WHERE</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>UPDATE users</code>：我們要更新的資料表為 <code>users</code>。</li>
+<li><code>SET email = &#39;alice.new@example.com&#39;</code>：將 <code>email</code> 欄位的值更新為 <code>&#39;alice.new@example.com&#39;</code>。</li>
+<li><code>WHERE id = 1</code>：指定篩選條件，更新 <code>id</code> 為 1 的那筆資料，只有這筆資料的 <code>email</code> 值會被更新。<em>（注意：若省略 <code>WHERE</code> 條件，則所有資料列的 <code>email</code> 欄位都會被更動。）</em></li>
+</ul>
+<p>更新示意：<br><img src="/img/sql-crud/6.png" srcset="/img/loading.gif" lazyload alt="更新某筆資料"></p>
+<h4 id="DELETE-刪除資料"><a href="#DELETE-刪除資料" class="headerlink" title="DELETE 刪除資料"></a>DELETE 刪除資料</h4><p>以上討論了怎麼創建資料表（CREATE）跟新增資料，以及怎麼去讀取（READ）跟更新（UPDATE）資料表中的資料。最後我們要來看刪除資料的部分，在 SQL 是使用<code>DELETE</code> 語法來刪除。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> users<br><span class="hljs-keyword">WHERE</span> id <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>DELETE FROM users</code>：我們要刪除資料的來源是 <code>users</code> 資料表。</li>
+<li><code>WHERE id = 2</code>：指定篩選條件，僅刪除 <code>id</code> 為 2 的那筆資料。（<em>注意：省略 <code>WHERE</code> 條件會刪除 <code>users</code> 表中的所有資料。）</em></li>
+</ul>
+<h3 id="資料表關聯"><a href="#資料表關聯" class="headerlink" title="資料表關聯"></a>資料表關聯</h3><p>在前面的內容中，我們以 users 資料表來操作跟了解 SQL 的 CURD。<br>接下來我們要創建另一個 posts 資料表，並把這兩張資料表做個關聯。</p>
+<h4 id="創建-posts-資料表"><a href="#創建-posts-資料表" class="headerlink" title="創建 posts 資料表"></a>創建 posts 資料表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> posts (<br>	id <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>	user_id <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>	title <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>	content TEXT <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>	created_at <span class="hljs-type">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> NOW(),<br>	<span class="hljs-keyword">PRIMARY</span> KEY (id),<br>	<span class="hljs-keyword">FOREIGN</span> KEY (user_id) <span class="hljs-keyword">REFERENCES</span> users(id)<br>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>id INT NOT NULL</code>：此欄位作為每篇貼文的唯一識別，而 <code>INT</code> 型別表示它是整數。</li>
+<li><code>user_id INT NOT NULL</code>：此欄位用於儲存發表貼文的用戶 ID，是設計來關聯 <code>user</code> 資料表中的 <code>id</code> 欄位。<code>INT</code> 型別表示它是整數。</li>
+<li><code>title VARCHAR(50) NOT NULL</code>：貼文的標題欄位，<code>VARCHAR(50)</code>定義這個欄位可以存放最多 50 個字元的字串。</li>
+<li><code>content TEXT NOT NULL</code>：貼文的內容欄位，<code>TEXT</code> 型別適合儲存大量的文字內容。</li>
+<li><code>created_at TIMESTAMP NOT NULL DEFAULT NOW()</code>：用來記錄貼文的建立時間，<code>TIMESTAMP</code> 型別提供日期和時間的紀錄，<code>DEFAULT NOW()</code> 設定預設值為當前時間（即自動生成）。</li>
+<li><code>PRIMARY KEY (id)</code>：指定 <code>id</code> 欄位為這個 <code>posts</code> 資料表的主鍵，用於唯一識別且不會重覆。</li>
+<li><code>FOREIGN KEY (user_id) REFERENCES users(id)</code>：指定 <code>user_id</code> 為外鍵，連結到 <code>users</code> 資料表的 <code>id</code> 欄位，以建立貼文與使用者之間的關聯。外鍵是用來在不同資料表之間建立關係，其所參照的欄位必須是目標表的主鍵（Primary Key）。</li>
+</ul>
+<blockquote>
+<p>註：NOT NULL 表示此欄位必須有值且不能為空，不再重複於每個欄位說明。</p>
+</blockquote>
+<h4 id="新增資料"><a href="#新增資料" class="headerlink" title="新增資料"></a>新增資料</h4><p>以下我們使用 <code>INSERT INTO</code> 在 <code>posts</code> 資料表新增了四筆資料。其中 <code>user_id</code> 欄位的值，以 <code>1</code> 來說是對照 <code>users</code> 資料表中 <code>id</code> 為 <code>1</code> 的用戶（Alice）。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> posts (id, user_id, title, content)<br><span class="hljs-keyword">VALUES</span><br>    (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;歡迎來到我的部落格&#x27;</span>, <span class="hljs-string">&#x27;這是我的第一篇文章&#x27;</span>),<br>    (<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;我的第二篇文章&#x27;</span>, <span class="hljs-string">&#x27;這裡有一些新的更新&#x27;</span>),<br>    (<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Bob 的自我介紹&#x27;</span>, <span class="hljs-string">&#x27;哈囉，我是 Bob！&#x27;</span>),<br>    (<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-string">&#x27;對於程式設計的想法&#x27;</span>, <span class="hljs-string">&#x27;程式設計既有趣又困難&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/sql-crud/7.png" srcset="/img/loading.gif" lazyload alt="在 posts 資料表新增資料"></p>
+<p>補充說明：<br><code>created_at</code> 欄位的時間是根據當前時間自動生成的。不過，由於 SQLite 預設使用協調世界時間（UTC）為基準，因此生成的時間會與台灣時間（UTC+8）有 8 小時的時差。此部分與本文主軸無直接相關，因此僅做簡單說明，如需顯示台灣時間，可使用下方程式碼手動添加時區調整：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> posts (id, user_id, title, content, created_at)<br><span class="hljs-keyword">VALUES</span><br>    (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;歡迎來到我的部落格&#x27;</span>, <span class="hljs-string">&#x27;這是我的第一篇文章&#x27;</span>, (NOW() <span class="hljs-keyword">AT</span> <span class="hljs-type">TIME</span> ZONE <span class="hljs-string">&#x27;Asia/Taipei&#x27;</span>)),<br>    (<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;我的第二篇文章&#x27;</span>, <span class="hljs-string">&#x27;這裡有一些新的更新&#x27;</span>, (NOW() <span class="hljs-keyword">AT</span> <span class="hljs-type">TIME</span> ZONE <span class="hljs-string">&#x27;Asia/Taipei&#x27;</span>)),<br>    (<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Bob 的自我介紹&#x27;</span>, <span class="hljs-string">&#x27;哈囉，我是 Bob！&#x27;</span>, (NOW() <span class="hljs-keyword">AT</span> <span class="hljs-type">TIME</span> ZONE <span class="hljs-string">&#x27;Asia/Taipei&#x27;</span>)),<br>    (<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-string">&#x27;對於程式設計的想法&#x27;</span>, <span class="hljs-string">&#x27;程式設計既有趣又困難&#x27;</span>, (NOW() <span class="hljs-keyword">AT</span> <span class="hljs-type">TIME</span> ZONE <span class="hljs-string">&#x27;Asia/Taipei&#x27;</span>));<br></code></pre></td></tr></table></figure>
+
+<h4 id="與-users-資料表關聯"><a href="#與-users-資料表關聯" class="headerlink" title="與 users 資料表關聯"></a>與 users 資料表關聯</h4><p>資料表的互相關聯中，會使用 <code>JOIN</code> 語法來合併多張資料表的數據，讓我們可以一次從不同資料表中取出所需數據，而不必分別查詢各個資料表。主要的 <code>JOIN</code> 類型包括 <code>INNER JOIN</code>、<code>LEFT JOIN</code>、<code>RIGHT JOIN</code> 和 <code>FULL JOIN</code> 等。</p>
+<ul>
+<li><code>INNER JOIN</code>：為預設的關聯方式，只選取出資料表中「雙方都有資料」的部分。</li>
+<li><code>LEFT JOIN</code>：會把左邊表格（<code>JOIN</code> 指令之前的那張表）的所有資料都取出來，並且顯示右邊表中符合的資料；如果右邊表沒有符合的資料，會顯示空值。</li>
+<li><code>RIGHT JOIN</code>：和 <code>LEFT JOIN</code> 類似，只是它會取出右邊表格的所有資料，並顯示左邊表格中符合的資料。如果左邊表沒符合的資料，則顯示空值。</li>
+<li><code>FULL JOIN</code> ：把左右兩邊的表格全部取出，並將彼此有符合的部分對應好。若其中一邊沒有符合的資料，也會顯示空值。<em>（MySQL 不支援）</em></li>
+</ul>
+<p>簡單來說，<code>INNER JOIN</code> 專注在「兩張表都有的資料」，而 <code>LEFT JOIN</code> 和 <code>RIGHT JOIN</code> 分別會保留一邊表格的所有資料；<code>FULL JOIN</code> 則顯示兩邊所有的資料。</p>
+<p>以下將使用 <code>INNER JOIN</code> 語法，依據 <code>posts</code> 資料表中的 <code>user_id</code> 欄位跟 <code>users</code> 資料表中的 <code>id</code> 欄位進行關聯，來呈現每則貼文所屬的用戶資料。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> users.username, users.email, posts.title, posts.content, posts.created_at<br><span class="hljs-keyword">FROM</span> posts<br><span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> users <span class="hljs-keyword">ON</span> posts.user_id <span class="hljs-operator">=</span> users.id;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>SELECT users.username, users.email, posts.title, posts.content, posts.created_at</code>：指定要顯示的 <code>users</code> 和 <code>posts</code> 欄位。</li>
+<li><code>FROM posts</code>：指定主資料表為 <code>posts</code>，作為查詢的基礎。</li>
+<li><code>INNER JOIN users ON posts.user_id = users.id</code>：使用 <code>INNER JOIN</code> 將 <code>users</code> 和 <code>posts</code> 關聯，依據 <code>user_id</code> 和 <code>id</code> 建立關聯，僅顯示符合條件的資料。</li>
+</ul>
+<p>關聯結果圖：<br><img src="/img/sql-crud/8.png" srcset="/img/loading.gif" lazyload alt="關聯結果圖"></p>
+<h2 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h2><p>這個系列的下一篇預計是 PostgreSQL 的討論。近期在規劃上，還會加上 React 的複習（Side Project），加上最初的 TypeScript 學習系列，所以整體的速度也許會慢一些。</p>
+<p>這個前端到後端系列，因為後端知識相對較為不熟悉，所以產出文章時會盡力去驗證內容是否有錯誤；假如有看到錯誤，還請不吝點出指導，感謝 🙏</p>
+<p>（題外話，最近在思考程式文章的篇幅或呈現方式，是不是要做些調整。例如把篇幅拆的更小一些…🤔）</p>
+<p>參考資料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/sql/default.asp">SQL w3schools（英文）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/sql/sql-tutorial.html">SQL 菜鳥教程（中文）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.liu-yucheng.com/2024/06/23/sql_join_query/index.html">認識 SQL JOIN 關聯查詢 - Ray Liu’s Blog</a></li>
+</ul>
+<hr>
+<p>Photo by <a target="_blank" rel="noopener" href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a target="_blank" rel="noopener" href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%88%B0%E5%BE%8C%E7%AB%AF%E7%B3%BB%E5%88%97/" class="category-chain-item">前端到後端系列</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%B3%87%E6%96%99%E5%BA%AB/" class="print-no-link">#資料庫</a>
+      
+        <a href="/tags/%E9%97%9C%E8%81%AF%E5%BC%8F%E8%B3%87%E6%96%99%E5%BA%AB/" class="print-no-link">#關聯式資料庫</a>
+      
+        <a href="/tags/SQL/" class="print-no-link">#SQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用 SQL 語法來操作資料</div>
+      <div>https://yaj55billy.github.io/post/sql-crud.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2024年10月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/typescript-gradual-typing.html" title="TypeScript 型別註記與型別推論">
+                        <span class="hidden-mobile">TypeScript 型別註記與型別推論</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
