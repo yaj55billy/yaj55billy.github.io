@@ -1,9 +1,9 @@
 ---
 title: 使用 SQL 語法來操作資料
-date: 2024-10-20 19:24:12
+date: 2024-10-28 11:01:11
 tags: [資料庫, 關聯式資料庫, SQL]
 categories: [前端到後端系列]
-excerpt: SQL 語法跟 CRUD 的基礎操作
+excerpt: SQL 語法跟 CRUD 的基礎操作，以及資料表之間的關聯
 index_img: "/img/database.jpg"
 banner_img: "/img/article-banner.jpg"
 ---
@@ -196,16 +196,79 @@ CREATE TABLE posts (
 - `user_id INT NOT NULL`：此欄位用於儲存發表貼文的用戶 ID，是設計來關聯 `user` 資料表中的 `id` 欄位。`INT` 型別表示它是整數。
 - `title VARCHAR(50) NOT NULL`：貼文的標題欄位，`VARCHAR(50)`定義這個欄位可以存放最多 50 個字元的字串。
 - `content TEXT NOT NULL`：貼文的內容欄位，`TEXT` 型別適合儲存大量的文字內容。
-- `created_at TIMESTAMP NOT NULL DEFAULT NOW()`：用來記錄貼文的建立時間，`TIMESTAMP` 型別提供日期和時間的紀錄，`DEFAULT NOW()` 設定預設值為當前時間。
+- `created_at TIMESTAMP NOT NULL DEFAULT NOW()`：用來記錄貼文的建立時間，`TIMESTAMP` 型別提供日期和時間的紀錄，`DEFAULT NOW()` 設定預設值為當前時間（即自動生成）。
 - `PRIMARY KEY (id)`：指定 `id` 欄位為這個 `posts` 資料表的主鍵，用於唯一識別且不會重覆。
-- `FOREIGN KEY (user_id) REFERENCES users(id)`：設定 `user_id` 為外鍵，連結至 `users` 資料表的 `id` 欄位，表示每篇貼文跟 `users` 的某一用戶有其關聯。_（外鍵 Foreign Key 是用來建立不同資料之間的關係，而外鍵一定是其他資料表的主鍵）_
+- `FOREIGN KEY (user_id) REFERENCES users(id)`：指定 `user_id` 為外鍵，連結到 `users` 資料表的 `id` 欄位，以建立貼文與使用者之間的關聯。外鍵是用來在不同資料表之間建立關係，其所參照的欄位必須是目標表的主鍵（Primary Key）。
 
-（`NOT NULL` 表示此欄位不可為空值，將不一一贅述在每個欄位說明）
+> 註：NOT NULL 表示此欄位必須有值且不能為空，不再重複於每個欄位說明。
+
+#### 新增資料
+
+以下我們使用 `INSERT INTO` 在 `posts` 資料表新增了四筆資料。其中 `user_id` 欄位的值，以 `1` 來說是對照 `users` 資料表中 `id` 為 `1` 的用戶（Alice）。
+
+```sql
+INSERT INTO posts (id, user_id, title, content)
+VALUES
+    (1, 1, '歡迎來到我的部落格', '這是我的第一篇文章'),
+    (2, 1, '我的第二篇文章', '這裡有一些新的更新'),
+    (3, 2, 'Bob 的自我介紹', '哈囉，我是 Bob！'),
+    (4, 3, '對於程式設計的想法', '程式設計既有趣又困難');
+```
+
+![在 posts 資料表新增資料](/img/sql-crud/7.png)
+
+補充說明：
+`created_at` 欄位的時間是根據當前時間自動生成的。不過，由於 SQLite 預設使用協調世界時間（UTC）為基準，因此生成的時間會與台灣時間（UTC+8）有 8 小時的時差。此部分與本文主軸無直接相關，因此僅做簡單說明，如需顯示台灣時間，可使用下方程式碼手動添加時區調整：
+
+```sql
+INSERT INTO posts (id, user_id, title, content, created_at)
+VALUES
+    (1, 1, '歡迎來到我的部落格', '這是我的第一篇文章', (NOW() AT TIME ZONE 'Asia/Taipei')),
+    (2, 1, '我的第二篇文章', '這裡有一些新的更新', (NOW() AT TIME ZONE 'Asia/Taipei')),
+    (3, 2, 'Bob 的自我介紹', '哈囉，我是 Bob！', (NOW() AT TIME ZONE 'Asia/Taipei')),
+    (4, 3, '對於程式設計的想法', '程式設計既有趣又困難', (NOW() AT TIME ZONE 'Asia/Taipei'));
+```
+
+#### 與 users 資料表關聯
+
+資料表的互相關聯中，會使用 `JOIN` 語法來合併多張資料表的數據，讓我們可以一次從不同資料表中取出所需數據，而不必分別查詢各個資料表。主要的 `JOIN` 類型包括 `INNER JOIN`、`LEFT JOIN`、`RIGHT JOIN` 和 `FULL JOIN` 等。
+
+- `INNER JOIN`：為預設的關聯方式，只選取出資料表中「雙方都有資料」的部分。
+- `LEFT JOIN`：會把左邊表格（`JOIN` 指令之前的那張表）的所有資料都取出來，並且顯示右邊表中符合的資料；如果右邊表沒有符合的資料，會顯示空值。
+- `RIGHT JOIN`：和 `LEFT JOIN` 類似，只是它會取出右邊表格的所有資料，並顯示左邊表格中符合的資料。如果左邊表沒符合的資料，則顯示空值。
+- `FULL JOIN` ：把左右兩邊的表格全部取出，並將彼此有符合的部分對應好。若其中一邊沒有符合的資料，也會顯示空值。_（MySQL 不支援）_
+
+簡單來說，`INNER JOIN` 專注在「兩張表都有的資料」，而 `LEFT JOIN` 和 `RIGHT JOIN` 分別會保留一邊表格的所有資料；`FULL JOIN` 則顯示兩邊所有的資料。
+
+以下將使用 `INNER JOIN` 語法，依據 `posts` 資料表中的 `user_id` 欄位跟 `users` 資料表中的 `id` 欄位進行關聯，來呈現每則貼文所屬的用戶資料。
+
+```sql
+SELECT users.username, users.email, posts.title, posts.content, posts.created_at
+FROM posts
+INNER JOIN users ON posts.user_id = users.id;
+```
+
+- `SELECT users.username, users.email, posts.title, posts.content, posts.created_at`：指定要顯示的 `users` 和 `posts` 欄位。
+- `FROM posts`：指定主資料表為 `posts`，作為查詢的基礎。
+- `INNER JOIN users ON posts.user_id = users.id`：使用 `INNER JOIN` 將 `users` 和 `posts` 關聯，依據 `user_id` 和 `id` 建立關聯，僅顯示符合條件的資料。
+
+關聯結果圖：
+![關聯結果圖](/img/sql-crud/8.png)
 
 ## 結尾
 
-下一篇將介紹 PostgreSQL..
+這個系列的下一篇預計是 PostgreSQL 的討論。近期在規劃上，還會加上 React 的複習（Side Project），加上最初的 TypeScript 學習系列，所以整體的速度也許會慢一些。
+
+這個前端到後端系列，因為後端知識相對較為不熟悉，所以產出文章時會盡力去驗證內容是否有錯誤；假如有看到錯誤，還請不吝點出指導，感謝 🙏
+
+（題外話，最近在思考程式文章的篇幅或呈現方式，是不是要做些調整。例如把篇幅拆的更小一些…🤔）
 
 參考資料：
 
-- [SQL w3schools](https://www.w3schools.com/sql/default.asp)
+- [SQL w3schools（英文）](https://www.w3schools.com/sql/default.asp)
+- [SQL 菜鳥教程（中文）](https://www.runoob.com/sql/sql-tutorial.html)
+- [認識 SQL JOIN 關聯查詢 - Ray Liu's Blog](https://blog.liu-yucheng.com/2024/06/23/sql_join_query/index.html)
+
+---
+
+Photo by <a href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
