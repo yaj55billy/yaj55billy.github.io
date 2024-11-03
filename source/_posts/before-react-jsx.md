@@ -12,8 +12,6 @@ banner_img: https://i.imgur.com/Zwb2dxR.jpg
 
 近期在前端工程的其中一個規劃是複習 React，也可以說是再度學習。原本這篇預計要筆記 JSX 的一些觀念跟需注意的部分，不過在找資料時看到 Zet 大大之前在 iThome 鐵人賽所撰寫的：[一次打破 React 常見的學習門檻與觀念誤解](https://ithelp.ithome.com.tw/users/20129300/ironman/5892)系列，裡頭就像寶庫一般，補足了我先前所缺的觀念。所以這一篇變成先筆記 Virtual DOM、React element、Render React elements 等所學觀念，而本來的 JSX 相關則挪動到下一篇。
 
-題外話，在這樣的學習跟維持輸出，也讓我再意識到過去的習性跟方向，確實會讓自己的前端職涯不穩，也無法有效累積。而現在前端領域的變化之快，也不曉得自己後續的學習調整跟維持輸出習慣，能帶我走到什麼地方，但就繼續嘗試維持，然後看看再來的走向了！
-
 ## Virtual DOM
 
 在先前學習 Vue 或 React 時，就滿常聽到 **Virtual DOM** 這個程式設計概念，不過那時並沒有特別去了解；藉由這次的學習規劃，來補足並整理相關的知識。
@@ -133,7 +131,28 @@ function App() {
 ```
 
 關於 `_jsx()` 與 `React.createElement` 兩者的概念是類似的，只是 `_jsx()` 這樣的方法有再多一些優化。另外，在 [React 的中文文檔](https://zh-hans.react.dev/reference/react/createElement#creating-an-element-without-jsx)中有提到，如果開發者想用 JSX 以外的方式來建立 React element，還是只能使用 `React.createElement`。
+（雖然我嘗試使用 \_jsx() 這樣的方式來建立 React element 並不會出錯，不過既然文件只寫到用 React.createElement，加上 JSX 語法糖一定是比較好撰寫的，所以就不調皮了 XD）
 
 ### 補充 - React Element 的不可變性
 
+**React element 一旦建立後就不能再更改**，這與 Virtual DOM 的機制是相關的。
+
+如前面的 Virtual DOM 段落所提，當畫面有更新需求時，我們會經過一個**比對變化（Diffing）**的階段，而這個過程會將新建立的 Virtual DOM 結構與舊有的（前一次）Virtual DOM 結構做比較，然後找出新舊結構的差異部分。所以如果先前的 Virtual DOM 結構被修改或覆蓋的話，這個機制就沒有一個依據（前一次）來跟新建立的 Virtual DOM 結構做比對了。
+
+因此，React element 的不可變性意味著「**某個時間點的畫面狀態**」，所以當我們需要更新畫面（結構）時，就會以產生一組全新的結構（React element）來提供給 React，而不會去修改舊有的結構，以保證這個新舊的比對機制能夠成立。
+
 ## Render React elements
+
+從定義抽象層到產生真實 DOM 元素（UI），React 將這整個過程分為 **Reconciler** 跟 **Renderer**。
+
+**Reconciler** 的任務是「抽象層的定義及畫面結構管理」，它會根據定義產生 React element 來模擬預期的 DOM 結構，而有畫面更新需求時，會比對新舊的結構差異，並將其結構差異交給 Renderer 處理。（也就是前述 Virtual DOM 流程中的生成虛擬 DOM、比對變化。）
+
+**Renderer** 的任務是「將畫面結構的模擬渲染成實際畫面（真實 DOM）」，它會將 Reconciler 所生成或更新（新舊結構比對差異）的 React elements，在目標環境（瀏覽器）中轉換成對應的實際畫面（渲染為真實 DOM）。
+
+### 補充 - 階段拆分的好處
+
+### 補充 - React Fiber
+
+## 結語
+
+題外話，在這樣的學習跟維持輸出，也讓我再意識到過去的習性跟方向，確實會讓自己的前端職涯不穩，也無法有效累積。而現在前端領域的變化之快，也不曉得自己後續的學習調整跟維持輸出習慣，能帶我走到什麼地方，但就繼續嘗試維持，然後看看再來的走向了！
