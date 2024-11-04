@@ -149,6 +149,47 @@ function App() {
 
 **Renderer** 的任務是「將畫面結構的模擬渲染成實際畫面（真實 DOM）」，它會將 Reconciler 所生成或更新（新舊結構比對差異）的 React elements，在目標環境（瀏覽器）中轉換成對應的實際畫面（渲染為真實 DOM）。
 
+在瀏覽器的環境，我們需透過 `react-dom` 來將 React element 轉換並繪製成實際的 DOM。以下會以 vite 所建置出的 react 檔案來說明流程：
+
+首先我們需要準備一個目標區塊，用途是讓 Reconciler（Virtual DOM）到 Renderer 所產生的真實 DOM 可以注入到這個目標區塊。（`id="root"` 以便我們等下在 JavaScript 去取得這個元素）
+
+```html
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<!-- ...略 -->
+	<body>
+		<div id="root">
+			<!-- React 輸出的真實 DOM elements 會注入到這裡 -->
+		</div>
+		<script type="module" src="/src/main.tsx"></script>
+		<!-- 載入應用程式的入口檔案 -->
+	</body>
+</html>
+```
+
+接著我們根據 main.tsx 的程式碼來做說明。
+
+```jsx
+// main.tsx 專案的進入點
+
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client' // 用於瀏覽器環境，將 React element 轉換成真實的 DOM element
+import './index.css'
+import App from './App.tsx'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
+- `document.getElementById('root')!`：先找到剛才 HTML 事先定義好的容器位置，也就是之後 React 的真實 DOM 會注入的地方。
+- `createRoot(document.getElementById('root')!)`：透過 `react-dom` 裡頭的 `createRoot` 方法來為 React 創立一個「根節點」，讓 React 能對這個根節點內做 DOM elements 的管理跟操作。
+- `.render(<App />)`：
+
 ### 補充 - 階段拆分的好處
 
 ### 補充 - React Fiber
