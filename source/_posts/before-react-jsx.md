@@ -1,9 +1,9 @@
 ---
 title: 寫在 React JSX 之前
-date: 2024-10-30 14:25:59
+date: 2024-11-05 15:41:50
 tags: [React, JSX]
-categories: [前端]
-excerpt: Virtual DOM、React Element
+categories: [前端 React]
+excerpt: 在 JSX 之前，先來了解 Virtual DOM、React element、Render React elements 等觀念。
 index_img: https://i.imgur.com/Zwb2dxR.jpg
 banner_img: https://i.imgur.com/Zwb2dxR.jpg
 ---
@@ -145,13 +145,12 @@ function App() {
 
 從定義抽象層到產生真實 DOM 元素（UI），React 將這整個過程分為 **Reconciler** 跟 **Renderer**。
 
-**Reconciler** 的任務是「抽象層的定義及畫面結構管理」，它會根據定義產生 React element 來模擬預期的 DOM 結構，而有畫面更新需求時，會比對新舊的結構差異，並將其結構差異交給 Renderer 處理。（也就是前述 Virtual DOM 流程中的生成虛擬 DOM、比對變化。）
+- **Reconciler** 的任務是「抽象層的定義及畫面結構管理」，它會根據定義產生 React element 來模擬預期的 DOM 結構，而有畫面更新需求時，會比對新舊的結構差異，並將其結構差異交給 Renderer 處理。（也就是前述 Virtual DOM 流程中的生成虛擬 DOM、比對變化。）
+- **Renderer** 的任務是「將畫面結構的模擬渲染成實際畫面（真實 DOM）」，它會將 Reconciler 所生成或更新（新舊結構比對差異）的 React elements，在目標環境（瀏覽器）中轉換成對應的實際畫面（渲染為真實 DOM）。
 
-**Renderer** 的任務是「將畫面結構的模擬渲染成實際畫面（真實 DOM）」，它會將 Reconciler 所生成或更新（新舊結構比對差異）的 React elements，在目標環境（瀏覽器）中轉換成對應的實際畫面（渲染為真實 DOM）。
+在瀏覽器的環境，我們需透過 `react-dom` 來將 React element 轉換並繪製成實際的 DOM。以下會以 vite 環境所建置出的 react 檔案來說明流程：
 
-在瀏覽器的環境，我們需透過 `react-dom` 來將 React element 轉換並繪製成實際的 DOM。以下會以 vite 所建置出的 react 檔案來說明流程：
-
-首先我們需要準備一個目標區塊，用途是讓 Reconciler（Virtual DOM）到 Renderer 所產生的真實 DOM 可以注入到這個目標區塊。（`id="root"` 以便我們等下在 JavaScript 去取得這個元素）
+在 index.html 這支檔案中，我們會看到 `<div id="root"></div>` 區塊，這個區塊的用途是讓 Reconciler（Virtual DOM）到 Renderer 所產生的真實 DOM 可以注入於此。（id 的命名 `id="root"` 以便稍後在 JavaScript 可以取得這個元素）
 
 ```html
 <!-- index.html -->
@@ -169,14 +168,13 @@ function App() {
 </html>
 ```
 
-接著我們根據 main.tsx 的程式碼來做說明。
+接下來我們來看 main.tsx 專案進入點的檔案。
 
 ```jsx
 // main.tsx 專案的進入點
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client' // 用於瀏覽器環境，將 React element 轉換成真實的 DOM element
-import './index.css'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
@@ -186,14 +184,36 @@ createRoot(document.getElementById('root')!).render(
 )
 ```
 
-- `document.getElementById('root')!`：先找到剛才 HTML 事先定義好的容器位置，也就是之後 React 的真實 DOM 會注入的地方。
-- `createRoot(document.getElementById('root')!)`：透過 `react-dom` 裡頭的 `createRoot` 方法來為 React 創立一個「根節點」，讓 React 能對這個根節點內做 DOM elements 的管理跟操作。
-- `.render(<App />)`：
-
-### 補充 - 階段拆分的好處
+- `import { createRoot } from 'react-dom/client'`：從 `react-dom` 引入 `createRoot`，用途是將 React element 轉換成真實 DOM element。
+- `import App from './App.tsx'`：匯入 `App` 元件，這個根元件會包含應用的其他組件，最終會被轉換成 React element。
+- `createRoot(document.getElementById('root')!)`
+  - `document.getElementById('root')!`：找到 HTML 定義好的 `id="root"` 區塊作為 React 渲染容器。
+  - `createRoot()`：透過這個方法為 React 創建一個「根節點」，讓 React 能對這個根節點內做 DOM elements 的管理跟操作。
+- `.render(<App />)`：將 `<App />` 元件（React element）插入到 `root` 節點，並渲染成真實的 DOM element。
+- `StrictMode`補充：是 React 提供的一種開發模式，可用於檢測應用中不建議使用的 API 及找出潛在問題。這邊不會影響到 Render React elements 的了解，所以僅簡單說明。
 
 ### 補充 - React Fiber
 
-## 結語
+在稍早的內容中，有提到從定義抽象層到產生真實 DOM 元素，React 將過程分為 Reconciler 跟 Renderer；而在 React 16 之後推出了 React Fiber 這個新的底層架構，所以在 Reconciler 跟 Renderer 之前，還多了「**Scheduler**」這個流程，它負責將 Reconciler 的工作碎片化，並進行一些分段、調度管理，讓畫面更新可以更順暢、彈性更高。
 
-題外話，在這樣的學習跟維持輸出，也讓我再意識到過去的習性跟方向，確實會讓自己的前端職涯不穩，也無法有效累積。而現在前端領域的變化之快，也不曉得自己後續的學習調整跟維持輸出習慣，能帶我走到什麼地方，但就繼續嘗試維持，然後看看再來的走向了！
+（參考相關文章：[React 開發者一定要知道的底層機制 — React Fiber Reconciler](https://medium.com/starbugs/react-%E9%96%8B%E7%99%BC%E8%80%85%E4%B8%80%E5%AE%9A%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E5%BA%95%E5%B1%A4%E6%9E%B6%E6%A7%8B-react-fiber-c3ccd3b047a1)）
+
+![React Fiber](/img/before-react-jsx/3.png)
+
+## 心得
+
+整理這篇筆記所花的時間，比預期多了一些，因為有些觀念不太熟悉，所以需要重覆吸收跟整理。
+
+題外話，這樣的學習跟維持輸出也一個月了，也讓我再意識到過去沒有專注跟打底，確實為自己帶來了前端職涯的不穩定。現在的前端領域變化相當快速，其實也不曉得後續這樣的輸出習慣能帶我走到什麼地方，但就繼續嘗試，然後再看看之後的走向哩！
+
+參考資料：
+
+[Zet - 一次打破 React 常見的學習門檻與觀念誤解](https://ithelp.ithome.com.tw/users/20129300/ironman/5892)
+
+[Monica - [React] DOM, Virtual DOM 與 React element](https://medium.com/@linyawun031/react-dom-virtual-dom-與-react-element-af47110e2ec4)
+
+[Introducing the New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+
+[React 中文文檔](https://zh-hans.react.dev/)
+
+[React 開發者一定要知道的底層機制 — React Fiber Reconciler](https://medium.com/starbugs/react-%E9%96%8B%E7%99%BC%E8%80%85%E4%B8%80%E5%AE%9A%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E5%BA%95%E5%B1%A4%E6%9E%B6%E6%A7%8B-react-fiber-c3ccd3b047a1)
