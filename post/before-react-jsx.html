@@ -1,0 +1,750 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在 JSX 之前，先來了解 Virtual DOM、React element、Render React elements 等觀念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寫在 React JSX 之前">
+<meta property="og:url" content="https://yaj55billy.github.io/post/before-react-jsx.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="在 JSX 之前，先來了解 Virtual DOM、React element、Render React elements 等觀念。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+<meta property="article:published_time" content="2024-11-05T07:41:50.000Z">
+<meta property="article:modified_time" content="2024-11-05T07:41:09.170Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="JSX">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>寫在 React JSX 之前 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://i.imgur.com/Zwb2dxR.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="寫在 React JSX 之前"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-05 15:41" pubdate>
+          2024年11月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">寫在 React JSX 之前</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期在前端工程的其中一個規劃是複習 React，也可以說是再度學習。原本這篇預計要筆記 JSX 的一些觀念跟需注意的部分，不過在找資料時看到 Zet 大大之前在 iThome 鐵人賽所撰寫的：<a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/users/20129300/ironman/5892">一次打破 React 常見的學習門檻與觀念誤解</a>系列，裡頭就像寶庫一般，補足了我先前所缺的觀念。所以這一篇變成先筆記 Virtual DOM、React element、Render React elements 等所學觀念，而本來的 JSX 相關則挪動到下一篇。</p>
+<h2 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h2><p>在先前學習 Vue 或 React 時，就滿常聽到 <strong>Virtual DOM</strong> 這個程式設計概念，不過那時並沒有特別去了解；藉由這次的學習規劃，來補足並整理相關的知識。</p>
+<p>為什麼會有這樣的概念出現呢？首先要從<strong>真實 DOM</strong> 來談起。在瀏覽器中，真實 DOM 的操作都會直接影響到渲染引擎（rendering engine）的運行，因此若網站內容較為複雜、DOM 的操作也較為頻繁時，就會消耗瀏覽器的很多資源，進而有了效能上的問題；因此為了改善真實 DOM 所產生的效能問題，而衍生出 Virtual DOM 的概念。</p>
+<p>Virtual DOM 是一種 JavaScript 物件結構，它不會直接跟瀏覽器的渲染機制產生互動。而按照其字面 Virtual 的意思，它是一種「<strong>虛擬（模擬）</strong>」的概念，用來先模擬真實 DOM 預計的樣子。每當有 UI 畫面需要更新時，整個流程大致如下：</p>
+<ol>
+<li><p><strong>生成虛擬 DOM Tree</strong>：依照我們所定義的需求，生成虛擬的 Virtual DOM Tree，會包含 Virtual DOM 元素的類型、屬性、子元素等資訊。</p>
+</li>
+<li><p><strong>比對變化（Diffing）</strong>：會將此次新生成的 Virtual DOM Tree 跟前一次的 Virtual DOM Tree 進行比對，比對出新舊節點的差異部分。（差異部分就是會更新的地方）</p>
+</li>
+<li><p><strong>更新真實 DOM Tree</strong>：根據上一個步驟的比對，將有差異的部分更新到真實 DOM Tree。</p>
+<p><img src="/img/before-react-jsx/1.png" srcset="/img/loading.gif" lazyload alt="Virtual DOM 流程"></p>
+</li>
+</ol>
+<h2 id="React-Element"><a href="#React-Element" class="headerlink" title="React Element"></a>React Element</h2><p>在上一個段落中，我們了解到 Virtual DOM 這個程式設計概念。接下來要探討構成這個 Virtual DOM 的每個畫面元素 Virtual DOM element，而畫面元素在 React 被稱為 <strong>React element。</strong></p>
+<p>React element 是一種 JavaScript 物件資料，它用來描述（模擬）對應於真實 DOM 的節點資料跟結構，我們可以透過 React 提供的 <code>createElement()</code> 方法來建立一個 React element。如下方程式碼所示，<code>React.createElement()</code> 的三個參數分別為：元素類型、屬性、以及子元素等。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">const</span> helloReactElement = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<br>		<span class="hljs-string">&quot;div&quot;</span>, <span class="hljs-comment">// 元素類型</span><br>		<span class="hljs-literal">null</span>, <span class="hljs-comment">// 屬性（這邊沒有屬性，所以為 null）</span><br>		<span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;h1&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;Hello~&quot;</span>), <span class="hljs-comment">// 子元素 1</span><br>		<span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;p&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;About React Learn...&quot;</span>) <span class="hljs-comment">// 子元素 2</span><br>	);<br>	<span class="hljs-comment">// console.log(helloReactElement);</span><br>	<span class="hljs-keyword">return</span> helloReactElement;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span>;<br></code></pre></td></tr></table></figure>
+
+<p>如果我們把上方範例的 React element 做 <code>console.log()</code>，我們會得到如下圖的物件資料。這個物件經過 React 處理後，就會轉換成真實的 DOM 元素並顯示在瀏覽器中。</p>
+<p><img src="/img/before-react-jsx/2.png" srcset="/img/loading.gif" lazyload alt="React element Object"></p>
+<p><code>React.createElement()</code> 可以用來創建 React element，最終轉換為真實的 DOM 元素。不過，在開發中為了提高效率和可讀性，我們通常會使用 React 提供的語法糖 <strong>JSX</strong>，讓我們可以用<strong>類似 HTML 的方式</strong>來撰寫 React element。上方的範例改用 JSX 的寫法：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello~<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>About React Learn...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="補充-JSX-轉譯"><a href="#補充-JSX-轉譯" class="headerlink" title="補充 - JSX 轉譯"></a>補充 - JSX 轉譯</h3><p>在 React 的開發中，我們經常使用到 JSX 語法來撰寫畫面元素。然而，JSX 語法是需先經過<strong>轉譯</strong>才能被瀏覽器運行。而在負責轉譯的工具中，Babel 是其中比較主流，而且被 React 官方所推薦。</p>
+<p>在 React 17 這個版本之前，JSX 相關語法會被 Babel 轉譯成 <code>React.createElement()</code>，而也因為這樣的轉譯需要引入 React 作為依賴，所以我們需要在程式最前方加上 <code>import React from &#39;react&#39;;</code> ，如下方範例程式：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello~<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>About React Learn...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;<br><br>⬇️⬇️⬇️⬇️⬇️⬇️ <span class="hljs-comment">// 轉譯</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<br>    <span class="hljs-string">&quot;div&quot;</span>,<br>    <span class="hljs-literal">null</span>,<br>		<span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;h1&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;Hello~&quot;</span>),<br>    <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;p&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;About React Learn...&quot;</span>)<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>而在 React 17 版本之後，React 官方與 Babel 合作並支援了新的 JSX 轉譯方式，這樣的方式不再把 JSX 轉換成 <code>React.createElement()</code>，而是改成 <code>jsx-runtime</code> 的 <code>_jsx()</code> 方法。我們也不需要再 <code>import React</code> 作為依賴。關於這個部分的詳細，可參考<a target="_blank" rel="noopener" href="https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html">這篇文章</a>。</p>
+<p>上方的 JSX 範例，在現在的版本會被轉譯如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello~<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>About React Learn...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;<br><br>⬇️⬇️⬇️⬇️⬇️⬇️ <span class="hljs-comment">// 轉譯</span><br><br><span class="hljs-keyword">import</span> &#123; jsx <span class="hljs-keyword">as</span> _jsx, jsxs <span class="hljs-keyword">as</span> _jsxs &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react/jsx-runtime&quot;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">_jsxs</span>(<span class="hljs-string">&quot;div&quot;</span>, &#123;<br>    <span class="hljs-attr">children</span>: [<br>      <span class="hljs-title function_">_jsx</span>(<span class="hljs-string">&quot;h1&quot;</span>, &#123;<br>        <span class="hljs-attr">children</span>: <span class="hljs-string">&quot;Hello~&quot;</span><br>      &#125;),<br>      <span class="hljs-title function_">_jsx</span>(<span class="hljs-string">&quot;p&quot;</span>, &#123;<br>        <span class="hljs-attr">children</span>: <span class="hljs-string">&quot;About React Learn...&quot;</span><br>      &#125;)<br>    ]<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>關於 <code>_jsx()</code> 與 <code>React.createElement</code> 兩者的概念是類似的，只是 <code>_jsx()</code> 這樣的方法有再多一些優化。另外，在 <a target="_blank" rel="noopener" href="https://zh-hans.react.dev/reference/react/createElement#creating-an-element-without-jsx">React 的中文文檔</a>中有提到，如果開發者想用 JSX 以外的方式來建立 React element，還是只能使用 <code>React.createElement</code>。<br>（雖然我嘗試使用 _jsx() 這樣的方式來建立 React element 並不會出錯，不過既然文件只寫到用 React.createElement，加上 JSX 語法糖一定是比較好撰寫的，所以就不調皮了 XD）</p>
+<h3 id="補充-React-Element-的不可變性"><a href="#補充-React-Element-的不可變性" class="headerlink" title="補充 - React Element 的不可變性"></a>補充 - React Element 的不可變性</h3><p><strong>React element 一旦建立後就不能再更改</strong>，這與 Virtual DOM 的機制是相關的。</p>
+<p>如前面的 Virtual DOM 段落所提，當畫面有更新需求時，我們會經過一個<strong>比對變化（Diffing）</strong>的階段，而這個過程會將新建立的 Virtual DOM 結構與舊有的（前一次）Virtual DOM 結構做比較，然後找出新舊結構的差異部分。所以如果先前的 Virtual DOM 結構被修改或覆蓋的話，這個機制就沒有一個依據（前一次）來跟新建立的 Virtual DOM 結構做比對了。</p>
+<p>因此，React element 的不可變性意味著「<strong>某個時間點的畫面狀態</strong>」，所以當我們需要更新畫面（結構）時，就會以產生一組全新的結構（React element）來提供給 React，而不會去修改舊有的結構，以保證這個新舊的比對機制能夠成立。</p>
+<h2 id="Render-React-elements"><a href="#Render-React-elements" class="headerlink" title="Render React elements"></a>Render React elements</h2><p>從定義抽象層到產生真實 DOM 元素（UI），React 將這整個過程分為 <strong>Reconciler</strong> 跟 <strong>Renderer</strong>。</p>
+<ul>
+<li><strong>Reconciler</strong> 的任務是「抽象層的定義及畫面結構管理」，它會根據定義產生 React element 來模擬預期的 DOM 結構，而有畫面更新需求時，會比對新舊的結構差異，並將其結構差異交給 Renderer 處理。（也就是前述 Virtual DOM 流程中的生成虛擬 DOM、比對變化。）</li>
+<li><strong>Renderer</strong> 的任務是「將畫面結構的模擬渲染成實際畫面（真實 DOM）」，它會將 Reconciler 所生成或更新（新舊結構比對差異）的 React elements，在目標環境（瀏覽器）中轉換成對應的實際畫面（渲染為真實 DOM）。</li>
+</ul>
+<p>在瀏覽器的環境，我們需透過 <code>react-dom</code> 來將 React element 轉換並繪製成實際的 DOM。以下會以 vite 環境所建置出的 react 檔案來說明流程：</p>
+<p>在 index.html 這支檔案中，我們會看到 <code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</code> 區塊，這個區塊的用途是讓 Reconciler（Virtual DOM）到 Renderer 所產生的真實 DOM 可以注入於此。（id 的命名 <code>id=&quot;root&quot;</code> 以便稍後在 JavaScript 可以取得這個元素）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- index.html --&gt;</span><br><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>	<span class="hljs-comment">&lt;!-- ...略 --&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><br>			<span class="hljs-comment">&lt;!-- React 輸出的真實 DOM elements 會注入到這裡 --&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/src/main.tsx&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 載入應用程式的入口檔案 --&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>接下來我們來看 main.tsx 專案進入點的檔案。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// main.tsx 專案的進入點</span><br><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">StrictMode</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; createRoot &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom/client&#x27;</span> <span class="hljs-comment">// 用於瀏覽器環境，將 React element 轉換成真實的 DOM element</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.tsx&#x27;</span><br><br><span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>)!).<span class="hljs-title function_">render</span>(<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">StrictMode</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">StrictMode</span>&gt;</span></span>,<br>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>import &#123; createRoot &#125; from &#39;react-dom/client&#39;</code>：從 <code>react-dom</code> 引入 <code>createRoot</code>，用途是將 React element 轉換成真實 DOM element。</li>
+<li><code>import App from &#39;./App.tsx&#39;</code>：匯入 <code>App</code> 元件，這個根元件會包含應用的其他組件，最終會被轉換成 React element。</li>
+<li><code>createRoot(document.getElementById(&#39;root&#39;)!)</code><ul>
+<li><code>document.getElementById(&#39;root&#39;)!</code>：找到 HTML 定義好的 <code>id=&quot;root&quot;</code> 區塊作為 React 渲染容器。</li>
+<li><code>createRoot()</code>：透過這個方法為 React 創建一個「根節點」，讓 React 能對這個根節點內做 DOM elements 的管理跟操作。</li>
+</ul>
+</li>
+<li><code>.render(&lt;App /&gt;)</code>：將 <code>&lt;App /&gt;</code> 元件（React element）插入到 <code>root</code> 節點，並渲染成真實的 DOM element。</li>
+<li><code>StrictMode</code>補充：是 React 提供的一種開發模式，可用於檢測應用中不建議使用的 API 及找出潛在問題。這邊不會影響到 Render React elements 的了解，所以僅簡單說明。</li>
+</ul>
+<h3 id="補充-React-Fiber"><a href="#補充-React-Fiber" class="headerlink" title="補充 - React Fiber"></a>補充 - React Fiber</h3><p>在稍早的內容中，有提到從定義抽象層到產生真實 DOM 元素，React 將過程分為 Reconciler 跟 Renderer；而在 React 16 之後推出了 React Fiber 這個新的底層架構，所以在 Reconciler 跟 Renderer 之前，還多了「<strong>Scheduler</strong>」這個流程，它負責將 Reconciler 的工作碎片化，並進行一些分段、調度管理，讓畫面更新可以更順暢、彈性更高。</p>
+<p>（參考相關文章：<a target="_blank" rel="noopener" href="https://medium.com/starbugs/react-%E9%96%8B%E7%99%BC%E8%80%85%E4%B8%80%E5%AE%9A%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E5%BA%95%E5%B1%A4%E6%9E%B6%E6%A7%8B-react-fiber-c3ccd3b047a1">React 開發者一定要知道的底層機制 — React Fiber Reconciler</a>）</p>
+<p><img src="/img/before-react-jsx/3.png" srcset="/img/loading.gif" lazyload alt="React Fiber"></p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>整理這篇筆記所花的時間，比預期多了一些，因為有些觀念不太熟悉，所以需要重覆吸收跟整理。</p>
+<p>題外話，這樣的學習跟維持輸出也一個月了，也讓我再意識到過去沒有專注跟打底，確實為自己帶來了前端職涯的不穩定。現在的前端領域變化相當快速，其實也不曉得後續這樣的輸出習慣能帶我走到什麼地方，但就繼續嘗試，然後再看看之後的走向哩！</p>
+<p>參考資料：</p>
+<p><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/users/20129300/ironman/5892">Zet - 一次打破 React 常見的學習門檻與觀念誤解</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@linyawun031/react-dom-virtual-dom-%E8%88%87-react-element-af47110e2ec4">Monica - [React] DOM, Virtual DOM 與 React element</a></p>
+<p><a target="_blank" rel="noopener" href="https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html">Introducing the New JSX Transform</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh-hans.react.dev/">React 中文文檔</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/starbugs/react-%E9%96%8B%E7%99%BC%E8%80%85%E4%B8%80%E5%AE%9A%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E5%BA%95%E5%B1%A4%E6%9E%B6%E6%A7%8B-react-fiber-c3ccd3b047a1">React 開發者一定要知道的底層機制 — React Fiber Reconciler</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF-React/" class="category-chain-item">前端 React</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+        <a href="/tags/JSX/" class="print-no-link">#JSX</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>寫在 React JSX 之前</div>
+      <div>https://yaj55billy.github.io/post/before-react-jsx.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2024年11月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/sql-crud.html" title="使用 SQL 語法來操作資料">
+                        <span class="hidden-mobile">使用 SQL 語法來操作資料</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
