@@ -41,12 +41,12 @@ _> 在 React 的 JSX 語法中，如果有使用到 TypeScript，則只能使用
 
 ### 未知結果的函式
 
-假設我們有個函式`fetchDataFromLibrary`，因為它可能根據某個外部資源獲取資料，所以返回的型別不確定；不過我們可能從套件中的文件得知它會回傳某種特定型別（下方範例中是斷言為 `string`）。
+假設我們有個函式 `fetchDataFromLibrary`，因為它可能根據某個外部資源獲取資料，所以返回的型別不確定；不過我們可能從套件中的文件得知它會回傳某種特定型別（下方範例中是斷言為 `string`）。
 
 ```tsx
 function fetchDataFromLibrary() {
 	// ...
-	// 假設這個函式從某個外部資源獲取資料
+	// 此函式模擬從外部函式庫取得資料
 	return "Library Data";
 }
 
@@ -55,6 +55,89 @@ const dataString = fetchDataFromLibrary() as string;
 
 // 另一種斷言寫法
 const dataStringAlt = <string>fetchDataFromLibrary();
+```
+
+### HTML DOM
+
+在沒有使用前端框架的 TypeScript 環境中，當我們取 HTML DOM 元素並嘗試操作時，TypeScript 會推斷此元素返回的型別為 `HTMLElement | null`，所以會出現紅字來提醒。如下範例所示：
+
+```tsx
+const element = document.getElementById("my-element");
+element.innerText = "Hello"; // 'element' is possibly 'null'.
+```
+
+為了避免此錯誤提醒，我們可以用型別斷言告訴 TypeScript 該元素一定是 `HTMLElement`。不過以這個範例來說，在考量到程式的保護性，還是會建議加上`if(element)` 的判斷，以防止真的沒取到元素。
+
+```tsx
+const element = document.getElementById("my-element") as HTMLElement;
+
+if (element) {
+	// 判斷
+	element.innerText = "Hello";
+} else {
+	console.log("找不到元素");
+}
+```
+
+### API 返回的數據
+
+在開發的過程中，有時會需要串接 API 或第三方套件，因爲 API 返回的數據無法明確推斷（通常會推斷為 `any`），這時我們可以使用型別斷言來告訴 TypeScript 預期的數據型別。
+
+下方範例中，我們模擬從 [Random User API](https://randomuser.me/) 獲取使用者資料，而用 `fetchDataWithoutAssertion`、`fetchDataWithoutAssertion` 這兩個函式來比對是否使用型別斷言的狀況。
+
+（以下有使用到 `interface` 的寫法，不過在這個 TypeScript 系列中還未提到，所以先簡單提一下定義，它是用來告訴 TypeScript 某個物件會包含哪些屬性跟方法，以及每個屬性的型別，可以把它想像成一個預先架構或藍圖。 不過在下方的範例中，可以先專注在兩個函式所比對的內容，來了解型別斷言的觀念。）
+
+```tsx
+// interface 定義了從 Random User API 回傳的資料結構
+interface RandomUser {
+	gender: string;
+	name: {
+		title: string;
+		first: string;
+		last: string;
+	};
+	email: string;
+	picture: {
+		large: string;
+		medium: string;
+		thumbnail: string;
+	};
+}
+
+interface RandomUserResponse {
+	results: RandomUser[];
+	info: {
+		seed: string;
+		results: number;
+		version: string;
+	};
+}
+
+// 未使用型別斷言的情況
+async function fetchDataWithoutAssertion() {
+	const response = await fetch("https://randomuser.me/api/");
+	const data = await response.json(); // data: any
+	const user = data.results[0]; // user: any
+
+	// 以下操作都不會有編譯時期的錯誤提示，因為 any 型別允許所有操作
+	console.log(user.nameTypo.first); // 不會有錯誤提示，但執行時會出錯
+	console.log(user.picture.extralarge); // 不會有錯誤提示，但執行時會出錯
+}
+
+// 使用型別斷言的情況
+async function fetchDataWithAssertion() {
+	const response = await fetch("https://randomuser.me/api/");
+	const data = (await response.json()) as RandomUserResponse; // data: RandomUserResponse
+	const user = data.results[0]; // user: RandomUser
+
+	// 以下程式碼會在編譯時就報錯，可以提前發現問題
+	console.log(user.nameTypo.first); // TS 編譯錯誤：Property 'nameTypo' does not exist
+	console.log(user.picture.extralarge); // TS 編譯錯誤：Property 'extralarge' does not exist
+
+	// 正確的使用方式
+	console.log(user.name.first); // ✓ 正確
+	console.log(user.picture.large); // ✓ 正確
+}
 ```
 
 ---
