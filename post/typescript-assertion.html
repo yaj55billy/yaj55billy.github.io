@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="先前在 TypeScript 型別註記與型別推論文章中，因為篇幅關係，所以沒有討論到型別斷言，而這篇要來補上這個觀念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript 型別斷言">
+<meta property="og:url" content="https://yaj55billy.github.io/post/typescript-assertion.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="先前在 TypeScript 型別註記與型別推論文章中，因為篇幅關係，所以沒有討論到型別斷言，而這篇要來補上這個觀念。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://yaj55billy.github.io/img/typescript.jpg">
+<meta property="article:published_time" content="2024-11-10T03:20:26.000Z">
+<meta property="article:modified_time" content="2024-11-10T03:17:35.167Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yaj55billy.github.io/img/typescript.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>TypeScript 型別斷言 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/article-banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TypeScript 型別斷言"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-10 11:20" pubdate>
+          2024年11月10日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TypeScript 型別斷言</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在前段時間撰寫的「<a href="https://yaj55billy.github.io/post/typescript-gradual-typing.html#">TypeScript 型別註記與型別推論</a>」，因為篇幅關係，所以沒有討論到型別註記中包含的<strong>型別斷言（Type Assertion）</strong>，而這篇文章要來整理補上這個觀念。</p>
+<h2 id="型別斷言的寫法"><a href="#型別斷言的寫法" class="headerlink" title="型別斷言的寫法"></a>型別斷言的寫法</h2><p>TypeScript 提供兩種型別斷言的語法，而語法上看到關鍵字 <code>as</code> 或者 <code>&lt;Type&gt;(…)</code> 這樣的格式就是斷言的寫法。如下範例：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">let</span> someValue = <span class="hljs-string">&quot;Hello, world!&quot;</span>;<br><br><span class="hljs-comment">// 型別斷言第一種寫法</span><br><span class="hljs-keyword">let</span> strLength = (someValue <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>).<span class="hljs-property">length</span>;<br><br><span class="hljs-comment">// 型別斷言第二種寫法</span><br><span class="hljs-keyword">let</span> strLength2 = (&lt;<span class="hljs-built_in">string</span>&gt;someValue).<span class="hljs-property">length</span>;<br></code></pre></td></tr></table></figure>
+
+<p><em>&gt; 在 React 的 JSX 語法中，如果有使用到 TypeScript，則只能使用 <code>as</code> 這個寫法。因為在 JSX 中 <code>&lt;&gt;</code> 會被視作標籤。</em></p>
+<h3 id="註記與斷言的不同之處"><a href="#註記與斷言的不同之處" class="headerlink" title="註記與斷言的不同之處"></a>註記與斷言的不同之處</h3><p>型別註記與型別斷言這兩者的本質相似，但卻是完全不同的概念。</p>
+<ul>
+<li>型別註記：在宣告變數或函式參數時，明確告訴 TypeScript 編輯器<strong>該變數應該是什麼型別</strong>。讓編輯器「<strong>依循」</strong>這樣的型別規則，並會根據此規則幫我們檢查型別。</li>
+<li>型別斷言：依照我們自身的判斷，明確告訴 TypeScript 編譯器<strong>某表達式之結果應該是什麼型別</strong>。也就是我們斷定的型別，去「<strong>覆蓋</strong>」TypeScript 編譯器所推斷的型別。</li>
+</ul>
+<h2 id="型別斷言的使用情境"><a href="#型別斷言的使用情境" class="headerlink" title="型別斷言的使用情境"></a>型別斷言的使用情境</h2><p>當程式沒辦法推斷出某表達式的運算結果之型別時，我們就可以使用型別斷言。以下舉例幾個情境：</p>
+<h3 id="未知結果的函式"><a href="#未知結果的函式" class="headerlink" title="未知結果的函式"></a>未知結果的函式</h3><p>假設我們有個函式 <code>fetchDataFromLibrary</code>，因為它可能根據某個外部資源獲取資料，所以返回的型別不確定；不過我們可能從套件中的文件得知它會回傳某種特定型別（下方範例中是斷言為 <code>string</code>）。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchDataFromLibrary</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-comment">// ...</span><br>	<span class="hljs-comment">// 此函式模擬從外部函式庫取得資料</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Library Data&quot;</span>;<br>&#125;<br><br><span class="hljs-comment">// 使用型別斷言來告訴 TypeScript 返回值是 `string`</span><br><span class="hljs-keyword">const</span> dataString = <span class="hljs-title function_">fetchDataFromLibrary</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;<br><br><span class="hljs-comment">// 另一種斷言寫法</span><br><span class="hljs-keyword">const</span> dataStringAlt = &lt;<span class="hljs-built_in">string</span>&gt;<span class="hljs-title function_">fetchDataFromLibrary</span>();<br></code></pre></td></tr></table></figure>
+
+<h3 id="HTML-DOM"><a href="#HTML-DOM" class="headerlink" title="HTML DOM"></a>HTML DOM</h3><p>在沒有使用前端框架的 TypeScript 環境中，當我們取 HTML DOM 元素並嘗試操作時，TypeScript 會推斷此元素返回的型別為 <code>HTMLElement | null</code>，所以會出現紅字來提醒。如下範例所示：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> element = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-element&quot;</span>);<br>element.<span class="hljs-property">innerText</span> = <span class="hljs-string">&quot;Hello&quot;</span>; <span class="hljs-comment">// &#x27;element&#x27; is possibly &#x27;null&#x27;.</span><br></code></pre></td></tr></table></figure>
+
+<p>為了避免此錯誤提醒，我們可以用型別斷言告訴 TypeScript 該元素一定是 <code>HTMLElement</code>。不過以這個範例來說，在考量到程式的保護性，還是會建議加上<code>if(element)</code> 的判斷，以防止真的沒取到元素。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> element = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-element&quot;</span>) <span class="hljs-keyword">as</span> <span class="hljs-title class_">HTMLElement</span>;<br><br><span class="hljs-keyword">if</span> (element) &#123;<br>	<span class="hljs-comment">// 判斷</span><br>	element.<span class="hljs-property">innerText</span> = <span class="hljs-string">&quot;Hello&quot;</span>;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;找不到元素&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="API-返回的數據"><a href="#API-返回的數據" class="headerlink" title="API 返回的數據"></a>API 返回的數據</h3><p>在開發的過程中，有時會需要串接 API 或第三方套件，因爲 API 返回的數據無法明確推斷（通常會推斷為 <code>any</code>），這時我們可以使用型別斷言來告訴 TypeScript 預期的數據型別。</p>
+<p>下方範例中，我們模擬從 <a target="_blank" rel="noopener" href="https://randomuser.me/">Random User API</a> 獲取使用者資料，而用 <code>fetchDataWithoutAssertion</code>、<code>fetchDataWithAssertion</code> 這兩個函式來比對是否使用型別斷言的狀況。</p>
+<p>（以下有使用到 <code>interface</code> 的寫法，不過在這個 TypeScript 系列中還未提到，所以先簡單提一下定義，它是用來告訴 TypeScript 某個物件會包含哪些屬性跟方法，以及每個屬性的型別，可以把它想像成一個預先架構或藍圖。 不過在下方的範例中，可以先專注在兩個函式所比對的內容，來了解型別斷言的觀念。）</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// interface 定義了從 Random User API 回傳的資料結構</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">RandomUser</span> &#123;<br>	<span class="hljs-attr">gender</span>: <span class="hljs-built_in">string</span>;<br>	<span class="hljs-attr">name</span>: &#123;<br>		<span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;<br>		<span class="hljs-attr">first</span>: <span class="hljs-built_in">string</span>;<br>		<span class="hljs-attr">last</span>: <span class="hljs-built_in">string</span>;<br>	&#125;;<br>	<span class="hljs-attr">email</span>: <span class="hljs-built_in">string</span>;<br>	<span class="hljs-attr">picture</span>: &#123;<br>		<span class="hljs-attr">large</span>: <span class="hljs-built_in">string</span>;<br>		<span class="hljs-attr">medium</span>: <span class="hljs-built_in">string</span>;<br>		<span class="hljs-attr">thumbnail</span>: <span class="hljs-built_in">string</span>;<br>	&#125;;<br>&#125;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">RandomUserResponse</span> &#123;<br>	<span class="hljs-attr">results</span>: <span class="hljs-title class_">RandomUser</span>[];<br>	<span class="hljs-attr">info</span>: &#123;<br>		<span class="hljs-attr">seed</span>: <span class="hljs-built_in">string</span>;<br>		<span class="hljs-attr">results</span>: <span class="hljs-built_in">number</span>;<br>		<span class="hljs-attr">version</span>: <span class="hljs-built_in">string</span>;<br>	&#125;;<br>&#125;<br><br><span class="hljs-comment">// 未使用型別斷言的情況</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchDataWithoutAssertion</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&quot;https://randomuser.me/api/&quot;</span>);<br>	<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>(); <span class="hljs-comment">// data: any</span><br>	<span class="hljs-keyword">const</span> user = data.<span class="hljs-property">results</span>[<span class="hljs-number">0</span>]; <span class="hljs-comment">// user: any</span><br><br>	<span class="hljs-comment">// 以下操作都不會有編譯時期的錯誤提示，因為 any 型別允許所有操作</span><br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user.<span class="hljs-property">nameTypo</span>.<span class="hljs-property">first</span>); <span class="hljs-comment">// 不會有錯誤提示，但執行時會出錯</span><br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user.<span class="hljs-property">picture</span>.<span class="hljs-property">extralarge</span>); <span class="hljs-comment">// 不會有錯誤提示，但執行時會出錯</span><br>&#125;<br><br><span class="hljs-comment">// 使用型別斷言的情況</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchDataWithAssertion</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&quot;https://randomuser.me/api/&quot;</span>);<br>	<span class="hljs-keyword">const</span> data = (<span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>()) <span class="hljs-keyword">as</span> <span class="hljs-title class_">RandomUserResponse</span>; <span class="hljs-comment">// data: RandomUserResponse</span><br>	<span class="hljs-keyword">const</span> user = data.<span class="hljs-property">results</span>[<span class="hljs-number">0</span>]; <span class="hljs-comment">// user: RandomUser</span><br><br>	<span class="hljs-comment">// 以下程式碼會在編譯時就報錯，可以提前發現問題</span><br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user.<span class="hljs-property">nameTypo</span>.<span class="hljs-property">first</span>); <span class="hljs-comment">// TS 編譯錯誤：Property &#x27;nameTypo&#x27; does not exist</span><br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user.<span class="hljs-property">picture</span>.<span class="hljs-property">extralarge</span>); <span class="hljs-comment">// TS 編譯錯誤：Property &#x27;extralarge&#x27; does not exist</span><br><br>	<span class="hljs-comment">// 正確的使用方式</span><br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user.<span class="hljs-property">name</span>.<span class="hljs-property">first</span>); <span class="hljs-comment">// ✓ 正確</span><br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user.<span class="hljs-property">picture</span>.<span class="hljs-property">large</span>); <span class="hljs-comment">// ✓ 正確</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>未使用型別斷言</strong>：在 <code>fetchDataWithoutAssertion</code> 函式中，<code>data</code> 被視為 <code>any</code> 型別，所以即便後續的屬性名稱有錯誤，因為 TypeScript 編譯器無法提供屬性或方法的檢查，所以也不會有編譯時期的錯誤提示，需要到執行時期才能知道錯誤。</li>
+<li><strong>使用型別斷言</strong>：在 <code>fetchDataWithAssertion</code> 函式中，通過 <code>as RandomUserResponse</code> 將 <code>data</code> 斷言為特定型別，TypeScript 能在編譯時進行屬性跟方法的檢查。如果後續引用了不存在的屬性，如範例中看到的 <code>nameTypo</code>、<code>extralarge</code> ，在編譯時期就能直接看到錯誤提示。</li>
+</ul>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>當程式沒辦法推斷出某表達式的運算結果之型別時，我們可根據一些資訊來適當加上型別斷言；不過使用斷言也較會有<strong>人為</strong>的錯誤，因此需比較謹慎。</p>
+<p>最後引用 <a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9789864344895?list_name=srh">&lt;讓 TypeScript 成為你全端開發的 ACE！&gt;</a> 2-17 頁面的範例：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">returnsAny</span>(<span class="hljs-params"></span>): <span class="hljs-built_in">any</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">123</span>;<br>&#125;<br><br><span class="hljs-keyword">let</span> something = <span class="hljs-title function_">returnsAny</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;<br></code></pre></td></tr></table></figure>
+
+<p>如上方範例所示，程式從此會認定變數 <code>something</code> 是字串型別，即使在這段程式碼中，變數 <code>something</code> 實際的型別是數字。而這段程式碼在 TypeScript 不會出現任何錯誤訊息，完全是人為的錯誤哩！</p>
+<p>參考資料：</p>
+<ul>
+<li>六角學院 TypeScript 30 天課程</li>
+<li>書籍：<a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9789864344895?list_name=srh">&lt;讓 TypeScript 成為你全端開發的 ACE！&gt;</a></li>
+</ul>
+<hr>
+<p>Photo by <a target="_blank" rel="noopener" href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a target="_blank" rel="noopener" href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF-TypeScript-%E7%B3%BB%E5%88%97/" class="category-chain-item">前端 TypeScript 系列</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/" class="print-no-link">#JavaScript</a>
+      
+        <a href="/tags/TypeScript/" class="print-no-link">#TypeScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TypeScript 型別斷言</div>
+      <div>https://yaj55billy.github.io/post/typescript-assertion.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2024年11月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/before-react-jsx.html" title="寫在 React JSX 之前">
+                        <span class="hidden-mobile">寫在 React JSX 之前</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
