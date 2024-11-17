@@ -1,6 +1,6 @@
 ---
 title: TypeScript 列舉型別
-date: 2024-11-17 16:22:10
+date: 2024-11-17 20:00:10
 tags: [JavaScript, TypeScript]
 categories: [前端 TypeScript 系列]
 excerpt: Enum 被稱為「列舉」或「枚舉」，用來將性質類似的選項，用物件的鍵（Key）來匯聚成一個型別，很適合用在一組固定範圍的情境。
@@ -228,7 +228,24 @@ var UserRole;
 
 ## 常數列舉型別
 
-內容...
+在列舉型別前加上 `const` 關鍵字宣告，就稱為常數列舉型別。而多加上 `const` 宣告時，編譯的內容就會有很大的不同。如下方範例所示：
+
+```tsx
+const enum UserRole {
+    Admin = 'Admin',
+    Editor = 'Editor',
+    Viewer = 'Viewer'
+}
+
+let users = UserRole.Admin;
+
+⬇️⬇️⬇️⬇️⬇️⬇️ // 編譯
+
+let users = "Admin" /* UserRole.Admin */;
+```
+
+從上方的編譯結果中，它並不像一般列舉，會產生物件與互相映射的結果，而是會把結果值直接代入使用的地方。這樣的優勢在於能讓編譯後的 JavaScript 檔案更小，但也意味著我們無法使用逆向映射。
+而選擇用一般列舉或者常數列舉，則看實際的需求而定哩。
 
 參考資料：
 
