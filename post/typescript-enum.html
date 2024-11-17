@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Enum 被稱為「列舉」或「枚舉」，用來將性質類似的選項，用物件的鍵（Key）來匯聚成一個型別，很適合用在一組固定範圍的情境。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript 列舉型別">
+<meta property="og:url" content="https://yaj55billy.github.io/post/typescript-enum.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="Enum 被稱為「列舉」或「枚舉」，用來將性質類似的選項，用物件的鍵（Key）來匯聚成一個型別，很適合用在一組固定範圍的情境。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://yaj55billy.github.io/img/typescript.jpg">
+<meta property="article:published_time" content="2024-11-17T12:00:10.000Z">
+<meta property="article:modified_time" content="2024-11-17T11:59:34.785Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yaj55billy.github.io/img/typescript.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>TypeScript 列舉型別 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/article-banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TypeScript 列舉型別"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-17 20:00" pubdate>
+          2024年11月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TypeScript 列舉型別</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什麼是-Enum"><a href="#什麼是-Enum" class="headerlink" title="什麼是 Enum"></a>什麼是 Enum</h2><p>Enum 被稱為「列舉」或「枚舉」，在原生的 JavaScript 並沒有這樣的概念，而是在 TypeScript 才新增的型別概念。以下內容將統一用列舉稱呼，它用來<strong>將性質類似的選項，用物件的鍵（Key）來匯聚成一個型別</strong>，很適合用在一組<strong>固定範圍</strong>的情境。例如：</p>
+<ul>
+<li>訂單狀態：待處理、運送中、已完成</li>
+<li>權限管理：管理者、可編輯者、僅能閱覽者</li>
+<li>表單驗證：有效、無效、驗證中</li>
+</ul>
+<p>如果只看說明的話，可能會有些抽象，所以我們以「角色權限管理」作為範例來做說明：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// 定義角色權限列舉</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span>, <span class="hljs-comment">// 管理員</span><br>	<span class="hljs-title class_">Editor</span>, <span class="hljs-comment">// 可編輯者</span><br>	<span class="hljs-title class_">Viewer</span>, <span class="hljs-comment">// 僅能閱覽者</span><br>&#125;<br><br><span class="hljs-comment">// 空的用戶列表</span><br><span class="hljs-keyword">let</span> <span class="hljs-attr">users</span>: &#123; <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">role</span>: <span class="hljs-title class_">UserRole</span> &#125;[] = [];<br><br><span class="hljs-comment">// 新增用戶 Fn</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">createUser</span>(<span class="hljs-params">username: <span class="hljs-built_in">string</span>, role: UserRole</span>) &#123;<br>	users.<span class="hljs-title function_">push</span>(&#123;<br>		<span class="hljs-attr">username</span>: username,<br>		<span class="hljs-attr">role</span>: role,<br>	&#125;);<br>&#125;<br><br><span class="hljs-comment">// 新增用戶角色</span><br><span class="hljs-title function_">createUser</span>(<span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span>);<br><span class="hljs-title function_">createUser</span>(<span class="hljs-string">&quot;Bob&quot;</span>, <span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Editor</span>);<br></code></pre></td></tr></table></figure>
+
+<p>如上方範例所示，我們可以透過 <code>enum</code> 這樣的關鍵字來做定義，名稱依循命名慣例為首字大寫（<code>UserRole</code>），而定義後可讓變數、參數做型別註記。這樣的方式就像為變數、參數設置了一個「選項清單」，所以得依循這個清單的選項，就像我們到餐廳用餐時，只能依循這家餐廳的菜單點菜，而不能點其他菜單上沒有的品項。</p>
+<p>使用列舉能讓我們<strong>更有組織來管理</strong>性質類似的項目，而在擴充時也較為便利。</p>
+<h2 id="Enum-列舉的值"><a href="#Enum-列舉的值" class="headerlink" title="Enum 列舉的值"></a>Enum 列舉的值</h2><p>在上個段落中，有提到列舉是將性質類似的選項，用物件的鍵（Key）來匯聚成型別，而<strong>這些 Key 是有代表值的</strong>。如果列舉型別在宣告而沒有賦予值時，<strong>預設會是數字型列舉型別</strong>，而項目與值的對應會從 0 開始遞增（0、1、2）。如下方範例：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span>,<br>	<span class="hljs-title class_">Editor</span>,<br>	<span class="hljs-title class_">Viewer</span>,<br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span>); <span class="hljs-comment">// 0</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Editor</span>); <span class="hljs-comment">// 1</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Viewer</span>); <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+
+<p>當沒有對項目賦予值時，TypeScript 會幫我們去對應從 0 開始遞增的數字。而我們也能主動對項目賦予值，不過<strong>在型別上只能是數字或字串，不能是這兩種型別以外的值</strong>。如下方三個範例所示：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// 數字型列舉型別</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span> = <span class="hljs-number">1</span>, <span class="hljs-comment">// 非預設的 0</span><br>	<span class="hljs-title class_">Editor</span> = <span class="hljs-number">2</span>,<br>	<span class="hljs-title class_">Viewer</span> = <span class="hljs-number">3</span>,<br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span>); <span class="hljs-comment">// 1</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Editor</span>); <span class="hljs-comment">// 2</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Viewer</span>); <span class="hljs-comment">// 3</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// 字串型列舉型別</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span> = <span class="hljs-string">&quot;Admin&quot;</span>,<br>	<span class="hljs-title class_">Editor</span> = <span class="hljs-string">&quot;Editor&quot;</span>,<br>	<span class="hljs-title class_">Viewer</span> = <span class="hljs-string">&quot;Viewer&quot;</span>,<br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span>); <span class="hljs-comment">// Admin</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Editor</span>); <span class="hljs-comment">// Editor</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Viewer</span>); <span class="hljs-comment">// Viewer</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span> = <span class="hljs-literal">true</span>, <span class="hljs-comment">// ❌ 布林值</span><br>	<span class="hljs-title class_">Editor</span> = <span class="hljs-literal">null</span>, <span class="hljs-comment">// ❌ null</span><br>	<span class="hljs-title class_">Viewer</span> = &#123; <span class="hljs-attr">test</span>: <span class="hljs-number">222</span> &#125;, <span class="hljs-comment">// ❌ 物件</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="特性與需注意"><a href="#特性與需注意" class="headerlink" title="特性與需注意"></a>特性與需注意</h3><p>當列舉型別沒有被標示值時，會有這樣的特性：查看前一個項目的值並進行 <code>+1</code> 的遞增，而如果第一個項目沒有被賦予值時，則會代入數字 0。如下方範例，<code>UserRole.Editor</code> 會參考 <code>UserRole.Admin</code> 的值，然後進行 <code>+1</code> 的遞增，所以 <code>UserRole.Editor</code> 的值為 101，而 <code>UserRole.Viewer</code> 則以此類推為 102。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span> = <span class="hljs-number">100</span>,<br>	<span class="hljs-title class_">Editor</span>,<br>	<span class="hljs-title class_">Viewer</span>,<br>&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Editor</span>); <span class="hljs-comment">// 101</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Viewer</span>); <span class="hljs-comment">// 102</span><br></code></pre></td></tr></table></figure>
+
+<p>以下方這個範例來說，<code>UserRole.Admin</code> 是第一個項目且沒有值，所以會預設代入 0 這個數字，而 <code>UserRole.Editor</code> 則是被設置為 0，不過這樣並不會報錯，甚至兩者做 <code>===</code> 比對時是相等的。因為 <strong>TypeScript 不會檢查這些項目的值是否不合理或重複</strong>。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span>, <span class="hljs-comment">// 第一個項目沒被賦予，則會代入 0</span><br>	<span class="hljs-title class_">Editor</span> = <span class="hljs-number">0</span>,<br>	<span class="hljs-title class_">Viewer</span>, <span class="hljs-comment">// 參照 Editor，然後 +1</span><br>&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span>); <span class="hljs-comment">// 0</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span> === <span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Editor</span>); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p>接下來討論字串型列舉要注意的部分，如果第一個項目（前一個項目）的值為字串型別，則後續的項目都需要被定義值，不然會出現 <code>Enum member must have initializer.</code> 這樣的錯誤。以下方註解 ❌  的範例來說，因為 <code>UserRole.Editor</code> 無法根據前一個 <code>&#39;Admin&#39;</code> 值做 <code>+1</code> 的遞增，所以我們會收到 TypeScript 的錯誤提醒。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123; <span class="hljs-comment">// ❌</span><br>	<span class="hljs-title class_">Admin</span> = <span class="hljs-string">&quot;Admin&quot;</span>,<br>	<span class="hljs-title class_">Editor</span>, <span class="hljs-comment">// 報錯：Enum member must have initializer.</span><br>	<span class="hljs-title class_">Viewer</span>, <span class="hljs-comment">// 報錯：Enum member must have initializer.</span><br>&#125;<br><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123; <span class="hljs-comment">// ✅</span><br>	<span class="hljs-title class_">Admin</span>, <span class="hljs-comment">// 被代入 0</span><br>	<span class="hljs-title class_">Editor</span>, <span class="hljs-comment">// 根據 Admin 的值 +1</span><br>	<span class="hljs-title class_">Viewer</span> = <span class="hljs-string">&quot;Viewer&quot;</span>, <span class="hljs-comment">// 字定義為 &#x27;Viewer&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>這個需注意的段落，雖然實務上應該不會遇到（<del>真的這樣寫可能會被亂棒毆打</del>），但學習時有看到，還是筆記下來。</p>
+<h2 id="關於逆向映射性（反向查找）"><a href="#關於逆向映射性（反向查找）" class="headerlink" title="關於逆向映射性（反向查找）"></a>關於逆向映射性（反向查找）</h2><p>在 TypeScript 使用列舉時，除了可以用項目（鍵）來查找值（<code>UserRole.Admin</code>），我們也可以反向用值來找查找項目名稱（<code>UserRole[0]</code>），這樣的相互映射稱為逆向映射性。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>	<span class="hljs-title class_">Admin</span>, <span class="hljs-comment">// 預設值 0</span><br>	<span class="hljs-title class_">Editor</span>, <span class="hljs-comment">// 1</span><br>	<span class="hljs-title class_">Viewer</span>, <span class="hljs-comment">// 2</span><br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span>); <span class="hljs-comment">// 輸出: 0</span><br><br><span class="hljs-comment">// 逆向映射：用值查找鍵</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>[<span class="hljs-number">0</span>]); <span class="hljs-comment">// 輸出: &quot;Admin&quot;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">UserRole</span>[<span class="hljs-number">1</span>]); <span class="hljs-comment">// 輸出: &quot;Editor&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>如下方範例所示，透過編譯後的結果，我們可以更了解這樣的特性是從何而來，以 <code>UserRole[UserRole[&quot;Admin&quot;] = 0] = &quot;Admin&quot;;</code> 這整段來說：</p>
+<ul>
+<li><code>UserRole[&quot;Admin&quot;] = 0</code>：這部分將 <code>UserRole</code> 列舉的項目 <code>Admin</code> 設置為 0，而這整體又是一個表達式，最終會回傳數值 0。</li>
+<li><code>UserRole[0] = &quot;Admin&quot;</code> ：接著我們將上方 <code>UserRole[&quot;Admin&quot;] = 0</code> 整體回傳的 0 給代入，<code>UserRole[0]</code> 被設置為 <code>&quot;Admin&quot;</code> 這個值。</li>
+</ul>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>    <span class="hljs-title class_">Admin</span>,  <span class="hljs-comment">// 預設值 0</span><br>    <span class="hljs-title class_">Editor</span>, <span class="hljs-comment">// 1</span><br>    <span class="hljs-title class_">Viewer</span>  <span class="hljs-comment">// 2</span><br>&#125;<br><br>⬇️⬇️⬇️⬇️⬇️⬇️  <span class="hljs-comment">//編譯</span><br><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">UserRole</span>;<br>(<span class="hljs-keyword">function</span> (<span class="hljs-params">UserRole</span>) &#123;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Admin&quot;</span>] = <span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Admin&quot;</span>;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Editor&quot;</span>] = <span class="hljs-number">1</span>] = <span class="hljs-string">&quot;Editor&quot;</span>;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Viewer&quot;</span>] = <span class="hljs-number">2</span>] = <span class="hljs-string">&quot;Viewer&quot;</span>;<br>&#125;)(<span class="hljs-title class_">UserRole</span> || (<span class="hljs-title class_">UserRole</span> = &#123;&#125;));<br></code></pre></td></tr></table></figure>
+
+<p>不過在有些狀況，就不會有逆向映射的特性：</p>
+<ul>
+<li>在字串型列舉型別的項目名稱與值不一樣時（以下範例說明）</li>
+<li>使用常數列舉型別時（下一段將會說明）</li>
+</ul>
+<p>在下方兩個字串型列舉型別的範例中，我們可以了解到：<strong>字串型列舉的編譯結果，是沒有雙向設置的部分</strong>。不過在項目名稱（鍵）跟值一樣時，因為可以將值反向作為屬性參照，所以仍然保有逆向映射的特性。</p>
+<p>而以第二個範例來說，在項目名稱（鍵）跟值不同時，我們就無法反向來查找了。（<code>UserRole[&quot;Abc&quot;]</code> 無法查找出 <code>&quot;Admin&quot;</code>）</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// ✅</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>    <span class="hljs-title class_">Admin</span> = <span class="hljs-string">&#x27;Admin&#x27;</span>,<br>    <span class="hljs-title class_">Editor</span> = <span class="hljs-string">&#x27;Editor&#x27;</span>,<br>    <span class="hljs-title class_">Viewer</span> = <span class="hljs-string">&#x27;Viewer&#x27;</span><br>&#125;<br><br>⬇️⬇️⬇️⬇️⬇️⬇️ <span class="hljs-comment">// 編譯</span><br><br>(<span class="hljs-keyword">function</span> (<span class="hljs-params">UserRole</span>) &#123;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Admin&quot;</span>] = <span class="hljs-string">&quot;Admin&quot;</span>;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Editor&quot;</span>] = <span class="hljs-string">&quot;Editor&quot;</span>;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Viewer&quot;</span>] = <span class="hljs-string">&quot;Viewer&quot;</span>;<br>&#125;)(<span class="hljs-title class_">UserRole</span> || (<span class="hljs-title class_">UserRole</span> = &#123;&#125;));<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// ❌</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>    <span class="hljs-title class_">Admin</span> = <span class="hljs-string">&#x27;Abc&#x27;</span>,<br>    <span class="hljs-title class_">Editor</span> = <span class="hljs-string">&#x27;Efg&#x27;</span>,<br>    <span class="hljs-title class_">Viewer</span> = <span class="hljs-string">&#x27;Victor&#x27;</span><br>&#125;<br><br>⬇️⬇️⬇️⬇️⬇️⬇️ <span class="hljs-comment">// 編譯</span><br><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">UserRole</span>;<br>(<span class="hljs-keyword">function</span> (<span class="hljs-params">UserRole</span>) &#123;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Admin&quot;</span>] = <span class="hljs-string">&quot;Abc&quot;</span>;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Editor&quot;</span>] = <span class="hljs-string">&quot;Efg&quot;</span>;<br>    <span class="hljs-title class_">UserRole</span>[<span class="hljs-string">&quot;Viewer&quot;</span>] = <span class="hljs-string">&quot;Victor&quot;</span>;<br>&#125;)(<span class="hljs-title class_">UserRole</span> || (<span class="hljs-title class_">UserRole</span> = &#123;&#125;));<br></code></pre></td></tr></table></figure>
+
+<h2 id="常數列舉型別"><a href="#常數列舉型別" class="headerlink" title="常數列舉型別"></a>常數列舉型別</h2><p>在列舉型別前加上 <code>const</code> 關鍵字宣告，就稱為常數列舉型別。而多加上 <code>const</code> 宣告時，編譯的內容就會有很大的不同。如下方範例所示：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">UserRole</span> &#123;<br>    <span class="hljs-title class_">Admin</span> = <span class="hljs-string">&#x27;Admin&#x27;</span>,<br>    <span class="hljs-title class_">Editor</span> = <span class="hljs-string">&#x27;Editor&#x27;</span>,<br>    <span class="hljs-title class_">Viewer</span> = <span class="hljs-string">&#x27;Viewer&#x27;</span><br>&#125;<br><br><span class="hljs-keyword">let</span> users = <span class="hljs-title class_">UserRole</span>.<span class="hljs-property">Admin</span>;<br><br>⬇️⬇️⬇️⬇️⬇️⬇️ <span class="hljs-comment">// 編譯</span><br><br><span class="hljs-keyword">let</span> users = <span class="hljs-string">&quot;Admin&quot;</span> <span class="hljs-comment">/* UserRole.Admin */</span>;<br></code></pre></td></tr></table></figure>
+
+<p>從上方的編譯結果中，它並不像一般列舉，會產生物件與互相映射的結果，而是會把結果值直接代入使用的地方。這樣的優勢在於能讓編譯後的 JavaScript 檔案更小，但也意味著我們無法使用逆向映射。<br>而選擇用一般列舉或者常數列舉，則看實際的需求而定哩。</p>
+<p>參考資料：</p>
+<ul>
+<li>六角學院 TypeScript 30 天課程</li>
+<li>書籍：<a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9789864344895?list_name=srh">&lt;讓 TypeScript 成為你全端開發的 ACE！&gt;</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=KbG-n9Eo1C8&list=PLAau7VdvlBLrzob4OceqD2aoQ5FQMXg90&index=10">在大腦升級後，我想學 TypeScript 了 Day 11 - 列舉 Enum Type</a></li>
+</ul>
+<hr>
+<p>Photo by <a target="_blank" rel="noopener" href="https://unsplash.com/@safarslife?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Safar Safarov</a> on <a target="_blank" rel="noopener" href="https://unsplash.com/photos/turned-on-gray-laptop-computer-MSN8TFhJ0is?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF-TypeScript-%E7%B3%BB%E5%88%97/" class="category-chain-item">前端 TypeScript 系列</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/" class="print-no-link">#JavaScript</a>
+      
+        <a href="/tags/TypeScript/" class="print-no-link">#TypeScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TypeScript 列舉型別</div>
+      <div>https://yaj55billy.github.io/post/typescript-enum.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2024年11月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/typescript-assertion.html" title="TypeScript 型別斷言">
+                        <span class="hidden-mobile">TypeScript 型別斷言</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
