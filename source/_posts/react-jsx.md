@@ -52,15 +52,15 @@ function AppWithJSX() {
 
 ```html
 <!-- 空元素沒有加上閉合符號 OK -->
-<img src="./image.jpg" />
-<input type="text" name="text" />
+<img src="./image.jpg">
+<input type="text" name="text">
 
 <!-- 
 	需要閉合的標籤遺漏了，雖然在 HTML 會被允許跟彌補；
 	但容易導致意外的結構錯誤，需避免這樣寫哩
 -->
-<p>這是一段文字</p>
-<div>這是一個區塊</div>
+<p>這是一段文字
+<div>這是一個區塊
 ```
 
 然而，**在 JSX 的撰寫上，對於標籤的閉合有更為嚴格的要求**。例如，在 HTML 中，空元素（如 `<img>` 和 `<input>`）即使未加上閉合符號也能正常運作；但在 JSX 中，這些標籤必須以自閉合的形式呈現（如 `<img />` 或 `<input />`）。
@@ -211,73 +211,143 @@ export default Example;
 
 ### 表達式與 JavaScript 型別
 
-在 JSX 中，不同 JavaScript 的型別放入 `{}` 會有不同的渲染行為，有些型別能直接呈現於畫面中，而有些型別則不會呈現，甚至會報錯。
+在 JSX 中，不同 JavaScript 的型別放入 `{}` 會有不同的渲染行為：
 
-首先，我們來看不會呈現於畫面的 JavaScript 型別，像是**物件**、原始型別的**布林值**、**undefined、null**。
+1. **能渲染到畫面上的型別**
+   - 字串與數字：會直接顯示對應的文字或數字。
+   - 陣列：會展開其中的項目並顯示內容。 
+      - _這邊主要說明陣列型別放入 `{}` 的呈現方式，實際開發上不太會這樣呈現，而是使用 `.map()` 來生成內容_
+2. **無法直接渲染的型別**
+   - 布林值 (`true` / `false`)：不會渲染任何內容，若需要可搭配條件渲染。
+   - `undefined` / `null`：不顯示任何內容（空白）。
+   - 物件：整體無法直接渲染，會導致錯誤。
+      - _需要顯示整體的物件結構時，可使用 `JSON.stringify(obj)`，偶爾在串接 API 時，會使用這樣的方式來看一下資料結構_
 
 ```jsx
 function Example() {
+	const ary = [1, 2, 3];
+	const aryHtmlElement = [<li>項目一</li>, <li>項目二</li>];
 	const obj = { name: "Billy" };
 
 	return (
 		<div>
-			{/* 布林值不會直接被渲染，如果有需要渲染，可使用三元運算的方式 */}
-			<p>
-				{true}
-				{false}
-			</p>
-			<p>{true ? "true" : "false"}</p>
-			{/* 
-        ------ 分隔線 ------
-      */}
-			{/* undefined、null 也不會被渲染 */}
-			<p>{undefined}</p>
-			<p>{null}</p>
-			{/* 
-        ------ 分隔線 ------
-      */}
-			{/* 物件 */}
-			<p>{obj}</p> {/* 整體不能直接被渲染 */}
-			<p>{obj.name}</p> {/* 渲染物件中的屬性是 OK 且常見的 */}
-			{/* 
-		      如果要渲染出物件整體結構，
-		      可用 JSON.stringify() 的方式。
-		      實際串接 API 時，有時會用這樣來看一下資料
-		    */}
-			<p>{JSON.stringify(obj)}</p>
-		</div>
-	);
-}
-```
-
-而像**陣列**與原始型別中的**字串**、**數字**是能渲染於畫面之中。
-
-```jsx
-function Example2() {
-	const ary = [1, 2, 3];
-	const aryHtmlElement = [<li>項目一</li>, <li>項目二</li>];
-
-	return (
-		<div>
-			{/* 字串與數字能直接渲染到畫面 */}
+			{/* 字串與數字 */}
 			<p>字串：{"Hello, World!"}</p>
 			<p>數字：{123}</p>
 
-			{/* 
-	      陣列會展開其中的項目於畫面中（排除逗號），
-	      這個範例就會在畫面呈現出 123
-	    */}
-			<div>{test}</div>
+			{/* 陣列 */}
+			<p>{ary}</p> {/* 顯示 "123"（沒有逗號） */}
+			<ul>{aryHtmlElement}</ul> {/* 顯示 <li>項目一</li><li>項目二</li> */}
 
-			{/* 
-		      甚至能渲染出 HTML Element， 
-		      <li>項目一</li>
-		      <li>項目二</li>
-		      
-		      但實戰中不太會這樣用
-		    */}
-			<ul>{aryHtmlElement}</ul>
+			{/* 布林值 */}
+			<p>
+				{true}
+				{false}
+			</p> {/* 不顯示任何內容 */}
+			<p>{true ? "顯示內容" : "隱藏內容"}</p> {/* 顯示 "顯示內容" */}
+
+			{/* undefined / null */}
+			<p>{undefined}</p> {/* 空白 */}
+			<p>{null}</p> {/* 空白 */}
+
+			{/* 物件 */}
+			<p>{obj}</p> {/* 錯誤：Objects are not valid as a React child */}
+			<p>{obj.name}</p> {/* 顯示 "Billy" */}
+			<p>{JSON.stringify(obj)}</p> {/* 顯示 '{"name":"Billy"}' */}
 		</div>
 	);
 }
 ```
+
+### **條件渲染與列表渲染**
+
+在 React JSX 中，條件渲染與列表渲染是兩個常見的操作。條件渲染讓我們可以根據不同的條件來渲染不同的內容，而列表渲染則讓我們根據資料來動態生成多個元素。
+
+**條件渲染：**
+
+在下方這個範例中，我們根據 `isLoggedIn` 變數的值來判斷顯示的內容為「歡迎回來！」還是「請先登入。」
+
+```jsx
+function Example() {
+  const isLoggedIn = true;
+  return (
+    <div>
+      {isLoggedIn ? (
+        <h1>歡迎回來！</h1>
+      ) : (
+        <h1>請先登入。</h1>
+      )}
+    </div>
+  );
+}
+```
+
+**列表渲染：**
+
+在這個範例中，我們使用 `map()` 方法來迭代 `items` 陣列（資料），並為每個項目生成一個 `li` 元素。
+
+需注意在列表渲染生成的每個元素，需要有一個**唯一的 `key` 屬性。**`key` 是用來幫助 React 進行元素的**識別**跟追蹤，當列表中的項目新增、移除或重新排序時，`Key` 會告訴 React 每個元素對應的是哪個資料項目，讓 React 能正確地匹配和更新元素。
+
+```jsx
+function Example() {
+  const items = [
+    { id: 1, name: '衣物' },
+    { id: 2, name: '電腦' },
+    { id: 3, name: '3C 產品充電線' }
+  ];
+
+  return (
+    <div>
+      <h1>我的行李清單：</h1>
+      <ul>
+        {items.map(item => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
+      
+      {/* 列表渲染後如下 ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ */} 
+      <ul>
+        <li>衣物</li>
+        <li>電腦</li>
+        <li>3C 產品充電線</li>
+      </ul>
+    </div>
+  );
+}
+```
+
+以上兩個範例，主要展示了條件渲染和列表渲染的基本使用，而在實際開發中，這些寫法將會是很常使用的！
+
+### 補充：關於 JSX `{}` 放入陳述式函式
+
+從先前內容，我們可以知道 JSX 的大括號 `{}` 中只能放入**表達式**，而不能放入**陳述式**；不過函式就比較特別，即使我們在 `{}` 放入陳述式函式 `{ function(){} }` 也不會出錯，因為它在編譯之後，是**作為參數**傳入 `React.createElement()` ，就像 Callback function 一樣。
+
+編譯範例：
+
+```jsx
+function App() {
+	return (
+		<div>
+			<h1>Hello~</h1>
+	     {
+	       function(){
+	         return 2*2;
+	       }
+	     }
+		</div>
+	);
+}
+
+function App() {
+  return React.createElement(
+    "div",
+    null,
+    React.createElement("h1", null, "Hello~"),
+    function () {
+      return 2 * 2;
+    }
+  );
+}
+```
+
+會特別紀錄這一段，是因為先前自己對這個概念，腦袋是有些轉不過來的，不過後來看了編譯結果後就有比較了解。
