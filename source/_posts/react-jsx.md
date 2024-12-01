@@ -1,9 +1,9 @@
 ---
 title: React JSX
-date: 2024-11-25 21:04:47
+date: 2024-12-01 20:04:47
 tags: [React, JSX]
 categories: [前端 React]
-excerpt: React JSX
+excerpt: JSX，全名為 JavaScript XML，是 React 提供的語法糖。它讓我們在撰寫 UI 結構時有類似 HTML 的語法體驗...
 index_img: https://i.imgur.com/Zwb2dxR.jpg
 banner_img: https://i.imgur.com/Zwb2dxR.jpg
 ---
@@ -351,3 +351,88 @@ function App() {
 ```
 
 會特別紀錄這一段，是因為先前自己對這個概念，腦袋是有些轉不過來的，不過後來看了編譯結果後就有比較了解。
+
+## **為什麼 JSX 的第一層只能有一個節點**
+
+在 JSX 中，如果第一層有多個 React 元素，是會遇到編譯錯誤的。
+
+```jsx
+function App() {
+  // 錯誤的 JSX 語法 ❌
+  return (
+    <h1>Hello~</h1>
+    <div>第一層只能有一個節點</div>
+  );
+}
+```
+
+從 JSX 編譯成 `React.createElement()` 的方向思考，每次呼叫 `React.createElement()` 只能回傳一個 React 元素，而我們也無法一次用一個值來表示兩個 React 元素，所以就會遇上編譯的錯誤（無法解析）。
+
+### 解決方法1：使用一個**父節點包裹**
+
+要解決這個問題，可以將同層級的多個 React 元素節點，都包在一個共同的父節點中，如下方範例：
+
+```jsx
+function App() {
+  // 正確的 JSX 語法 ✅
+  return (
+	  <div>
+	    <h1>Hello~</h1>
+	    <div>第一層只能有一個節點</div>
+	  </div>
+  );
+}
+
+// 編譯 ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
+
+function App() {
+  return React.createElement(
+    "div",
+    null,
+    React.createElement("h1", null, "Hello~"),
+    React.createElement("div", null, "\u7B2C...略")
+  );
+}
+```
+
+不過這樣的方式雖然能解決問題，但可能會在 DOM 中產生多餘的無意義節點。
+
+如果在這個 UI 結構中，我們並不需要外面這層 `<div>` ，而只是因為需要將多個 React 元素包裹起來而有這層 `<div>` ，那麼這樣的撰寫就是在 UI 結構上產出多餘的結構，可能會降低程式碼可讀性，以及因為多了這個層級，導致 CSS 樣式跑掉，或者邏輯出錯等。
+
+### 解決方法2：使用 **`Fragment`**
+
+React 提供了 `Fragment` 這樣的寫法，專門用來處理這種情況。透過 `Fragment` 來建立父節點，就不會在 DOM 產生額外的節點（無意義元素）。
+
+```jsx
+import { Fragment } from 'react';
+
+function App() {
+  return (
+    <Fragment> 
+      <h1>Hello~</h1>
+      <div>第一層只能有一個節點</div>
+    </Fragment>
+  );
+}
+```
+
+也可以使用更簡潔的替代語法，直接用**空標籤**來代表 `Fragment` 元素：
+
+```jsx
+function App() {
+  return (
+    <> 
+      <h1>Hello~</h1>
+      <div>第一層只能有一個節點</div>
+    </>
+  );
+}
+```
+
+參考資料：
+
+[Zet - 一次打破 React 常見的學習門檻與觀念誤解](https://ithelp.ithome.com.tw/users/20129300/ironman/5892)
+
+[React 中文文檔](https://zh-hans.react.dev/)
+
+[六角學院 - React 實戰影音](https://www.hexschool.com/courses/react.html)
