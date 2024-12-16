@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Component（元件）是一種開發者根據需求所自定義的畫面模組，這個模組負責呈現特定範圍的畫面內容或邏輯，是可以重複使用的程式碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React component（元件）- 上篇">
+<meta property="og:url" content="https://yaj55billy.github.io/post/react-component-part1.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="Component（元件）是一種開發者根據需求所自定義的畫面模組，這個模組負責呈現特定範圍的畫面內容或邏輯，是可以重複使用的程式碼。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+<meta property="article:published_time" content="2024-12-11T08:39:04.000Z">
+<meta property="article:modified_time" content="2024-12-16T12:10:50.136Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Component">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>React component（元件）- 上篇 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://i.imgur.com/Zwb2dxR.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="React component（元件）- 上篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-11 16:39" pubdate>
+          2024年12月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">React component（元件）- 上篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什麼是-component（元件）？"><a href="#什麼是-component（元件）？" class="headerlink" title="什麼是 component（元件）？"></a>什麼是 component（元件）？</h2><p><strong>Component（元件）是一種開發者根據需求所自定義的畫面模組，這個模組負責呈現特定範圍的畫面內容或邏輯，是可以重複使用的程式碼。</strong></p>
+<p>以這個 Blog 網站為例（如下圖所示），像是 Header、文章列表 ArticleList、單篇文章 ArticleListItem、分頁 Pagination 等不同的區塊，都可根據需求而拆解成 component。這些不同的 component 可以組合出更大的 component 或頁面，也能被重覆使用，像是在其他頁面中需要換頁時，我們就能引入分頁 component 作為使用。而這樣可以重覆使用跟組合的特性，就如同在玩樂高積木一般。</p>
+<p><img src="/img/react-component-part1/1.png" srcset="/img/loading.gif" lazyload alt="Blog 網站作為元件示例"></p>
+<h2 id="定義與呼叫-component"><a href="#定義與呼叫-component" class="headerlink" title="定義與呼叫 component"></a>定義與呼叫 component</h2><h3 id="定義-component"><a href="#定義-component" class="headerlink" title="定義 component"></a>定義 component</h3><p>在 React 的開發中，我們使用 JavaScript 函式來定義 component。這些函式會回傳 JSX 語法，最終被轉譯成 React element 作為畫面結構。</p>
+<p>而定義 <strong>component 名稱的首字母必須是大寫</strong>，像是 <code>Article</code> 或 <code>ArticleList</code> ，這樣除了是 React 在開發的命名習慣，也跟 JSX 語法的轉譯有關，這個部分將會在 React component（下篇）來進一步說明。</p>
+<p>另外一提，目前 React 開發的主流，主要是採用 <strong>function component</strong> 搭配 <strong>hooks</strong> 的方式，因此本篇不會討論 class component 的寫法。</p>
+<p>定義範例：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Article</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>文章標題<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>文章內容......<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="呼叫-component"><a href="#呼叫-component" class="headerlink" title="呼叫 component"></a>呼叫 component</h3><p>了解如何定義 React component 後，讓我們來看看如何呼叫（使用）component。</p>
+<p>在 React 中，我們使用<strong>標籤語法</strong>來呼叫自定義的 component，例如 <code>&lt;Article /&gt;</code>。當這個標籤被繪製時，就會執行對應的 function component，並將其回傳的 JSX 結構插入到標籤呼叫 component 的位置上。</p>
+<p>兩種呼叫 component 的方式：</p>
+<ul>
+<li><strong>單標籤結尾：</strong><code>&lt;Article /&gt;</code></li>
+<li><strong>開頭與結尾標籤</strong>：<code>&lt;Article&gt;&lt;/Article&gt;</code></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Article</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>文章標題<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>文章內容......<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123; <br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>首頁<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>首頁內容...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      &#123;/* 呼叫 Article component */&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Article</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Article</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Article</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上方範例中，我們定義了一個 <code>Article</code> component，並在 <code>App</code> component 中呼叫它兩次。而在繪製並執行後，<code>Article</code> component 會回傳 JSX 結構（<code>&lt;div&gt;&lt;h2&gt;文章標題&lt;/h2&gt;&lt;p&gt;文章內容......&lt;/p&gt;&lt;/div&gt;</code>）並插入到 <code>&lt;Article /&gt;</code> 標籤所在的位置。</p>
+<h3 id="關於-import、export"><a href="#關於-import、export" class="headerlink" title="關於 import、export"></a>關於 import、export</h3><p>在現代開發習慣中，使用像 <strong>Vite</strong> 這樣的腳手架工具來建立 React 專案已相當普遍。這類工具大幅縮短了專案初始的配置時間，也預設了<strong>模組化開發</strong>的環境，讓開發流程更加有效率。</p>
+<p>基於模組化的概念跟環境，我們通常會將每個 component 定義在獨立的檔案中，而不是將所有 component 集中在同一支檔案內。這樣的方式讓我們更方便進行 component 的重用跟管理。</p>
+<p>而為了讓這些 component 能夠在不同檔案間共享，我們會使用 <strong>ES module</strong> 語法來匯出（export）與匯入（import）。而要將 component 匯出時，有兩種主要的方式：<code>default export</code>（預設匯出） 跟 <code>named export</code>（具名匯出）。在一個 JavaScript 的檔案中，只能有一個 <code>default export</code>，但可以同時有多個 <code>named export</code>。</p>
+<p><strong><code>default export</code> 預設匯出</strong></p>
+<p>通常用於匯出單一<strong>主要 component。</strong>根據命名習慣，檔案名稱通常會與 function component 的名稱保持一致。例如，若有一個文章內容的 component，其檔案命名為 <code>Article.jsx</code>，則該 component 的名稱也會是 <code>Article</code>。</p>
+<p>如下範例展示 <code>default export</code> 跟 <code>import</code>：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// Article.jsx</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Article</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>這是一篇文章<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Article</span>;<br><br><span class="hljs-comment">// 也可以改寫為：</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Article</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>這是一篇文章<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// App.jsx（或其他檔案）</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Article</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Article&#x27;</span>; <span class="hljs-comment">// import Article component</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Article</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span><br></code></pre></td></tr></table></figure>
+
+<p><strong><code>named export</code> 具名匯出</strong></p>
+<p>適用於同一檔案中需要匯出多個功能或 component 的情況，匯入時需要使用大括號指定名稱。</p>
+<p>如下範例展示 <code>named export</code> 跟 <code>import</code>:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// Layout.jsx</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Header</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span>這是頁首<span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span></span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Footer</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>這是頁尾<span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// 在其他檔案中使用</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Header</span>, <span class="hljs-title class_">Footer</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Layout&#x27;</span>; <span class="hljs-comment">// import</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Footer</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在這個範例中，<code>Layout.jsx</code> 定義了兩個元件 <code>Header</code> 和 <code>Footer</code>，並透過 <code>named export</code> 匯出。而其他檔案在匯入時，必須使用大括號指定需要的元件名稱。</p>
+<h2 id="Props"><a href="#Props" class="headerlink" title="Props"></a>Props</h2><p>在說明 Props 之前，先以西式餐廳作為比喻。假設我們在菜單上點了一份義大利麵，這份義大利麵本身有其固定的基本組成，例如：麵條、醬汁與基本配料等，這些基本組成就像 <strong>Component 的預設結構與內容</strong>。然而，這道義大利麵也具備一定的彈性，可以根據客人的需求進行客製化調整，例如：少鹽、加麵、不要辣等，這些額外的客製化需求，就像是 <strong>Component 的 Props</strong>，它讓義大利麵在固定的架構下能根據不同的需求，做出一些額外的變動，進而滿足每位客人的需求。</p>
+<p>有了這樣的比喻後，我們回到 React props 的說明。Props 是 component 的「properties（屬性）」，它可用在 component 的資料傳遞。當我們在呼叫 component 並建立 React element 時，可以將特定的參數從外部傳遞到 component 之中，進而讓這個 component 根據這些參數來產生不同內容或邏輯，這讓 component 更加靈活並適應於不同情境。</p>
+<p>接下來，我們來看在實際的程式碼中使用 props：</p>
+<h3 id="呼叫傳入-props"><a href="#呼叫傳入-props" class="headerlink" title="呼叫傳入 props"></a>呼叫傳入 props</h3><p>如下程式碼範例，在 <code>App</code> 這個 component 中，我們呼叫了兩次 <code>Article</code> component，並且每次都傳遞了 <code>title</code> 和 <code>content</code> 這兩個 props：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      &#123;/* 傳遞 props */&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Article</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;第一篇文章&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;這是文章內容一&quot;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Article</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;第二篇文章&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;文章內容二...&quot;</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>透過這樣的方式，我們可以將不同的資料傳遞到 <code>Article</code> component，讓它根據這些傳入的值產生不同的畫面內容。例如，第一篇文章與第二篇文章的標題和內容，會根據我們指定的值而呈現出各自的差異。</p>
+<p><strong>補充：</strong> 每個<strong>元件擁有自己的狀態和邏輯</strong>，因此是不會互相影響的。在上述範例中，即使多次呼叫 <code>Article</code> component，它們仍是彼此獨立的，彼此的資料變更不會互相干擾。</p>
+<h3 id="接收-props"><a href="#接收-props" class="headerlink" title="接收 props"></a>接收 props</h3><p>當我們傳遞了 props 給某個 component 時，這個 component 可以在內部接收這些 props，並依據它們來產生對應的畫面內容或執行邏輯。例如，以下是 <code>Article</code> component 的兩種接收 props 的方式：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// 方式一：直接使用 props 物件</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Article</span> = (<span class="hljs-params">props</span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;props.title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;props.content&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;;<br><br><span class="hljs-comment">// 方式二：透過解構語法提取 props</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Article</span> = (<span class="hljs-params">&#123; title, content &#125;</span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;content&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>方式一</strong>：直接使用 <code>props</code>，透過 <code>props.title</code> 和 <code>props.content</code> 來存取資料。</li>
+<li><strong>方式二</strong>：使用解構語法，透過 <code>&#123;&#125;</code> 提取出 <code>title</code> 和 <code>content</code>，使程式碼更為簡潔。</li>
+</ul>
+<p>當我們傳遞資料到 <code>Article</code> component 時，它能根據這些資料顯示對應的內容。例如，<code>title</code> 和 <code>content</code> 的值會分別渲染成標題與段落，讓每個 <code>Article</code> 擁有自己的顯示內容。</p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>這次關於元件的筆記整理，主要是來自 Zet 大的書籍 &lt;React 思維進化&gt;，加上自己的一些消化，透過這樣的整理，也幫助自己釐清先前寫元件時沒有注意到的知識點。</p>
+<p>目前是 component 上篇，下篇預計要筆記的內容：</p>
+<ul>
+<li>Props 是唯讀不能被修改的</li>
+<li>Component 的 render</li>
+<li>為何 component 的命名首字母需要為大寫</li>
+</ul>
+<hr>
+<p>參考資料：</p>
+<p><a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9786263336841">Zet - React 思維進化</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.hexschool.com/courses/react.html">六角學院 - React 實戰影音</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF-React/" class="category-chain-item">前端 React</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+        <a href="/tags/Component/" class="print-no-link">#Component</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>React component（元件）- 上篇</div>
+      <div>https://yaj55billy.github.io/post/react-component-part1.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2024年12月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/react-jsx.html" title="React JSX">
+                        <span class="hidden-mobile">React JSX</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
