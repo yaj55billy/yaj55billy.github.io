@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar-q.jpg">
+  <link rel="icon" href="/img/avatar-q.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Billy Ji">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="useContext 是一個用於共享狀態和方法的機制，而這樣的機制可以把狀態和方法直接傳遞給需要的元件，而不必透過元件層層傳遞。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React useContext 跨元件狀態">
+<meta property="og:url" content="https://yaj55billy.github.io/post/react-usecontext.html">
+<meta property="og:site_name" content="筆力的前端紀錄">
+<meta property="og:description" content="useContext 是一個用於共享狀態和方法的機制，而這樣的機制可以把狀態和方法直接傳遞給需要的元件，而不必透過元件層層傳遞。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+<meta property="article:published_time" content="2025-02-14T07:00:31.000Z">
+<meta property="article:modified_time" content="2025-02-14T07:09:10.694Z">
+<meta property="article:author" content="Billy Ji">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="useContext">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/Zwb2dxR.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>React useContext 跨元件狀態 - 筆力的前端紀錄</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yaj55billy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>筆力的前端紀錄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首頁</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>歸檔</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分類</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>標籤</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://i.imgur.com/Zwb2dxR.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="React useContext 跨元件狀態"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-14 15:00" pubdate>
+          2025年2月14日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分鐘
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">React useContext 跨元件狀態</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Prop-Drilling"><a href="#Prop-Drilling" class="headerlink" title="Prop Drilling"></a>Prop Drilling</h2><p>在撰寫 React 時，通常會使用 props 來做不同層級元件的資料傳遞；不過在層級較多與複雜時，甚至會有些中間層元件只是協助接收跟傳遞 props，而它們本身並不使用這些 props 狀態，使得這些中間層元件的職責混亂。而這樣的多層傳遞，會導致程式碼變的較難維護，像是程式碼有更動時，還需注意這些中間層元件是否有漏傳 props。這樣的狀況被稱為 “Prop Drilling”。</p>
+<h2 id="useContext：擺脫層層傳遞"><a href="#useContext：擺脫層層傳遞" class="headerlink" title="useContext：擺脫層層傳遞"></a>useContext：擺脫層層傳遞</h2><p>關於 Prop Drilling，這時我們可以使用 React 提供的 useContext，它是一個用於共享狀態和方法的機制，而這樣的機制可以把狀態和方法直接傳遞給需要的元件，而不必透過元件層層傳遞。</p>
+<p>如下圖所示，在右圖是使用一般 props 層層傳遞，而左圖中的虛線表示使用 useContext 獲取資料的路徑，這些元件可以直接取得 Context 中的資料，而不需要透過元件層層傳遞。<br><img src="/img/react-usecontext/1.webp" srcset="/img/loading.gif" lazyload alt="使用一般 props 跟 useContext 差異"></p>
+<h2 id="使用-useContext-來實作購物車功能（範例）"><a href="#使用-useContext-來實作購物車功能（範例）" class="headerlink" title="使用 useContext 來實作購物車功能（範例）"></a>使用 useContext 來實作購物車功能（範例）</h2><p>在網站開發中，購物車功能是很常見的需求。而它的資料和功能也很常在不同元件間使用，像是：</p>
+<ul>
+<li>商品列表需要「加入購物車」功能</li>
+<li>購物車明細需要顯示商品明細、金額，以及「移除購物車品項」功能</li>
+<li>導航列（Header）可能會需要顯示購物車數量</li>
+<li>……</li>
+</ul>
+<p>接著我們以一個簡化的購物車功能來練習使用 useContext。結構如下：</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs coq">App<br>├── CartProvider（<span class="hljs-keyword">Context</span> 提供者）<br>├── ProductList（商品列表）<br>│   └── 加入購物車功能<br>└── CartSummary（購物車明細）<br>    ├── 商品列表<br>    ├── 總金額顯示<br>    └── 移除購物車品項功能<br></code></pre></td></tr></table></figure>
+
+<h3 id="建立-Context-和-Provider"><a href="#建立-Context-和-Provider" class="headerlink" title="建立 Context 和 Provider"></a>建立 Context 和 Provider</h3><p>程式碼範例（CartContext.jsx）：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; createContext, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-comment">// 建立 Context</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">CartContext</span> = <span class="hljs-title function_">createContext</span>(&#123;&#125;);<br><br><span class="hljs-comment">// 建立 Provider，封裝共用的狀態和方法</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">CartProvider</span> = (<span class="hljs-params">&#123; children &#125;</span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> [items, setItems] = <span class="hljs-title function_">useState</span>([]);<br>	<span class="hljs-keyword">const</span> [totalAmount, setTotalAmount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">addToCart</span> = (<span class="hljs-params">product</span>) =&gt; &#123;<br>		<span class="hljs-title function_">setItems</span>(<span class="hljs-function">(<span class="hljs-params">prev</span>) =&gt;</span> [...prev, product]);<br>		<span class="hljs-title function_">setTotalAmount</span>(<span class="hljs-function">(<span class="hljs-params">prev</span>) =&gt;</span> prev + product.<span class="hljs-property">price</span>);<br>	&#125;;<br><br>	<span class="hljs-keyword">const</span> <span class="hljs-title function_">removeFromCart</span> = (<span class="hljs-params">productId</span>) =&gt; &#123;<br>		<span class="hljs-keyword">const</span> product = items.<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item.<span class="hljs-property">id</span> === productId);<br>		<span class="hljs-title function_">setItems</span>(<span class="hljs-function">(<span class="hljs-params">prev</span>) =&gt;</span> prev.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item.<span class="hljs-property">id</span> !== productId));<br>		<span class="hljs-title function_">setTotalAmount</span>(<span class="hljs-function">(<span class="hljs-params">prev</span>) =&gt;</span> prev - product.<span class="hljs-property">price</span>);<br>	&#125;;<br><br>	<span class="hljs-comment">// 提供要共用的資料和方法</span><br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CartContext.Provider</span></span></span><br><span class="hljs-tag"><span class="language-xml">			<span class="hljs-attr">value</span>=<span class="hljs-string">&#123;&#123;</span></span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">items</span>,</span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">totalAmount</span>,</span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">addToCart</span>,</span></span><br><span class="hljs-tag"><span class="language-xml">				<span class="hljs-attr">removeFromCart</span>,</span></span><br><span class="hljs-tag"><span class="language-xml">			&#125;&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">		&gt;</span></span><br><span class="language-xml">			&#123;children&#125;</span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">CartContext.Provider</span>&gt;</span></span><br>	);<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">CartContext</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>建立 CartContext.jsx，並引入 createContext、useState 等方法。createContext 概念為建立一個共享空間來準備存放資料，這時空間還沒有具體內容。</li>
+<li>建立 CartProvider，概念就像正式開放這個空間，並提供裡面的內容，讓需要的組件可以存取和使用。<ul>
+<li>購物車商品列表（items）</li>
+<li>總金額（totalAmount）</li>
+<li>操作購物車的方法（addToCart、removeFromCart）</li>
+</ul>
+</li>
+<li>在 CartContext.Provider 的 value 為定義要共享出去的資料跟方法，而 children 為之後所包覆的子元件</li>
+</ul>
+<h3 id="使用-Provider-包覆需要的元件"><a href="#使用-Provider-包覆需要的元件" class="headerlink" title="使用 Provider 包覆需要的元件"></a>使用 Provider 包覆需要的元件</h3><p>程式碼範例（App.jsx）：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// App.jsx</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">CartProvider</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./CartContext&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">ProductList</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./components/ProductList&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">CartSummary</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./components/CartSummary&quot;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CartProvider</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>簡易購物車示範<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">ProductList</span> /&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">CartSummary</span> /&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">CartProvider</span>&gt;</span></span><br>	);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>從 CartContext 元件中引入 CartProvider，並包覆需要使用這個 Context 資料和方法的元件。<ul>
+<li>ProductList、CartSummary 等元件，都能使用 CartContext 裡頭定義的資料跟方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="在元件中使用-Context"><a href="#在元件中使用-Context" class="headerlink" title="在元件中使用 Context"></a>在元件中使用 Context</h3><p>接著我們就可以在 ProductList、CartSummary 等元件，使用 useContext 來從 CartContext 取得共用的資料和方法。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// CartSummary.jsx 購物車元件</span><br><span class="hljs-keyword">import</span> &#123; useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">CartContext</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../CartContext&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">CartSummary</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> &#123; items, totalAmount, removeFromCart &#125; = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">CartContext</span>);<br><br>	<span class="hljs-keyword">return</span> (<br>		<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>購物車明細<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">			&#123;items.map((item, index) =&gt; (</span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;index&#125;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">marginBottom:</span> &quot;<span class="hljs-attr">10px</span>&quot; &#125;&#125;&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">						&#123;item.name&#125; - $&#123;item.price&#125;</span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">						<span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> removeFromCart(item.id)&#125;</span><br><span class="language-xml">						style=&#123;&#123; marginLeft: &quot;10px&quot; &#125;&#125;</span><br><span class="language-xml">					&gt;</span><br><span class="language-xml">						移除</span><br><span class="language-xml">					<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">			))&#125;</span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">marginTop:</span> &quot;<span class="hljs-attr">20px</span>&quot; &#125;&#125;&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>總金額: $&#123;totalAmount&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>	);<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">CartSummary</span>;<br></code></pre></td></tr></table></figure>
+
+<p>這邊只先呈現 CartSummary 元件。<a target="_blank" rel="noopener" href="https://stackblitz.com/edit/vitejs-vite-km71hap3?file=src/CartContext.jsx">完整範例連結</a></p>
+<p>總結用法：</p>
+<ul>
+<li>1️⃣ <strong>createContext → 創建一個共享空間</strong></li>
+<li>2️⃣ <strong>Provider → 把共享內容（資料和方法）放進去，讓大家可以使用</strong></li>
+<li>3️⃣ <strong>useContext → 在有被 Provider 包覆的元件中，可取用這個 Context 空間的資料跟方法</strong></li>
+</ul>
+<h2 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h2><p>雖然 useContext 是滿方便的，但仍需根據需求而謹慎使用。列出一些注意項目：</p>
+<ul>
+<li><strong>適度使用</strong>：並非所有狀態都納入 Context，在元件層傳遞不太複雜時，或狀態只在特定的元件使用時，那麼建議優先使用 props 或 useState 來管理。（<a target="_blank" rel="noopener" href="https://react.dev/learn/passing-data-deeply-with-context#before-you-use-context">官方文件</a>）</li>
+<li><strong>重新渲染</strong>：當 Context 內的狀態變更時，所有使用該 Context 的元件都會被重新渲染。對於高頻率變更，可依據狀況考量在元件使用 useMemo、Memo，或者使用其他狀態管理工具，例如 Redux。</li>
+<li><strong>適當拆分：</strong>若有需要使用 Context，則可根據不同功能來做拆分，避免所有狀態都集中在一個 Context 內，這樣可以減少不必要的重新渲染，也讓程式碼更好維護。</li>
+</ul>
+<p>—</p>
+<p>參考資料：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://react.dev/learn/passing-data-deeply-with-context#before-you-use-context">https://react.dev/learn/passing-data-deeply-with-context#before-you-use-context</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/m/articles/10296652">https://ithelp.ithome.com.tw/m/articles/10296652</a></p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF-React/" class="category-chain-item">前端 React</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+        <a href="/tags/useContext/" class="print-no-link">#useContext</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>React useContext 跨元件狀態</div>
+      <div>https://yaj55billy.github.io/post/react-usecontext.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Billy Ji</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>發布於</div>
+          <div>2025年2月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>許可協議</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yaj55billy/yaj55billy.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目錄</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜尋</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">關鍵字</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>© 2024 筆力的前端紀錄</span> | Theme by <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允許 JavaScript 運行的環境下瀏覽效果更佳</div>
+  </noscript>
+</body>
+</html>
