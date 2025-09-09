@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Prettier Formatter</title>
+    <link href="/post/prettier-formatter.html"/>
+    <url>/post/prettier-formatter.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用 <a href="https://prettier.io/">Prettier</a> 這個工具，能協助程式碼撰寫時有一致的風格，也讓我們比較容易看到一些錯誤。這邊以初學 HTML 來做舉例，初學時遇到結構複雜的狀況時，難免會漏了一些結構或不小心多寫結構（例如少了兩個 <code>&lt;/div&gt;</code>），而這時透過 Prettier 來整理（格式化）程式碼後，通常會比較容易看到類似錯誤。</p><h2 id="VSCode-設置-Prettier"><a href="#VSCode-設置-Prettier" class="headerlink" title="VSCode 設置 Prettier"></a>VSCode 設置 Prettier</h2><p>首先我們要先在 VSCode 下載 Prettier 這個套件：<br><img src="/img/prettier-formatter/1.png" alt="VSCode 下載 Prettier"></p><p>接著進行設置，步驟如圖所示：</p><ol><li>點選左下角齒輪 &gt; 設定</li><li>在搜尋框輸入 Default Formatter</li><li>選取 Prettier - Code formatter 選項</li></ol><p><img src="/img/prettier-formatter/2.png" alt="設置 Prettier 流程"></p><p>補充：<br>VSCode FormatOnSave 設置記得需要勾選起來，這樣儲存檔案時才能去觸發 Prettier<br><img src="/img/prettier-formatter/3.png" alt="VSCode FormatOnSave"></p><p>這時撰寫 HTML、CSS、SCSS、JavaScript……等程式碼，在存檔時就會幫我們做格式整理摟～</p><h2 id="Prettier-Options"><a href="#Prettier-Options" class="headerlink" title="Prettier Options"></a>Prettier Options</h2><p>關於細節設置，可在參考 <a href="https://prettier.io/docs/options">Prettier Options 文件</a>。<br>這邊以 JavaScript 引號來做設置舉例，當我們撰寫字串存檔時，預設會幫我們整理為雙引號<code>&quot;&quot;</code>的格式；而如果我們想在存檔時，將字串轉換為單引號<code>&#39;&#39;</code>，則可在 VSCode 設定搜尋 Prettier Single Quote，並如下圖做勾選。<br>這樣在存檔時就會將字串轉換為單引號（ex：<code>let str = &quot;這是一段字串&quot;;</code> 會轉換為 <code>let str = &#39;這是一段字串&#39;;</code>）</p><p><img src="/img/prettier-formatter/4.png" alt="Prettier Single Quote"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>VSCode</tag>
+      
+      <tag>Prettier</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>React useContext 跨元件狀態</title>
     <link href="/post/react-usecontext.html"/>
     <url>/post/react-usecontext.html</url>
